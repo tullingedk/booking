@@ -1,0 +1,21 @@
+<html>
+<head>
+  <title>Datorklubben Booking</title>
+</head>
+<body>
+  <h1>Datorklubben Bokningsystem</h1>
+  <p>Programmerat av <a href="https://www.vilhelmprytz.se">Vilhelm Prytz</a>.</p>
+
+  <p>För att förhindra spamm krävs ett lösenord.</p>
+
+  {% if wrongPassword %}
+  <font color="red"><p>Fel lösenord angavs.</p></style>
+  {% endif %}
+
+  <form action="/api/lockpassword">
+    <input type="password" name="password" required>
+    <input type="submit" value="Skicka">
+  </form>
+
+</body>
+</html>

@@ -1,0 +1,378 @@
+<html>
+<head>
+  <title>Datorklubben Booking</title>
+  <style>
+    .booking-row {
+      float: left;
+    }
+
+    .table {
+      padding-left: 30px;
+      font-size: 30px;
+      float: left;
+    }
+
+    #rick {
+      float: right;
+    }
+
+    .booking-row p {
+      font-size: 25px;
+    }
+
+    .console-table {
+      padding-left: 400px;
+    }
+
+    {% if id %}
+    /* The Modal (background) */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      padding-top: 100px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+
+    /* The Close Button */
+    .close {
+      color: #aaaaaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    {% endif %}
+
+    {% if bc_id %}
+    /* The Modal (background) */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      padding-top: 100px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+
+    /* The Close Button */
+    .close {
+      color: #aaaaaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    {% endif %}
+  </style>
+</head>
+<body>
+
+  {% if id %}
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Plats: {{id}}</p>
+      <p>Bokat av: {{id_name}}, klass {{id_class}}</p>
+      <p>Bokades: {{id_date}}</p>
+      <p>Status: {{id_status}}</p>
+    </div>
+
+  </div>
+
+  <script>
+  // Get the modal
+  var modal = document.getElementById('myModal');
+
+  // Get the button that opens the modal
+  var btn = document.getElementById("myBtn");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks the button, open the modal
+  modal.style.display = "block";
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+    window.location.href = "/";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+      window.location.href = "/";
+    }
+  }
+  </script>
+  </script>
+  {% endif %}
+
+  {% if bc_id %}
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p><b>Konsol och brädsspelsplats</b></p>
+      <p>Plats: {{bc_id}}</p>
+      <p>Bokat av: {{bc_id_name}}, klass {{bc_id_class}}</p>
+      <p>Bokades: {{bc_id_date}}</p>
+      <p>Status: {{bc_id_status}}</p>
+    </div>
+
+  </div>
+
+  <script>
+  // Get the modal
+  var modal = document.getElementById('myModal');
+
+  // Get the button that opens the modal
+  var btn = document.getElementById("myBtn");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks the button, open the modal
+  modal.style.display = "block";
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+  </script>
+  </script>
+  {% endif %}
+
+  <h1>Datorklubben Bokningsystem</h1>
+  <p>Programmerat av <a href="https://www.vilhelmprytz.se">Vilhelm Prytz</a>.</p>
+  <p>Det här systemet är mycket enkelt. Vänligen missbruka inte det, vi litar på att det används på rätt sätt.</p>
+  <p><b>Datum: {{event_date}}</b></p>
+
+  <b><p>Info om lanet</p></b>
+  <p><a href="/info">Tryck här</a> för att få info om LANet.</p>
+
+  <b><p>Hur du bokar</p></b>
+  <p>1. Fyll i din bokning via denna sida. Skriver du fel går det inte att ändra bokningen, du måste kontakta Vilhelm Prytz via Vklass, via Discord eller via <a href="mailto:vilhelm@prytznet.se">mail</a>.</p>
+  <p>2. Swisha 100 kr till 0707494456 för vanliga platser och 50 kr för konsol- och brädspelsplatser. Glöm inte att ange namn och klass i swishmeddelandet.</p>
+  <p>3. Klart! Det kan ta ett par dagar innan vi uppdaterar statusen på din bokning (från gult till rött).</p>
+  <p>Brädspel och konsolplatser är separerade i bokningsystemet.</p>
+
+  {% if success %}
+  <font color="green"><p>Bokningen lyckades.</p></font>
+  {% endif %}
+
+  {% if fail %}
+  <font color="red"><p>Ett fel uppstod vid bokning. Antingen lämnades ett fält tomt, otillåtna tecken upptäcktes, ogiltig mejladress angavs (inte skolmailadress) eller så har du redan bokat en gång (samma mailadress flera gånger).</p></font>
+  {% endif %}
+
+  {% if boka %}
+  <table border="1">
+    <form action="/api/book">
+      <tr>
+        <th>Förnamn</th>
+        <th><input type="text" name="firstname" required></th>
+      </tr>
+      <tr>
+        <th>Efternamn</th>
+        <th><input type="text" name="lastname" required></th>
+      </tr>
+      <tr>
+        <th>Klass</th>
+        <th><input type="text" name="school_class" required></th>
+      </tr>
+      <tr>
+        <th>Skolmailadress (du måste ange skolmailadress)</th>
+        <th><input type="email" name="email" required></th>
+      </tr>
+
+      <tr>
+        <th>Ange plats från listan som du önskar boka</th>
+        <th>
+          <select name="seat">
+            {% for seatId in available_seats %}
+            <option value="{{ seatId }}">{{ seatId }}</option>
+            {% endfor %}
+          </select>
+        </th>
+      </tr>
+  </table>
+  <input type="submit" value="Skicka bokning">
+  </form>
+  <br>
+  <br>
+  <a href="/"><button>Avbryt</button></a>
+  {% else %}
+  {% if bc_boka %}
+
+  {% else %}
+  <a href="/?boka=ja"><button>Boka vanlig plats</button></a>
+  {% endif %}
+  {% endif %}
+
+  {% if bc_boka %}
+  <table border="1">
+    <form action="/api/bc_book">
+      <tr>
+        <th>Förnamn</th>
+        <th><input type="text" name="firstname" required></th>
+      </tr>
+      <tr>
+        <th>Efternamn</th>
+        <th><input type="text" name="lastname" required></th>
+      </tr>
+      <tr>
+        <th>Klass</th>
+        <th><input type="text" name="school_class" required></th>
+      </tr>
+      <tr>
+        <th>Skolmailadress (du måste ange skolmailadress)</th>
+        <th><input type="email" name="email" required></th>
+      </tr>
+
+      <tr>
+        <th>Ange plats från listan som du önskar boka</th>
+        <th>
+          <select name="seat">
+            {% for seatId in bc_available_seats %}
+            <option value="{{ seatId }}">{{ seatId }}</option>
+            {% endfor %}
+          </select>
+        </th>
+      </tr>
+  </table>
+  <input type="submit" value="Skicka bokning">
+  </form>
+  <br>
+  <br>
+  <a href="/"><button>Avbryt</button></a>
+  {% else %}
+  {% if boka %}
+
+  {% else %}
+  <a href="/?bc_boka=ja"><button>Boka konsol & brädsspelsplats (separat bokning)</button></a>
+  {% endif %}
+  {% endif %}
+
+  <br>
+  <br>
+
+  <p>Vit ruta: Ledig plats</p>
+  <p><font color="yellow">Gul ruta:</font> bokad, men ej betald plats (kan ta ett par dagar innan vi lägger in att den är betald)</p>
+  <p><font color="red">Röd ruta:</font> bokad och betald</p>
+
+  <p>Lediga platser: {{num_available_seats}}/{{num_all_seats}} (alltså totalt {{num_bookings}} bokade platser)</p>
+
+  <p> Tryck på en bokad plats för att se vem som har bokat.</p>
+
+  <div class="table">
+    <table class="booking-row" border="1">
+        {% for seatId in all_seats[0:10] %}
+          <tr><th {% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}>{% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/?id={{seatId}}">{% endif %}{% endfor %}<p>{{seatId}}</p>{% for booked_id in booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
+        {% endfor %}
+    </table>
+
+    <table class="booking-row" border="1">
+        {% for seatId in all_seats[10:20] %}
+        <tr><th {% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}>{% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/?id={{seatId}}">{% endif %}{% endfor %}<p>{{seatId}}</p>{% for booked_id in booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
+        {% endfor %}
+    </table>
+  </div>
+
+  <div class="table">
+    <table class="booking-row" border="1">
+        {% for seatId in all_seats[20:30] %}
+        <tr><th {% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}>{% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/?id={{seatId}}">{% endif %}{% endfor %}<p>{{seatId}}</p>{% for booked_id in booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
+        {% endfor %}
+    </table>
+
+    <table class="booking-row" border="1">
+        {% for seatId in all_seats[30:40] %}
+        <tr><th {% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}>{% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/?id={{seatId}}">{% endif %}{% endfor %}<p>{{seatId}}</p>{% for booked_id in booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
+        {% endfor %}
+    </table>
+  </div>
+
+  <div class="table">
+    <table class="booking-row" border="1">
+        {% for seatId in all_seats[40:50] %}
+        <tr><th {% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}>{% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/?id={{seatId}}">{% endif %}{% endfor %}<p>{{seatId}}</p>{% for booked_id in booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
+        {% endfor %}
+    </table>
+
+    <table class="booking-row" border="1">
+        {% for seatId in all_seats[50:61] %}
+        <tr><th {% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}>{% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/?id={{seatId}}">{% endif %}{% endfor %}<p>{{seatId}}</p>{% for booked_id in booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
+        {% endfor %}
+    </table>
+  </div>
+
+  <div class="console-table">
+    <h4>Konsol- och brädspelsplatser</h4>
+    <div class="table">
+      <table class="booking-row" border="1">
+        {% for seatId in bc_all_seats %}
+        <tr><th {% for booked_id in bc_booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}>{% for booked_id in bc_booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/?bc_id={{seatId}}">{% endif %}{% endfor %}<p>{{seatId}}</p>{% for booked_id in bc_booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+
+  <p id="rick"><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><button>Tryck här för att få gratis plats</button></a></p>
+
+</body>
+</html>

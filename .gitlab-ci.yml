@@ -1,0 +1,41 @@
+image: alpine:latest
+
+stages:
+  - test
+  - deploy
+
+before_script:
+  # install ssh-agent
+  - 'which ssh-agent || ( apk --update add openssh-client rsync )'
+
+  # make sure ssh-agent is running
+  - eval $(ssh-agent -s)
+
+  # add key to agent
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+
+  # create ssh directory and give permissions
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+
+  # add node as known_host & fix permissions
+  - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+
+test:
+  stage: test
+  script:
+    - echo "There is no testing to do yet."
+
+deploy_production:
+  stage: deploy
+  script:
+    - echo "Deploying app to production server"
+    - rsync -alPvz site/ 81.95.1.105:/var/www/booking.vilhelmprytz.se/deploy/ --delete
+    - ssh -t 81.95.1.105 "chown -R www-data:www-data /var/www/booking.vilhelmprytz.se/deploy/"
+    - ssh -t 81.95.1.105 "systemctl restart datorklubben-booking-webserver"
+  environment:
+    name: production
+    url: https://booking.vilhelmprytz.se
+  only:
+  - master
