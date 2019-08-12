@@ -31,9 +31,9 @@ deploy_production:
   stage: deploy
   script:
     - echo "Deploying app to production server"
-    - rsync -alPvz site/ 81.95.1.105:/var/www/booking.vilhelmprytz.se/deploy/ --delete
-    - ssh -t 81.95.1.105 "chown -R www-data:www-data /var/www/booking.vilhelmprytz.se/deploy/"
-    - ssh -t 81.95.1.105 "systemctl restart datorklubben-booking-webserver"
+    - rsync -alPvz site/ git-deploy@81.95.1.105:/var/www/booking.vilhelmprytz.se/deploy/ --delete
+    - ssh -t git-deploy@81.95.1.105 "chown -R www-data:www-data /var/www/booking.vilhelmprytz.se/deploy/"
+    - ssh -t git-deploy@81.95.1.105 "systemctl restart datorklubben-booking-webserver"
   environment:
     name: production
     url: https://booking.vilhelmprytz.se
