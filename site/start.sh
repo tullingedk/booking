@@ -2,6 +2,6 @@
 
 cd /var/www/booking.vilhelmprytz.se/deploy
 
-python remove_tables.py
+python /var/www/booking.vilhelmprytz.se/deploy/__init__.py
 
 /usr/bin/env gunicorn --workers=5 --bind 127.0.0.1:7500 app:app
