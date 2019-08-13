@@ -4,48 +4,7 @@
   <link href="/static/style.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
   <style>
-    {% if id %}
-    /* The Modal (background) */
-    .modal {
-      display: none; /* Hidden by default */
-      position: fixed; /* Stay in place */
-      z-index: 1; /* Sit on top */
-      padding-top: 100px; /* Location of the box */
-      left: 0;
-      top: 0;
-      width: 100%; /* Full width */
-      height: 100%; /* Full height */
-      overflow: auto; /* Enable scroll if needed */
-      background-color: rgb(0,0,0); /* Fallback color */
-      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    }
-
-    /* Modal Content */
-    .modal-content {
-      background-color: #fefefe;
-      margin: auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%;
-    }
-
-    /* The Close Button */
-    .close {
-      color: #aaaaaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-      color: #000;
-      text-decoration: none;
-      cursor: pointer;
-    }
-    {% endif %}
-
-    {% if bc_id %}
+    {% if id or bc_id or swish_qr %}
     /* The Modal (background) */
     .modal {
       display: none; /* Hidden by default */
@@ -89,17 +48,31 @@
 </head>
 <body>
 
-  {% if id %}
+  {% if id or bc_id or swish_qr %}
   <!-- The Modal -->
   <div id="myModal" class="modal">
 
     <!-- Modal content -->
     <div class="modal-content">
+      {% if id %}
       <span class="close">&times;</span>
       <p>Plats: {{id}}</p>
       <p>Bokat av: {{id_name}}, klass {{id_class}}</p>
       <p>Bokades: {{id_date}}</p>
       <p>Status: {{id_status}}</p>
+      {% elseif bc_id %}
+      <span class="close">&times;</span>
+      <p><b>Konsol och brädsspelsplats</b></p>
+      <p>Plats: {{bc_id}}</p>
+      <p>Bokat av: {{bc_id_name}}, klass {{bc_id_class}}</p>
+      <p>Bokades: {{bc_id_date}}</p>
+      <p>Status: {{bc_id_status}}</p>
+      {% elseif swish_qr %}
+      <img src="/static/swish.png" width="250px" height="300px">
+      <p>Skanna koden ovan för slippa ange telefonnumer när du skickar din betalning.</p>
+      {% else %}
+      <p>Ett fel uppstod, skriv gärna till Vilhelm Prytz i Discord angående felet!</p>
+      {% endif %}
     </div>
 
   </div>
@@ -134,49 +107,7 @@
   </script>
   {% endif %}
 
-  {% if bc_id %}
-  <!-- The Modal -->
-  <div id="myModal" class="modal">
-
-    <!-- Modal content -->
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <p><b>Konsol och brädsspelsplats</b></p>
-      <p>Plats: {{bc_id}}</p>
-      <p>Bokat av: {{bc_id_name}}, klass {{bc_id_class}}</p>
-      <p>Bokades: {{bc_id_date}}</p>
-      <p>Status: {{bc_id_status}}</p>
-    </div>
-
-  </div>
-
-  <script>
-  // Get the modal
-  var modal = document.getElementById('myModal');
-
-  // Get the button that opens the modal
-  var btn = document.getElementById("myBtn");
-
-  // Get the <span> element that closes the modal
-  var span = document.getElementsByClassName("close")[0];
-
-  // When the user clicks the button, open the modal
-  modal.style.display = "block";
-
-  // When the user clicks on <span> (x), close the modal
-  span.onclick = function() {
-    modal.style.display = "none";
-  }
-
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-  }
-  </script>
-  </script>
-  {% endif %}
+  <!-- page content -->
 
   <h1>Datorklubben Bokningsystem</h1>
   <p>Programmerat av <a href="https://www.vilhelmprytz.se">Vilhelm Prytz</a>.</p>
@@ -189,8 +120,7 @@
   <b><p>Hur du bokar</p></b>
   <p>1. Fyll i din bokning via denna sida. Skriver du fel går det inte att ändra bokningen, du måste kontakta Vilhelm Prytz via Vklass, via Discord eller via <a href="mailto:vilhelm@prytznet.se">mail</a>.</p>
   <p>2. Swisha 100 kr till <b>073 033 31 85</b> för vanliga platser och 50 kr för konsol- och brädspelsplatser (mottagare ska stå som <b>Vilhelm Prytz</b> när du swishar). Glöm inte att ange namn och klass i swishmeddelandet.</p>
-  <center><i><p>Du kan skanna QR-koden i Swishappen så slipper du skriva telefonnumret.</p></i></center>
-  <center><img src="/static/swish.png" width="125px" height="125px"></center>
+  <a href="/?swish_qr=ja"><button>ÖPPNA SWISH QR KOD (SKANNAS VIA APPEN)</button></a>
   <p>3. Klart! Det kan ta ett par dagar innan vi uppdaterar statusen på din bokning (från gult till rött).</p>
   <p>Brädspel och konsolplatser är separerade i bokningsystemet.</p>
 

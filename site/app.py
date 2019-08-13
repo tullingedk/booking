@@ -143,6 +143,7 @@ def bc_get_specific_booking_details(id):
 def index_page():
     if config["disabled"] == True:
         return render_template("disabled.html")
+
     if request.cookies.get("unlocked") == config["cookie_lock"]:
         success = request.args.get("success")
         fail = request.args.get("fail")
@@ -150,6 +151,7 @@ def index_page():
         bc_boka = request.args.get("bc_boka")
         id = request.args.get("id")
         bc_id = request.args.get("bc_id")
+        swish_qr = request.args.get("swish_qr")
 
         # get specific id
         id_name = None
@@ -200,7 +202,7 @@ def index_page():
         num_available_seats = len(available_seats)
         num_bookings = len(bookings)
 
-        return render_template("index.html", success=success, fail=fail, boka=boka, bc_boka=bc_boka, all_seats=range(1,61), bc_all_seats=range(1,11), num_all_seats=len(range(1,61)), id=id, booked_ids=booked_ids, bc_booked_ids=bc_booked_ids, available_seats=available_seats, bc_available_seats=bc_available_seats, id_name=id_name, id_class=id_class, id_status=id_status, id_date=id_date, bc_id=bc_id, bc_id_name=bc_id_name, bc_id_class=bc_id_class, bc_id_status=bc_id_status, bc_id_date=bc_id_date, num_available_seats=num_available_seats, num_bookings=num_bookings, event_date=config["event_date"])
+        return render_template("index.html", success=success, fail=fail, boka=boka, bc_boka=bc_boka, swish_qr=swish_qr, all_seats=range(1,61), bc_all_seats=range(1,11), num_all_seats=len(range(1,61)), id=id, booked_ids=booked_ids, bc_booked_ids=bc_booked_ids, available_seats=available_seats, bc_available_seats=bc_available_seats, id_name=id_name, id_class=id_class, id_status=id_status, id_date=id_date, bc_id=bc_id, bc_id_name=bc_id_name, bc_id_class=bc_id_class, bc_id_status=bc_id_status, bc_id_date=bc_id_date, num_available_seats=num_available_seats, num_bookings=num_bookings, event_date=config["event_date"])
     else:
         wrongPassword = request.args.get("wrongPassword")
         return render_template("lock.html", wrongPassword=wrongPassword)
