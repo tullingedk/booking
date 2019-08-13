@@ -1,34 +1,9 @@
 <html>
 <head>
   <title>Datorklubben Booking</title>
+  <link href="/static/style.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
   <style>
-    * {
-      font-family: Ubuntu;
-    }
-
-    .booking-row {
-      float: left;
-    }
-
-    .table {
-      padding-left: 30px;
-      font-size: 30px;
-      float: left;
-    }
-
-    #rick {
-      float: right;
-    }
-
-    .booking-row p {
-      font-size: 25px;
-    }
-
-    .console-table {
-      padding-left: 400px;
-    }
-
     {% if id %}
     /* The Modal (background) */
     .modal {
@@ -214,6 +189,8 @@
   <b><p>Hur du bokar</p></b>
   <p>1. Fyll i din bokning via denna sida. Skriver du fel går det inte att ändra bokningen, du måste kontakta Vilhelm Prytz via Vklass, via Discord eller via <a href="mailto:vilhelm@prytznet.se">mail</a>.</p>
   <p>2. Swisha 100 kr till <b>073 033 31 85</b> för vanliga platser och 50 kr för konsol- och brädspelsplatser (mottagare ska stå som <b>Vilhelm Prytz</b> när du swishar). Glöm inte att ange namn och klass i swishmeddelandet.</p>
+  <center><i><p>Du kan skanna QR-koden i Swishappen så slipper du skriva telefonnumret.</p></i></center>
+  <center><img src="/static/swish.png" width="125px" height="125px"></center>
   <p>3. Klart! Det kan ta ett par dagar innan vi uppdaterar statusen på din bokning (från gult till rött).</p>
   <p>Brädspel och konsolplatser är separerade i bokningsystemet.</p>
 
