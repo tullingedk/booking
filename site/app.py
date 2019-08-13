@@ -10,14 +10,24 @@ import random
 import string
 import json
 
+import os.path
+
 def randomString(stringLength=10):
     """Generate a random string of fixed length """
     letters = string.ascii_lowercase
     return ''.join(random.choice(letters) for i in range(stringLength))
 
 # variables
-with open("config.json", 'r') as f:
-    config = json.load(f)
+if os.path.exists("override.config.json"):
+    with open("override.config.json", 'r') as f:
+        config = json.load(f)
+else:
+    with open("config.json", 'r') as f:
+        config = json.load(f)
+
+# print to user that we're running dev mode if we are
+if config["development"]:
+    print("RUNNING IN DEVELOPMENT MODE")
 
 # BOOKINGS
 # firstname
@@ -30,11 +40,16 @@ with open("config.json", 'r') as f:
 #       0: booked, not paid
 # date
 
-allBookings = []
+# dev
+dev_bookings = []
+dev_bc_bookings = []
 
 # functions
 def get_bookings():
-    return sql_query("SELECT * FROM bookings")
+    if config["development"]:
+        return dev_bookings
+    else:
+        return sql_query("SELECT * FROM bookings")
 
 def get_available_seats_list():
     allBookings = get_bookings()
@@ -66,13 +81,15 @@ def new_booking(firstname, lastname, school_class, email, seat):
     insert_booking = ("INSERT INTO bookings "
               "(firstname, lastname, school_class, email, seat, status, date) "
             """VALUES ('""" + firstname + """', '""" + lastname + """', '""" + school_class + """', '""" + email + """', '""" + seat + """', '1', CURRENT_TIMESTAMP())""")
-
-    try:
-        result = sql_query(insert_booking)
-    except Exception:
-        return False
-
-    allBookings.append([firstname, lastname, school_class, email, seat, 1])
+    
+    # if development
+    if config["development"]:
+        dev_bookings.append([firstname, lastname, school_class, email, seat, 1])
+    else:
+        try:
+            result = sql_query(insert_booking)
+        except Exception:
+            return False
 
     return True
 
@@ -87,7 +104,11 @@ def get_specific_booking_details(id):
 ## BOARD GAMES AND CONSOLE PLAYERS ##
 #####################################
 def bc_get_bookings():
-    return sql_query("SELECT * FROM bc_bookings")
+    # if development
+    if config["development"]:
+        return dev_bc_bookings
+    else:
+        return sql_query("SELECT * FROM bc_bookings")
 
 def bc_get_available_seats_list():
     allBookings = bc_get_bookings()
@@ -120,12 +141,15 @@ def bc_new_booking(firstname, lastname, school_class, email, seat):
               "(firstname, lastname, school_class, email, seat, status, date) "
             """VALUES ('""" + firstname + """', '""" + lastname + """', '""" + school_class + """', '""" + email + """', '""" + seat + """', '1', CURRENT_TIMESTAMP())""")
 
-    try:
-        result = sql_query(insert_booking)
-    except Exception:
-        return False
 
-    allBookings.append([firstname, lastname, school_class, email, seat, 1])
+    # if development
+    if config["development"]:
+        dev_bc_bookings.append([firstname, lastname, school_class, email, seat, 1])
+    else:
+        try:
+            result = sql_query(insert_booking)
+        except Exception:
+            return False
 
     return True
 
@@ -202,7 +226,7 @@ def index_page():
         num_available_seats = len(available_seats)
         num_bookings = len(bookings)
 
-        return render_template("index.html", success=success, fail=fail, boka=boka, bc_boka=bc_boka, swish_qr=swish_qr, all_seats=range(1,61), bc_all_seats=range(1,11), num_all_seats=len(range(1,61)), id=id, booked_ids=booked_ids, bc_booked_ids=bc_booked_ids, available_seats=available_seats, bc_available_seats=bc_available_seats, id_name=id_name, id_class=id_class, id_status=id_status, id_date=id_date, bc_id=bc_id, bc_id_name=bc_id_name, bc_id_class=bc_id_class, bc_id_status=bc_id_status, bc_id_date=bc_id_date, num_available_seats=num_available_seats, num_bookings=num_bookings, event_date=config["event_date"])
+        return render_template("index.html", success=success, fail=fail, boka=boka, bc_boka=bc_boka, swish_qr=swish_qr, all_seats=range(1,61), bc_all_seats=range(1,11), num_all_seats=len(range(1,61)), id=id, booked_ids=booked_ids, bc_booked_ids=bc_booked_ids, available_seats=available_seats, bc_available_seats=bc_available_seats, id_name=id_name, id_class=id_class, id_status=id_status, id_date=id_date, bc_id=bc_id, bc_id_name=bc_id_name, bc_id_class=bc_id_class, bc_id_status=bc_id_status, bc_id_date=bc_id_date, num_available_seats=num_available_seats, num_bookings=num_bookings, event_date=config["event_date"], development_mode=config["development"])
     else:
         wrongPassword = request.args.get("wrongPassword")
         return render_template("lock.html", wrongPassword=wrongPassword)

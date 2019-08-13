@@ -4,7 +4,7 @@
   <link href="/static/style.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
   <style>
-    {% if id or bc_id or swish_qr %}
+    {% if id or bc_id or boka or bc_boka or swish_qr %}
     /* The Modal (background) */
     .modal {
       display: none; /* Hidden by default */
@@ -48,20 +48,19 @@
 </head>
 <body>
 
-  {% if id or bc_id or swish_qr %}
+  {% if id or bc_id or boka or bc_boka or swish_qr %}
   <!-- The Modal -->
   <div id="myModal" class="modal">
 
     <!-- Modal content -->
     <div class="modal-content">
-      {% if id %}
       <span class="close">&times;</span>
+      {% if id %}
       <p>Plats: {{id}}</p>
       <p>Bokat av: {{id_name}}, klass {{id_class}}</p>
       <p>Bokades: {{id_date}}</p>
       <p>Status: {{id_status}}</p>
       {% elif bc_id %}
-      <span class="close">&times;</span>
       <p><b>Konsol och brädsspelsplats</b></p>
       <p>Plats: {{bc_id}}</p>
       <p>Bokat av: {{bc_id_name}}, klass {{bc_id_class}}</p>
@@ -70,7 +69,74 @@
       {% elif swish_qr %}
       <img src="/static/swish.png" width="250px" height="300px">
       <p>Skanna koden ovan för slippa ange telefonnumer när du skickar din betalning.</p>
+      {% elif boka %}
+      <table border="1">
+          <form action="/api/book">
+            <tr>
+              <th>Förnamn</th>
+              <th><input type="text" name="firstname" required></th>
+            </tr>
+            <tr>
+              <th>Efternamn</th>
+              <th><input type="text" name="lastname" required></th>
+            </tr>
+            <tr>
+              <th>Klass</th>
+              <th><input type="text" name="school_class" required></th>
+            </tr>
+            <tr>
+              <th>Skolmailadress (du måste ange skolmailadress)</th>
+              <th><input type="email" name="email" required></th>
+            </tr>
+      
+            <tr>
+              <th>Ange plats från listan som du önskar boka</th>
+              <th>
+                <select name="seat">
+                  {% for seatId in available_seats %}
+                  <option value="{{ seatId }}">{{ seatId }}</option>
+                  {% endfor %}
+                </select>
+              </th>
+            </tr>
+        </table>
+      <input type="submit" value="Skicka bokning">
+      </form>
+      {% elif bc_boka %}
+      <table border="1">
+          <form action="/api/bc_book">
+            <tr>
+              <th>Förnamn</th>
+              <th><input type="text" name="firstname" required></th>
+            </tr>
+            <tr>
+              <th>Efternamn</th>
+              <th><input type="text" name="lastname" required></th>
+            </tr>
+            <tr>
+              <th>Klass</th>
+              <th><input type="text" name="school_class" required></th>
+            </tr>
+            <tr>
+              <th>Skolmailadress (du måste ange skolmailadress)</th>
+              <th><input type="email" name="email" required></th>
+            </tr>
+      
+            <tr>
+              <th>Ange plats från listan som du önskar boka</th>
+              <th>
+                <select name="seat">
+                  {% for seatId in bc_available_seats %}
+                  <option value="{{ seatId }}">{{ seatId }}</option>
+                  {% endfor %}
+                </select>
+              </th>
+            </tr>
+        </table>
+      <input type="submit" value="Skicka bokning">
+      </form>
       {% else %}
+      <span class="close">&times;</span>
       <p>Ett fel uppstod, skriv gärna till Vilhelm Prytz i Discord angående felet!</p>
       {% endif %}
     </div>
@@ -132,93 +198,9 @@
   <font color="red"><p>Ett fel uppstod vid bokning. Antingen lämnades ett fält tomt, otillåtna tecken upptäcktes, ogiltig mejladress angavs (inte skolmailadress) eller så har du redan bokat en gång (samma mailadress flera gånger).</p></font>
   {% endif %}
 
-  {% if boka %}
-  <table border="1">
-    <form action="/api/book">
-      <tr>
-        <th>Förnamn</th>
-        <th><input type="text" name="firstname" required></th>
-      </tr>
-      <tr>
-        <th>Efternamn</th>
-        <th><input type="text" name="lastname" required></th>
-      </tr>
-      <tr>
-        <th>Klass</th>
-        <th><input type="text" name="school_class" required></th>
-      </tr>
-      <tr>
-        <th>Skolmailadress (du måste ange skolmailadress)</th>
-        <th><input type="email" name="email" required></th>
-      </tr>
-
-      <tr>
-        <th>Ange plats från listan som du önskar boka</th>
-        <th>
-          <select name="seat">
-            {% for seatId in available_seats %}
-            <option value="{{ seatId }}">{{ seatId }}</option>
-            {% endfor %}
-          </select>
-        </th>
-      </tr>
-  </table>
-  <input type="submit" value="Skicka bokning">
-  </form>
-  <br>
-  <br>
-  <a href="/"><button>Avbryt</button></a>
-  {% else %}
-  {% if bc_boka %}
-
-  {% else %}
   <a href="/?boka=ja"><button>Boka vanlig plats</button></a>
-  {% endif %}
-  {% endif %}
 
-  {% if bc_boka %}
-  <table border="1">
-    <form action="/api/bc_book">
-      <tr>
-        <th>Förnamn</th>
-        <th><input type="text" name="firstname" required></th>
-      </tr>
-      <tr>
-        <th>Efternamn</th>
-        <th><input type="text" name="lastname" required></th>
-      </tr>
-      <tr>
-        <th>Klass</th>
-        <th><input type="text" name="school_class" required></th>
-      </tr>
-      <tr>
-        <th>Skolmailadress (du måste ange skolmailadress)</th>
-        <th><input type="email" name="email" required></th>
-      </tr>
-
-      <tr>
-        <th>Ange plats från listan som du önskar boka</th>
-        <th>
-          <select name="seat">
-            {% for seatId in bc_available_seats %}
-            <option value="{{ seatId }}">{{ seatId }}</option>
-            {% endfor %}
-          </select>
-        </th>
-      </tr>
-  </table>
-  <input type="submit" value="Skicka bokning">
-  </form>
-  <br>
-  <br>
-  <a href="/"><button>Avbryt</button></a>
-  {% else %}
-  {% if boka %}
-
-  {% else %}
   <a href="/?bc_boka=ja"><button>Boka konsol & brädsspelsplats (separat bokning)</button></a>
-  {% endif %}
-  {% endif %}
 
   <br>
   <br>
@@ -285,6 +267,10 @@
   </div>
 
   <p id="rick"><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><button>Tryck här för att få gratis plats</button></a></p>
+
+  {% if development_mode %}
+  <p>Running Flask in development_mode.</p>
+  {% endif %}
 
 </body>
 </html>
