@@ -1,0 +1,110 @@
+<html>
+<head>
+  <title>Datorklubben Booking Admin</title>
+
+  <link href="/static/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+
+  <style>
+  {% if id or bc_id or boka or bc_boka or swish_qr %}
+  /* The Modal (background) */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  {% endif %}
+  </style>
+</head>
+<body>
+  <h1>Datorklubben Bokningsystem Admin</h1>
+  <p>Programmerat av <a href="https://www.vilhelmprytz.se">Vilhelm Prytz</a>.</p>
+
+  <p>Du är inloggad som admin.</p>
+
+  <div class="table">
+      <table class="booking-row" border="1">
+          {% for seatId in all_seats[0:10] %}
+            <tr><th {% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}><p>{% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/maserati/admin?id={{seatId}}">{% endif %}{% endfor %}{{seatId}}</p>{% for booked_id in booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
+          {% endfor %}
+      </table>
+  
+      <table class="booking-row" border="1">
+          {% for seatId in all_seats[10:20] %}
+          <tr><th {% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}><p>{% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/maserati/admin?id={{seatId}}">{% endif %}{% endfor %}{{seatId}}</p>{% for booked_id in booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
+          {% endfor %}
+      </table>
+    </div>
+  
+    <div class="table">
+      <table class="booking-row" border="1">
+          {% for seatId in all_seats[20:30] %}
+          <tr><th {% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}><p>{% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/maserati/admin?id={{seatId}}">{% endif %}{% endfor %}{{seatId}}</p>{% for booked_id in booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
+          {% endfor %}
+      </table>
+  
+      <table class="booking-row" border="1">
+          {% for seatId in all_seats[30:40] %}
+          <tr><th {% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}><p>{% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/maserati/admin?id={{seatId}}">{% endif %}{% endfor %}{{seatId}}</p>{% for booked_id in booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
+          {% endfor %}
+      </table>
+    </div>
+  
+    <div class="table">
+      <table class="booking-row" border="1">
+          {% for seatId in all_seats[40:50] %}
+          <tr><th {% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}><p>{% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/maserati/admin?id={{seatId}}">{% endif %}{% endfor %}{{seatId}}</p>{% for booked_id in booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
+          {% endfor %}
+      </table>
+  
+      <table class="booking-row" border="1">
+          {% for seatId in all_seats[50:61] %}
+          <tr><th {% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}><p>{% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/maserati/admin?id={{seatId}}">{% endif %}{% endfor %}{{seatId}}</p>{% for booked_id in booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
+          {% endfor %}
+      </table>
+    </div>
+  
+    <div class="console-table">
+      <h4>Konsol- och brädspelsplatser</h4>
+      <div class="table">
+        <table class="booking-row" border="1">
+          {% for seatId in bc_all_seats %}
+          <tr><th {% for booked_id in bc_booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}><p>{% for booked_id in bc_booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/maserati/admin?bc_id={{seatId}}">{% endif %}{% endfor %}{{seatId}}</p>{% for booked_id in bc_booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+</body>
+</html>

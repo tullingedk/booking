@@ -70,6 +70,7 @@
       <img src="/static/swish.png" width="250px" height="300px">
       <p>Skanna koden ovan för slippa ange telefonnumer när du skickar din betalning.</p>
       {% elif boka %}
+      <p><b>Boka plats</b></p>
       <table border="1">
           <form action="/api/book">
             <tr>
@@ -103,6 +104,7 @@
       <input type="submit" value="Skicka bokning">
       </form>
       {% elif bc_boka %}
+      <p><b>Boka konsol- och brädspelsplats plats</b></p>
       <table border="1">
           <form action="/api/bc_book">
             <tr>
@@ -216,13 +218,13 @@
   <div class="table">
     <table class="booking-row" border="1">
         {% for seatId in all_seats[0:10] %}
-          <tr><th {% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}>{% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/?id={{seatId}}">{% endif %}{% endfor %}<p>{{seatId}}</p>{% for booked_id in booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
+          <tr><th {% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}><p>{% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/?id={{seatId}}">{% endif %}{% endfor %}{{seatId}}</p>{% for booked_id in booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
         {% endfor %}
     </table>
 
     <table class="booking-row" border="1">
         {% for seatId in all_seats[10:20] %}
-        <tr><th {% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}>{% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/?id={{seatId}}">{% endif %}{% endfor %}<p>{{seatId}}</p>{% for booked_id in booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
+        <tr><th {% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}><p>{% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/?id={{seatId}}">{% endif %}{% endfor %}{{seatId}}</p>{% for booked_id in booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
         {% endfor %}
     </table>
   </div>
@@ -230,13 +232,13 @@
   <div class="table">
     <table class="booking-row" border="1">
         {% for seatId in all_seats[20:30] %}
-        <tr><th {% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}>{% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/?id={{seatId}}">{% endif %}{% endfor %}<p>{{seatId}}</p>{% for booked_id in booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
+        <tr><th {% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}><p>{% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/?id={{seatId}}">{% endif %}{% endfor %}{{seatId}}</p>{% for booked_id in booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
         {% endfor %}
     </table>
 
     <table class="booking-row" border="1">
         {% for seatId in all_seats[30:40] %}
-        <tr><th {% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}>{% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/?id={{seatId}}">{% endif %}{% endfor %}<p>{{seatId}}</p>{% for booked_id in booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
+        <tr><th {% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}><p>{% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/?id={{seatId}}">{% endif %}{% endfor %}{{seatId}}</p>{% for booked_id in booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
         {% endfor %}
     </table>
   </div>
@@ -244,13 +246,13 @@
   <div class="table">
     <table class="booking-row" border="1">
         {% for seatId in all_seats[40:50] %}
-        <tr><th {% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}>{% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/?id={{seatId}}">{% endif %}{% endfor %}<p>{{seatId}}</p>{% for booked_id in booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
+        <tr><th {% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}><p>{% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/?id={{seatId}}">{% endif %}{% endfor %}{{seatId}}</p>{% for booked_id in booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
         {% endfor %}
     </table>
 
     <table class="booking-row" border="1">
         {% for seatId in all_seats[50:61] %}
-        <tr><th {% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}>{% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/?id={{seatId}}">{% endif %}{% endfor %}<p>{{seatId}}</p>{% for booked_id in booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
+        <tr><th {% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}><p>{% for booked_id in booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/?id={{seatId}}">{% endif %}{% endfor %}{{seatId}}</p>{% for booked_id in booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
         {% endfor %}
     </table>
   </div>
@@ -260,7 +262,7 @@
     <div class="table">
       <table class="booking-row" border="1">
         {% for seatId in bc_all_seats %}
-        <tr><th {% for booked_id in bc_booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}>{% for booked_id in bc_booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/?bc_id={{seatId}}">{% endif %}{% endfor %}<p>{{seatId}}</p>{% for booked_id in bc_booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
+        <tr><th {% for booked_id in bc_booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}{% if booked_id[1]|int is eq(0) %}bgcolor="red"{% else %}bgcolor="yellow"{% endif %}{% endif %}{% endfor %}><p>{% for booked_id in bc_booked_ids %}{% if booked_id[0]|int is eq(seatId|int) %}<a href="/?bc_id={{seatId}}">{% endif %}{% endfor %}{{seatId}}</p>{% for booked_id in bc_booked_ids %}{% if booked_id|int is eq(seatId|int) %}</a>{% endif %}{% endfor %}</th></tr>
         {% endfor %}
       </table>
     </div>
