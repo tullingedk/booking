@@ -124,7 +124,7 @@ def bc_get_available_seats_list():
 
 
 def bc_new_booking(firstname, lastname, school_class, email, seat):
-    bookings = get_bookings()
+    bookings = bc_get_bookings()
 
     already_used = False
     seat_taken = False
