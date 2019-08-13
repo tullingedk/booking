@@ -60,14 +60,14 @@
       <p>Bokat av: {{id_name}}, klass {{id_class}}</p>
       <p>Bokades: {{id_date}}</p>
       <p>Status: {{id_status}}</p>
-      {% elseif bc_id %}
+      {% elif bc_id %}
       <span class="close">&times;</span>
       <p><b>Konsol och brädsspelsplats</b></p>
       <p>Plats: {{bc_id}}</p>
       <p>Bokat av: {{bc_id_name}}, klass {{bc_id_class}}</p>
       <p>Bokades: {{bc_id_date}}</p>
       <p>Status: {{bc_id_status}}</p>
-      {% elseif swish_qr %}
+      {% elif swish_qr %}
       <img src="/static/swish.png" width="250px" height="300px">
       <p>Skanna koden ovan för slippa ange telefonnumer när du skickar din betalning.</p>
       {% else %}
