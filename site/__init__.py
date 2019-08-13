@@ -37,3 +37,4 @@ PRIMARY KEY (seat)
 
 if __name__ == "__main__":
     createDb()
+    bc_createDb()
