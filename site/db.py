@@ -10,10 +10,10 @@ import os.path
 
 if os.path.exists("override.mysql.json"):
     with open("override.mysql.json", 'r') as f:
-        config = json.load(f)
+        mysql_config = json.load(f)
 else:
     with open("mysql.json", 'r') as f:
-        config = json.load(f)
+        mysql_config = json.load(f)
 
 def dbConnection():
     try:
