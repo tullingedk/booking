@@ -35,7 +35,7 @@ deploy_production:
     - rsync -alPvz site/ git-deploy@81.95.1.105:/var/www/booking.vilhelmprytz.se/deploy/ --delete
     - ssh -t git-deploy@81.95.1.105 "chmod +x /var/www/booking.vilhelmprytz.se/deploy/start.sh"
     - ssh -t git-deploy@81.95.1.105 "cp /var/www/booking.vilhelmprytz.se/mysql.json /var/www/booking.vilhelmprytz.se/deploy/mysql.json"
-    - ssh -t git-deploy@81.95.1.105 "sed 's/replaceme/$CI_COMMIT_SHORT_SHA/g' /var/www/booking.vilhelmprytz.se/deploy/version.py"
+    - ssh -t git-deploy@81.95.1.105 "sed -i 's/replaceme/$CI_COMMIT_SHORT_SHA/g' /var/www/booking.vilhelmprytz.se/deploy/version.py"
     - ssh -t git-deploy@81.95.1.105 "sudo systemctl restart datorklubben-booking-webserver"
   environment:
     name: production
