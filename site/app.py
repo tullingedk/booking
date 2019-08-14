@@ -182,7 +182,7 @@ def bc_get_specific_booking_details(id):
 @app.route("/")
 def index_page():
     if config["disabled"] == True:
-        return render_template("disabled.html")
+        return render_template("disabled.html", development_mode=config["development"], version=version)
 
     if session.get("user_login") == True:
         success = request.args.get("success")
@@ -245,12 +245,12 @@ def index_page():
         return render_template("index.html", success=success, fail=fail, boka=boka, bc_boka=bc_boka, swish_qr=swish_qr, all_seats=range(1,61), bc_all_seats=range(1,11), num_all_seats=len(range(1,61)), id=id, booked_ids=booked_ids, bc_booked_ids=bc_booked_ids, available_seats=available_seats, bc_available_seats=bc_available_seats, id_name=id_name, id_class=id_class, id_status=id_status, id_date=id_date, bc_id=bc_id, bc_id_name=bc_id_name, bc_id_class=bc_id_class, bc_id_status=bc_id_status, bc_id_date=bc_id_date, num_available_seats=num_available_seats, num_bookings=num_bookings, event_date=config["event_date"], development_mode=config["development"], version=version)
     else:
         wrongPassword = request.args.get("wrongPassword")
-        return render_template("lock.html", wrongPassword=wrongPassword)
+        return render_template("lock.html", wrongPassword=wrongPassword, development_mode=config["development"], version=version)
 
 @app.route("/info")
 def info_page():
     if config["disabled"] == True:
-        return render_template("disabled.html")
+        return render_template("disabled.html", development_mode=config["development"], version=version)
     return render_template("info.html", event_date=config["event_date"])
 
 @app.route("/maserati/admin")
@@ -316,7 +316,7 @@ def admin_page():
 @app.route("/api/lockpassword")
 def api_lockpassword():
     if config["disabled"] == True:
-        return render_template("disabled.html")
+        return render_template("disabled.html", development_mode=config["development"], version=version)
     password = request.args.get("password")
 
     if password == config["lock_password"]:
@@ -373,7 +373,7 @@ def api_admin_set_bc_booking_unpaid(id):
 @app.route("/api/book")
 def api_book():
     if config["disabled"] == True:
-        return render_template("disabled.html")
+        return render_template("disabled.html", development_mode=config["development"], version=version)
     if session.get("user_login") == True:
         firstname = request.args.get("firstname")
         lastname = request.args.get("lastname")
@@ -399,12 +399,12 @@ def api_book():
             return redirect("/?fail=true")
     else:
         wrongPassword = request.args.get("wrongPassword")
-        return render_template("lock.html", wrongPassword=wrongPassword)
+        return render_template("lock.html", wrongPassword=wrongPassword, development_mode=config["development"], version=version)
 
 @app.route("/api/bc_book")
 def bc_api_book():
     if config["disabled"] == True:
-        return render_template("disabled.html")
+        return render_template("disabled.html", development_mode=config["development"], version=version)
     if session.get("user_login") == True:
         firstname = request.args.get("firstname")
         lastname = request.args.get("lastname")
@@ -430,4 +430,4 @@ def bc_api_book():
             return redirect("/?fail=true")
     else:
         wrongPassword = request.args.get("wrongPassword")
-        return render_template("lock.html", wrongPassword=wrongPassword)
+        return render_template("lock.html", wrongPassword=wrongPassword, development_mode=config["development"], version=version)
