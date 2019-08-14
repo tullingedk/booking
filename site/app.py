@@ -16,6 +16,8 @@ import json
 
 import os.path
 
+from version import version
+
 def randomString(stringLength=10):
     """Generate a random string of fixed length """
     letters = string.ascii_lowercase
@@ -45,8 +47,8 @@ if config["development"]:
 # email
 # seat
 # status
-#       1: booked and paid
-#       0: booked, not paid
+#       0: booked and paid
+#       1: booked, not paid
 # date
 
 # dev
@@ -90,7 +92,7 @@ def new_booking(firstname, lastname, school_class, email, seat):
     insert_booking = ("INSERT INTO bookings "
               "(firstname, lastname, school_class, email, seat, status, date) "
             """VALUES ('""" + firstname + """', '""" + lastname + """', '""" + school_class + """', '""" + email + """', '""" + seat + """', '1', CURRENT_TIMESTAMP())""")
-    
+
     # if development
     if config["development"]:
         dev_bookings.append([firstname, lastname, school_class, email, seat, 1])
@@ -235,7 +237,7 @@ def index_page():
         num_available_seats = len(available_seats)
         num_bookings = len(bookings)
 
-        return render_template("index.html", success=success, fail=fail, boka=boka, bc_boka=bc_boka, swish_qr=swish_qr, all_seats=range(1,61), bc_all_seats=range(1,11), num_all_seats=len(range(1,61)), id=id, booked_ids=booked_ids, bc_booked_ids=bc_booked_ids, available_seats=available_seats, bc_available_seats=bc_available_seats, id_name=id_name, id_class=id_class, id_status=id_status, id_date=id_date, bc_id=bc_id, bc_id_name=bc_id_name, bc_id_class=bc_id_class, bc_id_status=bc_id_status, bc_id_date=bc_id_date, num_available_seats=num_available_seats, num_bookings=num_bookings, event_date=config["event_date"], development_mode=config["development"])
+        return render_template("index.html", success=success, fail=fail, boka=boka, bc_boka=bc_boka, swish_qr=swish_qr, all_seats=range(1,61), bc_all_seats=range(1,11), num_all_seats=len(range(1,61)), id=id, booked_ids=booked_ids, bc_booked_ids=bc_booked_ids, available_seats=available_seats, bc_available_seats=bc_available_seats, id_name=id_name, id_class=id_class, id_status=id_status, id_date=id_date, bc_id=bc_id, bc_id_name=bc_id_name, bc_id_class=bc_id_class, bc_id_status=bc_id_status, bc_id_date=bc_id_date, num_available_seats=num_available_seats, num_bookings=num_bookings, event_date=config["event_date"], development_mode=config["development"], version=version)
     else:
         wrongPassword = request.args.get("wrongPassword")
         return render_template("lock.html", wrongPassword=wrongPassword)
@@ -298,7 +300,7 @@ def admin_page():
         bc_booked_ids = []
         for bc_booking in bc_bookings:
             bc_booked_ids.append([bc_booking[4], bc_booking[5]])
-        
+
         return render_template("admin.html", success=success, fail=fail, all_seats=range(1,61), bc_all_seats=range(1,11), num_all_seats=len(range(1,61)), id=id, booked_ids=booked_ids, bc_booked_ids=bc_booked_ids, available_seats=available_seats, bc_available_seats=bc_available_seats, id_name=id_name, id_class=id_class, id_status=id_status, id_date=id_date, bc_id=bc_id, bc_id_name=bc_id_name, bc_id_class=bc_id_class, bc_id_status=bc_id_status, bc_id_date=bc_id_date, development_mode=config["development"])
     else:
         return """<p>Login</p> <form action="/api/admin/unlock"><input type="password" name="password" required><input type="submit" value="Skicka"></form>"""
@@ -326,6 +328,42 @@ def api_admin_unlock():
 
     return redirect("/maserati/admin")
 
+@app.route("/api/admin/logout")
+def api_admin_logout():
+    session.pop("admin_login", None)
+    return redirect("/")
+
+@app.route("/api/admin/set/booking/paid/<id>")
+def api_admin_set_booking_paid(id):
+    if session.get("admin_login") == True:
+        sql_query("""UPDATE bookings SET status = 0 WHERE seat=""" + str(id))
+        return redirect("/maserati/admin?id=" + str(id))
+    else:
+        return redirect("/maserati/admin")
+
+@app.route("/api/admin/set/booking/unpaid/<id>")
+def api_admin_set_booking_unpaid(id):
+    if session.get("admin_login") == True:
+        sql_query("""UPDATE bookings SET status = 1 WHERE seat=""" + str(id))
+        return redirect("/maserati/admin?id=" + str(id))
+    else:
+        return redirect("/maserati/admin")
+
+@app.route("/api/admin/set/bc_booking/paid/<id>")
+def api_admin_set_bc_booking_paid(id):
+    if session.get("admin_login") == True:
+        sql_query("""UPDATE bc_bookings SET status = 0 WHERE seat=""" + str(id))
+        return redirect("/maserati/admin?bc_id=" + str(id))
+    else:
+        return redirect("/maserati/admin")
+
+@app.route("/api/admin/set/bc_booking/unpaid/<id>")
+def api_admin_set_bc_booking_unpaid(id):
+    if session.get("admin_login") == True:
+        sql_query("""UPDATE bc_bookings SET status = 1 WHERE seat=""" + str(id))
+        return redirect("/maserati/admin?bc_id=" + str(id))
+    else:
+        return redirect("/maserati/admin")
 
 @app.route("/api/book")
 def api_book():
