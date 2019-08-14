@@ -251,11 +251,8 @@ def admin_page():
     if session.get("admin_login") == True:
         success = request.args.get("success")
         fail = request.args.get("fail")
-        boka = request.args.get("boka")
-        bc_boka = request.args.get("bc_boka")
         id = request.args.get("id")
         bc_id = request.args.get("bc_id")
-        swish_qr = request.args.get("swish_qr")
 
         # get specific id
         id_name = None
