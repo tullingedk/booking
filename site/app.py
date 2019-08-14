@@ -34,7 +34,7 @@ else:
 
 # Session Management
 SESSION_TYPE = 'filesystem'
-SESSION_FILE_DIR = "/var/www/booking.vilhelmprytz.se/flask_session"
+SESSION_FILE_DIR = config["session_path"]
 SESSION_PERMANENT = True
 PERMANENT_SESSION_LIFETIME = timedelta(hours=24)
 

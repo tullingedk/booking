@@ -65,8 +65,8 @@
       <p>Bokades: {{id_date}}</p>
       <p>Status: {{id_status}}</p>
       {% elif bc_id %}
-      <a href="/api/admin/set/bc_booking/paid/{{id}}">Markera som betald</a>
-      <a href="/api/admin/set/bc_booking/unpaid/{{id}}">Markera som obetald</a>
+      <a href="/api/admin/set/bc_booking/paid/{{bc_id}}">Markera som betald</a>
+      <a href="/api/admin/set/bc_booking/unpaid/{{bc_id}}">Markera som obetald</a>
       <p><b>Konsol och brädsspelsplats</b></p>
       <p>Plats: {{bc_id}}</p>
       <p>Bokat av: {{bc_id_name}}, klass {{bc_id_class}}</p>
@@ -114,7 +114,7 @@
   <h1>Datorklubben Bokningsystem Admin</h1>
   <p>Programmerat av <a href="https://www.vilhelmprytz.se">Vilhelm Prytz</a>.</p>
 
-  <p>Du är inloggad som admin.</p>
+  <p>Du är inloggad som admin. <a href="/api/admin/logout">Logga ut</a>.</p>
 
   <div class="table">
       <table class="booking-row" border="1">

@@ -1,0 +1,9 @@
+@media screen and (orientation:portrait) {
+    button {
+        font-size: 2.5em;
+    }
+
+    .seat-number {
+        font-size: 1em;
+    }
+}
