@@ -32,7 +32,6 @@ deploy_production:
   script:
     - echo "Deploying app to production server"
     - ssh -t git-deploy@81.95.1.105 "rm -rf /var/www/booking.vilhelmprytz.se/deploy/mysql.json"
-    - ssh -t git-deploy@81.95.1.105 "mv /var/www/booking.vilhelmprytz.se/deploy/flask_session mv /var/www/booking.vilhelmprytz.se/flask_session"
     - rsync -alPvz site/ git-deploy@81.95.1.105:/var/www/booking.vilhelmprytz.se/deploy/ --delete
     - ssh -t git-deploy@81.95.1.105 "chmod +x /var/www/booking.vilhelmprytz.se/deploy/start.sh"
     - ssh -t git-deploy@81.95.1.105 "cp /var/www/booking.vilhelmprytz.se/mysql.json /var/www/booking.vilhelmprytz.se/deploy/mysql.json"

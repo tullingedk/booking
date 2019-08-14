@@ -7,6 +7,7 @@ from db import *
 
 # Session Imports
 from flask_session.__init__ import Session
+from datetime import timedelta
 
 app = Flask(__name__)
 
@@ -33,6 +34,10 @@ else:
 
 # Session Management
 SESSION_TYPE = 'filesystem'
+SESSION_FILE_DIR = "/var/www/booking.vilhelmprytz.se/flask_session"
+SESSION_PERMANENT = True
+PERMANENT_SESSION_LIFETIME = timedelta(hours=24)
+
 app.config.from_object(__name__)
 Session(app)
 
