@@ -199,74 +199,6 @@ def index_page():
         id_class = None
         id_status = None
         id_date = None
-        if id:
-            clicked_booking = get_specific_booking_details(id)
-            id_name = clicked_booking[0] + " " + clicked_booking[1]
-            id_class = clicked_booking[2]
-            if clicked_booking[5] == 0:
-                id_status = """Betald"""
-            else:
-                id_status = """Ej betald"""
-            id_date = clicked_booking[6]
-
-        # get specific bc id
-        bc_id_name = None
-        bc_id_class = None
-        bc_id_status = None
-        bc_id_date = None
-        if bc_id:
-            clicked_booking = bc_get_specific_booking_details(bc_id)
-            bc_id_name = clicked_booking[0] + " " + clicked_booking[1]
-            bc_id_class = clicked_booking[2]
-            if clicked_booking[5] == 0:
-                bc_id_status = """Betald"""
-            else:
-                bc_id_status = """Ej betald"""
-            bc_id_date = clicked_booking[6]
-
-
-        available_seats = get_available_seats_list()
-        bc_available_seats = bc_get_available_seats_list()
-
-        # bookings
-        bookings = get_bookings()
-        booked_ids = []
-        for booking in bookings:
-            booked_ids.append([booking[4], booking[5]])
-
-        bc_bookings = bc_get_bookings()
-        bc_booked_ids = []
-        for bc_booking in bc_bookings:
-            bc_booked_ids.append([bc_booking[4], bc_booking[5]])
-
-        # for att kunna visa antalet lediga platser
-        num_available_seats = len(available_seats)
-        num_bookings = len(bookings)
-
-        return render_template("index.html", success=success, fail=fail, boka=boka, bc_boka=bc_boka, swish_qr=swish_qr, all_seats=range(1,61), bc_all_seats=range(1,11), num_all_seats=len(range(1,61)), id=id, booked_ids=booked_ids, bc_booked_ids=bc_booked_ids, available_seats=available_seats, bc_available_seats=bc_available_seats, id_name=id_name, id_class=id_class, id_status=id_status, id_date=id_date, bc_id=bc_id, bc_id_name=bc_id_name, bc_id_class=bc_id_class, bc_id_status=bc_id_status, bc_id_date=bc_id_date, num_available_seats=num_available_seats, num_bookings=num_bookings, event_date=config["event_date"], development_mode=config["development"], version=version)
-    else:
-        wrongPassword = request.args.get("wrongPassword")
-        return render_template("lock.html", wrongPassword=wrongPassword, development_mode=config["development"], version=version)
-
-@app.route("/info")
-def info_page():
-    if config["disabled"] == True:
-        return render_template("disabled.html", development_mode=config["development"], version=version)
-    return render_template("info.html", event_date=config["event_date"])
-
-@app.route("/maserati/admin")
-def admin_page():
-    if session.get("admin_login") == True:
-        success = request.args.get("success")
-        fail = request.args.get("fail")
-        id = request.args.get("id")
-        bc_id = request.args.get("bc_id")
-
-        # get specific id
-        id_name = None
-        id_class = None
-        id_status = None
-        id_date = None
         id_paid = False
         if id:
             clicked_booking = get_specific_booking_details(id)
@@ -311,7 +243,75 @@ def admin_page():
         for bc_booking in bc_bookings:
             bc_booked_ids.append([bc_booking[4], bc_booking[5]])
 
-        return render_template("admin.html", success=success, fail=fail, all_seats=range(1,61), bc_all_seats=range(1,11), num_all_seats=len(range(1,61)), id=id, booked_ids=booked_ids, bc_booked_ids=bc_booked_ids, available_seats=available_seats, bc_available_seats=bc_available_seats, id_name=id_name, id_class=id_class, id_status=id_status, id_date=id_date, bc_id=bc_id, bc_id_name=bc_id_name, bc_id_class=bc_id_class, bc_id_status=bc_id_status, bc_id_date=bc_id_date, id_paid=id_paid, bc_id_paid=bc_id_paid, development_mode=config["development"])
+        # for att kunna visa antalet lediga platser
+        num_available_seats = len(available_seats)
+        num_bookings = len(bookings)
+
+        return render_template("index.html", success=success, fail=fail, boka=boka, bc_boka=bc_boka, swish_qr=swish_qr, all_seats=range(1,61), bc_all_seats=range(1,11), num_all_seats=len(range(1,61)), id=id, booked_ids=booked_ids, bc_booked_ids=bc_booked_ids, available_seats=available_seats, bc_available_seats=bc_available_seats, id_name=id_name, id_class=id_class, id_status=id_status, id_date=id_date, bc_id=bc_id, bc_id_name=bc_id_name, bc_id_class=bc_id_class, bc_id_status=bc_id_status, bc_id_date=bc_id_date, num_available_seats=num_available_seats, num_bookings=num_bookings, id_paid=id_paid, bc_id_paid=bc_id_paid, event_date=config["event_date"], development_mode=config["development"], version=version)
+    else:
+        wrongPassword = request.args.get("wrongPassword")
+        return render_template("lock.html", wrongPassword=wrongPassword, development_mode=config["development"], version=version)
+
+@app.route("/info")
+def info_page():
+    if config["disabled"] == True:
+        return render_template("disabled.html", development_mode=config["development"], version=version)
+    return render_template("info.html", event_date=config["event_date"])
+
+@app.route("/maserati/admin")
+def admin_page():
+    if session.get("admin_login") == True:
+        success = request.args.get("success")
+        fail = request.args.get("fail")
+        id = request.args.get("id")
+        bc_id = request.args.get("bc_id")
+
+        # get specific id
+        id_name = None
+        id_class = None
+        id_status = None
+        id_date = None
+        if id:
+            clicked_booking = get_specific_booking_details(id)
+            id_name = clicked_booking[0] + " " + clicked_booking[1]
+            id_class = clicked_booking[2]
+            if clicked_booking[5] == 0:
+                id_status = """Betald"""
+            else:
+                id_status = """Ej betald"""
+            id_date = clicked_booking[6]
+
+        # get specific bc id
+        bc_id_name = None
+        bc_id_class = None
+        bc_id_status = None
+        bc_id_date = None
+        if bc_id:
+            clicked_booking = bc_get_specific_booking_details(bc_id)
+            bc_id_name = clicked_booking[0] + " " + clicked_booking[1]
+            bc_id_class = clicked_booking[2]
+            if clicked_booking[5] == 0:
+                bc_id_status = """Betald"""
+            else:
+                bc_id_status = """Ej betald"""
+            bc_id_date = clicked_booking[6]
+
+
+        available_seats = get_available_seats_list()
+        bc_available_seats = bc_get_available_seats_list()
+
+        # bookings
+        bookings = get_bookings()
+        booked_ids = []
+        for booking in bookings:
+            booked_ids.append([booking[4], booking[5]])
+
+        bc_bookings = bc_get_bookings()
+        bc_booked_ids = []
+        for bc_booking in bc_bookings:
+            bc_booked_ids.append([bc_booking[4], bc_booking[5]])
+
+        return render_template("admin.html", success=success, fail=fail, all_seats=range(1,61), bc_all_seats=range(1,11), num_all_seats=len(range(1,61)), id=id, booked_ids=booked_ids, bc_booked_ids=bc_booked_ids, available_seats=available_seats, bc_available_seats=bc_available_seats, id_name=id_name, id_class=id_class, id_status=id_status, id_date=id_date, bc_id=bc_id, bc_id_name=bc_id_name, bc_id_class=bc_id_class, bc_id_status=bc_id_status, bc_id_date=bc_id_date, development_mode=config["development"])
     else:
         return """<p>Login</p> <form action="/api/admin/unlock"><input type="password" name="password" required><input type="submit" value="Skicka"></form>"""
 
