@@ -2,7 +2,7 @@
 # (c) Vilhelm Prytz 2019
 # https://www.vilhelmprytz.se
 
-from flask import Flask, render_template, request, redirect, make_response, session
+from flask import Flask, render_template, request, redirect, make_response, session, send_file
 from db import *
 
 # Session Imports
@@ -18,6 +18,7 @@ import json
 import os.path
 
 from version import version
+from swish_qr_generator import generate_swish_qr
 
 def randomString(stringLength=10):
     """Generate a random string of fixed length """
@@ -266,12 +267,14 @@ def admin_page():
         id_class = None
         id_status = None
         id_date = None
+        id_paid = False
         if id:
             clicked_booking = get_specific_booking_details(id)
             id_name = clicked_booking[0] + " " + clicked_booking[1]
             id_class = clicked_booking[2]
             if clicked_booking[5] == 0:
                 id_status = """Betald"""
+                id_paid = True
             else:
                 id_status = """Ej betald"""
             id_date = clicked_booking[6]
@@ -281,12 +284,14 @@ def admin_page():
         bc_id_class = None
         bc_id_status = None
         bc_id_date = None
+        bc_id_paid = False
         if bc_id:
             clicked_booking = bc_get_specific_booking_details(bc_id)
             bc_id_name = clicked_booking[0] + " " + clicked_booking[1]
             bc_id_class = clicked_booking[2]
             if clicked_booking[5] == 0:
                 bc_id_status = """Betald"""
+                bc_id_paid = True
             else:
                 bc_id_status = """Ej betald"""
             bc_id_date = clicked_booking[6]
@@ -306,7 +311,7 @@ def admin_page():
         for bc_booking in bc_bookings:
             bc_booked_ids.append([bc_booking[4], bc_booking[5]])
 
-        return render_template("admin.html", success=success, fail=fail, all_seats=range(1,61), bc_all_seats=range(1,11), num_all_seats=len(range(1,61)), id=id, booked_ids=booked_ids, bc_booked_ids=bc_booked_ids, available_seats=available_seats, bc_available_seats=bc_available_seats, id_name=id_name, id_class=id_class, id_status=id_status, id_date=id_date, bc_id=bc_id, bc_id_name=bc_id_name, bc_id_class=bc_id_class, bc_id_status=bc_id_status, bc_id_date=bc_id_date, development_mode=config["development"])
+        return render_template("admin.html", success=success, fail=fail, all_seats=range(1,61), bc_all_seats=range(1,11), num_all_seats=len(range(1,61)), id=id, booked_ids=booked_ids, bc_booked_ids=bc_booked_ids, available_seats=available_seats, bc_available_seats=bc_available_seats, id_name=id_name, id_class=id_class, id_status=id_status, id_date=id_date, bc_id=bc_id, bc_id_name=bc_id_name, bc_id_class=bc_id_class, bc_id_status=bc_id_status, bc_id_date=bc_id_date, id_paid=id_paid, bc_id_paid=bc_id_paid, development_mode=config["development"])
     else:
         return """<p>Login</p> <form action="/api/admin/unlock"><input type="password" name="password" required><input type="submit" value="Skicka"></form>"""
 
@@ -341,7 +346,11 @@ def api_admin_logout():
 @app.route("/api/admin/set/booking/paid/<id>")
 def api_admin_set_booking_paid(id):
     if session.get("admin_login") == True:
-        sql_query("""UPDATE bookings SET status = 0 WHERE seat=""" + str(id))
+        if config["development"]:
+            global dev_bookings
+            dev_bookings = [["Test", "User", "TE18", "woo", 1, 0, "2019 yeet"]]
+        else:
+            sql_query("""UPDATE bookings SET status = 0 WHERE seat=""" + str(id))
         return redirect("/maserati/admin?id=" + str(id))
     else:
         return redirect("/maserati/admin")
@@ -349,7 +358,11 @@ def api_admin_set_booking_paid(id):
 @app.route("/api/admin/set/booking/unpaid/<id>")
 def api_admin_set_booking_unpaid(id):
     if session.get("admin_login") == True:
-        sql_query("""UPDATE bookings SET status = 1 WHERE seat=""" + str(id))
+        if config["development"]:
+            global dev_bookings
+            dev_bookings = [["Test", "User", "TE18", "woo", 1, 1, "2019 yeet"]]
+        else:
+            sql_query("""UPDATE bookings SET status = 1 WHERE seat=""" + str(id))
         return redirect("/maserati/admin?id=" + str(id))
     else:
         return redirect("/maserati/admin")
@@ -357,7 +370,11 @@ def api_admin_set_booking_unpaid(id):
 @app.route("/api/admin/set/bc_booking/paid/<id>")
 def api_admin_set_bc_booking_paid(id):
     if session.get("admin_login") == True:
-        sql_query("""UPDATE bc_bookings SET status = 0 WHERE seat=""" + str(id))
+        if config["development"]:
+            global dev_bc_bookings
+            dev_bc_bookings = [["BC Test", "User", "TE18", "woo", 1, 0, "2002 yeet"]]
+        else:
+            sql_query("""UPDATE bc_bookings SET status = 0 WHERE seat=""" + str(id))
         return redirect("/maserati/admin?bc_id=" + str(id))
     else:
         return redirect("/maserati/admin")
@@ -365,7 +382,11 @@ def api_admin_set_bc_booking_paid(id):
 @app.route("/api/admin/set/bc_booking/unpaid/<id>")
 def api_admin_set_bc_booking_unpaid(id):
     if session.get("admin_login") == True:
-        sql_query("""UPDATE bc_bookings SET status = 1 WHERE seat=""" + str(id))
+        if config["development"]:
+            global dev_bc_bookings
+            dev_bc_bookings = [["BC Test", "User", "TE18", "woo", 1, 1, "2002 yeet"]]
+        else:
+            sql_query("""UPDATE bc_bookings SET status = 1 WHERE seat=""" + str(id))
         return redirect("/maserati/admin?bc_id=" + str(id))
     else:
         return redirect("/maserati/admin")
@@ -431,3 +452,35 @@ def bc_api_book():
     else:
         wrongPassword = request.args.get("wrongPassword")
         return render_template("lock.html", wrongPassword=wrongPassword, development_mode=config["development"], version=version)
+
+@app.route("/api/swish/booking/qr/<id>")
+def api_swish_booking_qr(id):
+    # get specific id
+    id_firstname = None
+    id_lastname = None
+    id_class = None
+    if id:
+        clicked_booking = get_specific_booking_details(id)
+        id_firstname = clicked_booking[0]
+        id_lastname = clicked_booking[1]
+        id_class = clicked_booking[2]
+
+        generate_swish_qr(id_firstname, id_lastname, id_class, 0)
+
+        return send_file("static/temp_swish.png", mimetype="image/png")
+
+@app.route("/api/swish/bc_booking/qr/<id>")
+def api_swish_bc_booking_qr(id):
+    # get specific id
+    id_firstname = None
+    id_lastname = None
+    id_class = None
+    if id:
+        clicked_booking = bc_get_specific_booking_details(id)
+        id_firstname = clicked_booking[0]
+        id_lastname = clicked_booking[1]
+        id_class = clicked_booking[2]
+
+        generate_swish_qr(id_firstname, id_lastname, id_class, 1)
+
+        return send_file("static/temp_swish.png", mimetype="image/png")

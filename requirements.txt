@@ -2,3 +2,4 @@ flask
 flask_session
 mysql-connector
 gunicorn
+qrcode[pil]

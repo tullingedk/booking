@@ -61,12 +61,24 @@
       <p>Bokat av: {{id_name}}, klass {{id_class}}</p>
       <p>Bokades: {{id_date}}</p>
       <p>Status: {{id_status}}</p>
+
+      {% if not id_paid %}
+      <img src="/api/swish/booking/qr/{{id}}">
+      <p>Denna bokning är markerad som obetald. Du kan skanna koden ovan i Swish-appen (alla fälten fylls i automatiskt). Om du precis redan har Swishat så kan det ta ett tag innan vi manuellt registrerar betalningen.</p>
+      {% endif %}
+
       {% elif bc_id %}
       <p><b>Konsol och brädsspelsplats</b></p>
       <p>Plats: {{bc_id}}</p>
       <p>Bokat av: {{bc_id_name}}, klass {{bc_id_class}}</p>
       <p>Bokades: {{bc_id_date}}</p>
       <p>Status: {{bc_id_status}}</p>
+
+      {% if not bc_id_paid %}
+      <img src="/api/swish/bc_booking/qr/{{bc_id}}">
+      <p>Denna bokning är markerad som obetald. Du kan skanna koden ovan i Swish-appen (alla fälten fylls i automatiskt). Om du precis redan har Swishat så kan det ta ett tag innan vi manuellt registrerar betalningen.</p>
+      {% endif %}
+
       {% elif swish_qr %}
       <img src="/static/swish.png" width="250px" height="300px">
       <p>Skanna koden ovan för slippa ange telefonnumer när du skickar din betalning.</p>

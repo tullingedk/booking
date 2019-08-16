@@ -2,3 +2,4 @@
 site/override.config.json
 site/override.mysql.json
 site/flask_session
+site/static/temp_swish.png
