@@ -1,7 +1,7 @@
 {
   "lock_password": "ht2019",
   "event_date": "25 oktober - 27 oktober",
-  "admin_password": "test123",
+  "admin_password": "giveitup",
   "disabled": false,
   "development": false,
   "session_path": "/srv/www/booking.vilhelmprytz.se/site/flask_session"
