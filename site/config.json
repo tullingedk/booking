@@ -4,5 +4,5 @@
   "admin_password": "test123",
   "disabled": false,
   "development": false,
-  "session_path": "/var/www/booking.vilhelmprytz.se/flask_session"
+  "session_path": "/srv/www/booking.vilhelmprytz.se/site/flask_session"
 }
