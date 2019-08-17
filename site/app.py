@@ -415,7 +415,7 @@ def api_book():
             return redirect("/?fail=true")
 
         if new_booking(firstname, lastname, school_class, email, seat) and validation:
-            return redirect("/?success=true")
+            return redirect("/?success=true&id={}".format(str(seat)))
         else:
             return redirect("/?fail=true")
     else:
@@ -446,7 +446,7 @@ def bc_api_book():
             return redirect("/?fail=true")
 
         if bc_new_booking(firstname, lastname, school_class, email, seat) and validation:
-            return redirect("/?success=true")
+            return redirect("/?success=true&bc_id={}".format(str(seat)))
         else:
             return redirect("/?fail=true")
     else:

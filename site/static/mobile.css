@@ -6,4 +6,9 @@
     .seat-number {
         font-size: 1em;
     }
+
+    img {
+        width: 450px;
+        height: 450px;
+    }
 }
