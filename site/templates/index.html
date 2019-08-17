@@ -57,26 +57,28 @@
     <div class="modal-content">
       <span class="close">&times;</span>
       {% if id %}
-      <p>Plats: {{id}}</p>
-      <p>Bokat av: {{id_name}}, klass {{id_class}}</p>
-      <p>Bokades: {{id_date}}</p>
-      <p>Status: {{id_status}}</p>
+      <p style="margin-block-start: 0px; margin-block-end: 0px;">Plats: {{id}}</p>
+      <p style="margin-block-start: 0px; margin-block-end: 0px;">Bokat av: {{id_name}}, klass {{id_class}}</p>
+      <p style="margin-block-start: 0px; margin-block-end: 0px;">Bokades: {{id_date}}</p>
+      <p style="margin-block-start: 0px; margin-block-end: 0px;">Status: {{id_status}}</p>
 
       {% if not id_paid %}
       <img src="/api/swish/booking/qr/{{id}}">
-      <p>Denna bokning är markerad som obetald. Du kan skanna koden ovan i Swish-appen (alla fälten fylls i automatiskt). Om du precis redan har Swishat så kan det ta ett tag innan vi manuellt registrerar betalningen.</p>
+      <p>Denna bokning är markerad som ej betald. Du kan skanna koden ovan i Swish-appen (alla fälten fylls i automatiskt). Om du precis redan har Swishat så kan det ta ett tag innan vi manuellt registrerar betalningen.</p>
+      <p>(Kontrolluppgifter: Telefonumret är <b>+46 73 033 31 85</b>. Mottagare i BankID ska stå som <b>Vilhelm Prytz</b>).</p>
       {% endif %}
 
       {% elif bc_id %}
       <p><b>Konsol och brädsspelsplats</b></p>
-      <p>Plats: {{bc_id}}</p>
-      <p>Bokat av: {{bc_id_name}}, klass {{bc_id_class}}</p>
-      <p>Bokades: {{bc_id_date}}</p>
-      <p>Status: {{bc_id_status}}</p>
+      <p style="margin-block-start: 0px; margin-block-end: 0px;">Plats: {{bc_id}}</p>
+      <p style="margin-block-start: 0px; margin-block-end: 0px;">Bokat av: {{bc_id_name}}, klass {{bc_id_class}}</p>
+      <p style="margin-block-start: 0px; margin-block-end: 0px;">Bokades: {{bc_id_date}}</p>
+      <p style="margin-block-start: 0px; margin-block-end: 0px;">Status: {{bc_id_status}}</p>
 
       {% if not bc_id_paid %}
       <img src="/api/swish/bc_booking/qr/{{bc_id}}">
-      <p>Denna bokning är markerad som obetald. Du kan skanna koden ovan i Swish-appen (alla fälten fylls i automatiskt). Om du precis redan har Swishat så kan det ta ett tag innan vi manuellt registrerar betalningen.</p>
+      <p>Denna bokning är markerad som ej betald. Du kan skanna koden ovan i Swish-appen (alla fälten fylls i automatiskt). Om du precis redan har Swishat så kan det ta ett tag innan vi manuellt registrerar betalningen.</p>
+      <p>(Kontrolluppgifter: Telefonumret är <b>+46 73 033 31 85</b>. Mottagare i BankID ska stå som <b>Vilhelm Prytz</b>).</p>
       {% endif %}
 
       {% elif swish_qr %}
@@ -199,10 +201,14 @@
   <p><a href="/info">Tryck här</a> för att få info om LANet.</p>
 
   <b><p>Hur du bokar</p></b>
-  <p>1. Fyll i din bokning via denna sida. Skriver du fel går det inte att ändra bokningen, du måste kontakta Vilhelm Prytz via Vklass, via Discord eller via <a href="mailto:vilhelm@prytznet.se">mail</a>.</p>
-  <p>2. Swisha 100 kr till <b>073 033 31 85</b> för vanliga platser och 50 kr för konsol- och brädspelsplatser (mottagare ska stå som <b>Vilhelm Prytz</b> när du swishar). Glöm inte att ange namn och klass i swishmeddelandet.</p>
-  <a href="/?swish_qr=ja"><button>ÖPPNA SWISH QR KOD (SKANNAS VIA APPEN)</button></a>
-  <p>3. Klart! Det kan ta ett par dagar innan vi uppdaterar statusen på din bokning (från gult till rött).</p>
+
+  <p>1. Använd bokningsknapparna nedan för att boka en plats. När du fyllt i bokningen och skickar den kommer du att få upp en QR-kod som du kan skanna med hjälp av Swish-appen. </p>
+  <p>2. Öppna Swish appen och tryck på symbolen längst upp till vänster (QR-kod symbolen). Du kan nu skanna koden som visas på din skärm, så ska Swish automatiskt fylla i telefonnumer, belopp och ditt namn & klass.</p>
+  <p>3. Klart! Det kan ta ett tag innan vi manuellt uppdaterar statusen på din bokning (från gult till rött).</p>
+
+  <b><p>Om du är på samma mobil som du ska Swisha ifrån</p></b>
+  <p>Då kan du ange telefonnumer, belopp och meddelande manuellt. Mottagare ska vara <b>073 033 31 85</b>, belopp ska vara <b>100 kr</b> för vanlig plats och <b>50 kr</b> för en konsol- och brädspelsplats. Ange ditt namn och klass i meddelandet.</p>
+
   <p>Brädspel och konsolplatser är separerade i bokningsystemet.</p>
 
   {% if success %}
