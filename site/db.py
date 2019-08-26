@@ -1,6 +1,6 @@
 # Datorklubben Booking sytsem
-# db file
-# (c) Vilhelm Prytz 2019
+# file for connecting with mysql database
+# (c) Vilhelm Prytz 2018-2019
 # https://www.vilhelmprytz.se
 
 import mysql.connector

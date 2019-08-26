@@ -1,8 +1,8 @@
 {
-  "lock_password": "runninginthe90s",
-  "event_date": "25 oktober - 27 oktober",
-  "admin_password": "giveitup",
+  "lock_password": "",
+  "event_date": "",
+  "admin_password": "",
   "disabled": false,
   "development": false,
-  "session_path": "/srv/www/booking.vilhelmprytz.se/site/flask_session"
+  "session_path": "flask_session"
 }

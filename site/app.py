@@ -1,5 +1,5 @@
 # Datorklubben Booking sytsem
-# (c) Vilhelm Prytz 2019
+# (c) Vilhelm Prytz 2018-2019
 # https://www.vilhelmprytz.se
 
 from flask import Flask, render_template, request, redirect, make_response, session, send_file
@@ -46,20 +46,9 @@ Session(app)
 if config["development"]:
     print("RUNNING IN DEVELOPMENT MODE")
 
-# BOOKINGS
-# firstname
-# lastname
-# school_class
-# email
-# seat
-# status
-#       0: booked and paid
-#       1: booked, not paid
-# date
-
-# dev
-dev_bookings = [["Test", "User", "TE18", "woo", 1, 1, "2019 yeet"]]
-dev_bc_bookings = [["BC Test", "User", "TE18", "woo", 1, 1, "2002 yeet"]]
+# devevlopment, define bookings as lists
+dev_bookings = [["Test", "User", "TE18", "foo", 1, 1, "2019 yeet"]]
+dev_bc_bookings = [["BC Test", "User", "TE18", "foo", 1, 1, "2002 yeet"]]
 
 # functions
 def get_bookings():
@@ -313,6 +302,7 @@ def admin_page():
 
         return render_template("admin.html", success=success, fail=fail, all_seats=range(1,61), bc_all_seats=range(1,11), num_all_seats=len(range(1,61)), id=id, booked_ids=booked_ids, bc_booked_ids=bc_booked_ids, available_seats=available_seats, bc_available_seats=bc_available_seats, id_name=id_name, id_class=id_class, id_status=id_status, id_date=id_date, bc_id=bc_id, bc_id_name=bc_id_name, bc_id_class=bc_id_class, bc_id_status=bc_id_status, bc_id_date=bc_id_date, development_mode=config["development"])
     else:
+        # simple admin page, won't bother for anything fancy
         return """<p>Login</p> <form action="/api/admin/unlock"><input type="password" name="password" required><input type="submit" value="Skicka"></form>"""
 
 ################
