@@ -14,7 +14,7 @@ def generate_swish_qr(firstname, lastname, school_class, booking_type):
         border = 4,
     )
 
-    data = "C+46730333185;{};{}+{}+{};0".format(str(amount), str(firstname), str(lastname), str(school_class))
+    data = "C+46730333185;{};{}+{}+{};0".format(str(amount), firstname.encode('utf-8'), lastname.encode('utf-8'), school_class.encode('utf-8'))
 
     qr.add_data(data)
     qr.make(fit=True)
