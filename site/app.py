@@ -53,6 +53,16 @@ dev_bookings = [["Test", "User", "TE18", "foo", 1, 1, "2019 yeet"]]
 dev_bc_bookings = [["BC Test", "User", "TE18", "foo", 1, 1, "2002 yeet"]]
 
 # functions
+def is_integer(variable):
+    """Returns boolean, True if variable is int and False if variable is not int"""
+
+    try:
+        check_integer = int(variable)
+    except Exception:
+        return False
+    
+    return True
+
 def get_bookings():
     if config["development"]:
         return dev_bookings
@@ -191,16 +201,22 @@ def index_page():
         id_status = None
         id_date = None
         id_paid = False
-        if id:
+        if id and is_integer(id):
             clicked_booking = get_specific_booking_details(id)
-            id_name = clicked_booking[0] + " " + clicked_booking[1]
-            id_class = clicked_booking[2]
-            if clicked_booking[5] == 0:
-                id_status = """Betald"""
-                id_paid = True
+            if clicked_booking != None:
+                id_name = clicked_booking[0] + " " + clicked_booking[1]
+                id_class = clicked_booking[2]
+                if clicked_booking[5] == 0:
+                    id_status = """Betald"""
+                    id_paid = True
+                else:
+                    id_status = """Ej betald"""
+                id_date = clicked_booking[6]
             else:
-                id_status = """Ej betald"""
-            id_date = clicked_booking[6]
+                # set id to False, site will not show modal
+                id = False
+        else:
+            id = False
 
         # get specific bc id
         bc_id_name = None
@@ -208,17 +224,22 @@ def index_page():
         bc_id_status = None
         bc_id_date = None
         bc_id_paid = False
-        if bc_id:
+        if bc_id and is_integer(bc_id):
             clicked_booking = bc_get_specific_booking_details(bc_id)
-            bc_id_name = clicked_booking[0] + " " + clicked_booking[1]
-            bc_id_class = clicked_booking[2]
-            if clicked_booking[5] == 0:
-                bc_id_status = """Betald"""
-                bc_id_paid = True
+            if clicked_booking != None:
+                bc_id_name = clicked_booking[0] + " " + clicked_booking[1]
+                bc_id_class = clicked_booking[2]
+                if clicked_booking[5] == 0:
+                    bc_id_status = """Betald"""
+                    bc_id_paid = True
+                else:
+                    bc_id_status = """Ej betald"""
+                bc_id_date = clicked_booking[6]
             else:
-                bc_id_status = """Ej betald"""
-            bc_id_date = clicked_booking[6]
-
+                # set bc_id to False, site will not show modal
+                bc_id = False
+        else:
+            bc_id = False
 
         available_seats = get_available_seats_list()
         bc_available_seats = bc_get_available_seats_list()
@@ -447,15 +468,19 @@ def api_swish_booking_qr(id):
     id_firstname = None
     id_lastname = None
     id_class = None
-    if id:
+    if id and is_integer(id):
         clicked_booking = get_specific_booking_details(id)
-        id_firstname = clicked_booking[0]
-        id_lastname = clicked_booking[1]
-        id_class = clicked_booking[2]
 
-        generate_swish_qr(id_firstname, id_lastname, id_class, 0)
+        if clicked_booking != None:
+            id_firstname = clicked_booking[0]
+            id_lastname = clicked_booking[1]
+            id_class = clicked_booking[2]
 
-        return send_file("static/temp_swish.png", mimetype="image/png")
+            generate_swish_qr(id_firstname, id_lastname, id_class, 0) # 0 means status unpaid
+
+            return send_file("static/temp_swish.png", mimetype="image/png")
+        return "booking id does not exist", 400
+    return "id not defined or id not integer", 400
 
 @app.route("/api/swish/bc_booking/qr/<id>")
 def api_swish_bc_booking_qr(id):
@@ -465,10 +490,14 @@ def api_swish_bc_booking_qr(id):
     id_class = None
     if id:
         clicked_booking = bc_get_specific_booking_details(id)
-        id_firstname = clicked_booking[0]
-        id_lastname = clicked_booking[1]
-        id_class = clicked_booking[2]
 
-        generate_swish_qr(id_firstname, id_lastname, id_class, 1)
+        if clicked_booking != None:
+            id_firstname = clicked_booking[0]
+            id_lastname = clicked_booking[1]
+            id_class = clicked_booking[2]
 
-        return send_file("static/temp_swish.png", mimetype="image/png")
+            generate_swish_qr(id_firstname, id_lastname, id_class, 1)
+
+            return send_file("static/temp_swish.png", mimetype="image/png")
+        return "booking bc_id does not exist", 400
+    return "id not defined or id not integer", 400
