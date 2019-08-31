@@ -488,7 +488,7 @@ def api_swish_bc_booking_qr(id):
     id_firstname = None
     id_lastname = None
     id_class = None
-    if id:
+    if id and is_integer(id):
         clicked_booking = bc_get_specific_booking_details(id)
 
         if clicked_booking != None:
