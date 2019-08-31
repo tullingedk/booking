@@ -33,6 +33,8 @@ else:
     with open("config.json", 'r') as f:
         config = json.load(f)
 
+ILLEGAL_CHARACTERS = ["<", ">", ";"]
+
 # Session Management
 SESSION_TYPE = 'filesystem'
 SESSION_FILE_DIR = config["session_path"]
@@ -392,10 +394,8 @@ def api_book():
         email = request.args.get("email")
         seat = request.args.get("seat")
 
-        blocked = ["<", ">"]
-
         validation = True
-        if any(x in firstname for x in blocked) or any(x in lastname for x in blocked) or any(x in school_class for x in blocked) or any(x in email for x in blocked) or any(x in seat for x in blocked):
+        if any(x in firstname for x in ILLEGAL_CHARACTERS) or any(x in lastname for x in ILLEGAL_CHARACTERS) or any(x in school_class for x in ILLEGAL_CHARACTERS) or any(x in email for x in ILLEGAL_CHARACTERS) or any(x in seat for x in ILLEGAL_CHARACTERS):
             validation = False
 
         if "@skola.botkyrka.se" not in email:
@@ -423,10 +423,8 @@ def bc_api_book():
         email = request.args.get("email")
         seat = request.args.get("seat")
 
-        blocked = ["<", ">"]
-
         validation = True
-        if any(x in firstname for x in blocked) or any(x in lastname for x in blocked) or any(x in school_class for x in blocked) or any(x in email for x in blocked) or any(x in seat for x in blocked):
+        if any(x in firstname for x in ILLEGAL_CHARACTERS) or any(x in lastname for x in ILLEGAL_CHARACTERS) or any(x in school_class for x in ILLEGAL_CHARACTERS) or any(x in email for x in ILLEGAL_CHARACTERS) or any(x in seat for x in ILLEGAL_CHARACTERS):
             validation = False
 
         if "@skola.botkyrka.se" not in email:
