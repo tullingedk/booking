@@ -9,19 +9,18 @@
   </style>
 </head>
 <body>
-  <h1>Datorklubben Bokningsystem</h1>
+  <h1>Datorklubben Bokningsystem Adminsida</h1>
   <p>Programmerat av <a href="https://www.vilhelmprytz.se">Vilhelm Prytz</a>. {% if development_mode %}<i>Running Flask in development_mode. </i>{% endif %}<i>Running version {{version}}.</i></p>
 
-  <p>För att förhindra spamm krävs ett lösenord.</p>
+  <p>Inloggning till adminsidan.</p>
 
   {% if wrongPassword %}
   <font color="red"><p>Fel lösenord angavs.</p></style>
   {% endif %}
 
-  <form action="/api/lockpassword", method="POST">
+  <form action="/api/admin/login", method="POST">
     <input type="password" name="password" required>
-    <input type="hidden" name="original_request_path" value="{{ original_request_path }}" required>
-    <input type="submit" value="Skicka">
+    <input type="submit" value="Logga in">
   </form>
 
 </body>

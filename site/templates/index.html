@@ -65,7 +65,7 @@
       {% if not id_paid %}
       <img src="/api/swish/booking/qr/{{id}}">
       <p>Denna bokning är markerad som ej betald. Du kan skanna koden ovan i Swish-appen (alla fälten fylls i automatiskt). Om du precis redan har Swishat så kan det ta ett tag innan vi manuellt registrerar betalningen.</p>
-      <p>(Kontrolluppgifter: Telefonumret är <b>+46 73 033 31 85</b>. Mottagare i BankID ska stå som <b>VILHELM PRYTZ</b>).</p>
+      <p><i>Kontrolluppgifter: Telefonumret är <b>+46 73 033 31 85</b>. Mottagare i BankID ska stå som <b>VILHELM PRYTZ</b> (ekonomiansvarig).</i></p>
       {% endif %}
 
       {% elif bc_id %}
@@ -78,7 +78,7 @@
       {% if not bc_id_paid %}
       <img src="/api/swish/bc_booking/qr/{{bc_id}}">
       <p>Denna bokning är markerad som ej betald. Du kan skanna koden ovan i Swish-appen (alla fälten fylls i automatiskt). Om du precis redan har Swishat så kan det ta ett tag innan vi manuellt registrerar betalningen.</p>
-      <p>(Kontrolluppgifter: Telefonumret är <b>+46 73 033 31 85</b>. Mottagare i BankID ska stå som <b>VILHELM PRYTZ</b>).</p>
+      <p><i>Kontrolluppgifter: Telefonumret är <b>+46 73 033 31 85</b>. Mottagare i BankID ska stå som <b>VILHELM PRYTZ</b> (ekonomiansvarig).</i></p>
       {% endif %}
 
       {% elif swish_qr %}
@@ -119,6 +119,7 @@
         </table>
       <input type="submit" value="Skicka bokning">
       </form>
+      <p>Skolmailadress används endast för att förhindra spam. Vi kommer inte skicka något till adressen.</p>
       {% elif bc_boka %}
       <p><b>Boka konsol- och brädspelsplats plats</b></p>
       <table border="1">
@@ -153,6 +154,7 @@
         </table>
       <input type="submit" value="Skicka bokning">
       </form>
+      <p>Skolmailadress används endast för att förhindra spam. Vi kommer inte skicka något till adressen.</p>
       {% else %}
       <span class="close">&times;</span>
       <p>Ett fel uppstod, skriv gärna till Vilhelm Prytz i Discord angående felet!</p>
@@ -203,7 +205,7 @@
   <b><p>Hur du bokar</p></b>
 
   <p>1. Använd bokningsknapparna nedan för att boka en plats. När du fyllt i bokningen och skickar den kommer du att få upp en QR-kod som du kan skanna med hjälp av Swish-appen. </p>
-  <p>2. Öppna Swish appen och tryck på symbolen längst upp till vänster (QR-kod symbolen). Du kan nu skanna koden som visas på din skärm, så ska Swish automatiskt fylla i telefonnumer, belopp och ditt namn & klass.</p>
+  <p>2. Öppna Swish-appen och tryck på symbolen längst upp till vänster (QR-kod symbolen). Du kan nu skanna koden som visas på din skärm, så ska Swish automatiskt fylla i telefonnumer, belopp och ditt namn & klass.</p>
   <p>3. Klart! Det kan ta ett tag innan vi manuellt uppdaterar statusen på din bokning (från gult till rött).</p>
 
   <b><p>Om du är på samma mobil som du ska Swisha ifrån</p></b>
