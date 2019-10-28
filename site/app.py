@@ -8,7 +8,7 @@ from db import *
 
 # Session Imports
 from flask_session.__init__ import Session
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 app = Flask(__name__)
 
@@ -236,6 +236,9 @@ def bc_get_specific_booking_details(id):
 @disable_check
 @login_required
 def index_page():
+    # page generation date
+    page_generation_date = datetime.now()
+
     # request arguments
     success = request.args.get("success")
     fail = request.args.get("fail")
@@ -309,7 +312,7 @@ def index_page():
     num_available_seats = len(available_seats)
     num_bookings = len(bookings)
 
-    return render_template("index.html", success=success, fail=fail, boka=boka, bc_boka=bc_boka, swish_qr=swish_qr, all_seats=range(1,61), bc_all_seats=range(1,11), num_all_seats=len(range(1,61)), id=id, booked_ids=booked_ids, bc_booked_ids=bc_booked_ids, available_seats=available_seats, bc_available_seats=bc_available_seats, id_name=id_name, id_class=id_class, id_status=id_status, id_date=id_date, bc_id=bc_id, bc_id_name=bc_id_name, bc_id_class=bc_id_class, bc_id_status=bc_id_status, bc_id_date=bc_id_date, num_available_seats=num_available_seats, num_bookings=num_bookings, id_paid=id_paid, bc_id_paid=bc_id_paid, event_date=config["event_date"], development_mode=config["development"], version=version)
+    return render_template("index.html", success=success, fail=fail, boka=boka, bc_boka=bc_boka, swish_qr=swish_qr, all_seats=range(1,61), bc_all_seats=range(1,11), num_all_seats=len(range(1,61)), id=id, booked_ids=booked_ids, bc_booked_ids=bc_booked_ids, available_seats=available_seats, bc_available_seats=bc_available_seats, id_name=id_name, id_class=id_class, id_status=id_status, id_date=id_date, bc_id=bc_id, bc_id_name=bc_id_name, bc_id_class=bc_id_class, bc_id_status=bc_id_status, bc_id_date=bc_id_date, num_available_seats=num_available_seats, num_bookings=num_bookings, id_paid=id_paid, bc_id_paid=bc_id_paid, event_date=config["event_date"], development_mode=config["development"], version=version, page_generation_date=page_generation_date)
 
 @app.route("/info")
 @disable_check
