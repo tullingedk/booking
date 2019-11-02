@@ -1,4 +1,5 @@
 *.pyc
+site/__pycache__
 site/override.config.json
 site/override.mysql.json
 site/flask_session

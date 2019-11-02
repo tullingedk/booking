@@ -2,13 +2,13 @@
 
 Bokningsystem för datorklubben på Tullinge gymnasium. Grunden kodades under 2018, mindre uppdateringar/förbättringar sedan dess.
 
-Kodat i Python 2.7 och modulen Flask. Se filen `requirements.txt` för alla "dependencies".
+Kodat i Python 3 och modulen Flask. Se filen `requirements.txt` för alla "dependencies".
 
 Produktionssida fins på [booking.vilhelmprytz.se](https://booking.vilhelmprytz.se).
 
 # Kom igång
 
-1. Installera python 2 moduler med hjälp av pip2. `pip install -r requirements.txt` (i en virtualenv förslagsvis?)
+1. Installera python 3 moduler med hjälp av pip3. `pip3 install -r requirements.txt` (i en virtualenv förslagsvis?)
 2. Uppdatera konfigurationsvariabler i `config.json` respektive `mysql.json` för att passa setup (använd `development` för att testa utan databas och med begränsad funktionalitet).
 3. Förslag i produktion: Använd gunicorn och supervisor för att köra applikationen (agerar som backend) med nginx som frontend (proxy_pass).
 

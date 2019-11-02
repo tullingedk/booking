@@ -1,10 +1,26 @@
-# Datorklubben Booking sytsem
-# (c) Vilhelm Prytz 2018-2019
-# https://www.vilhelmprytz.se
+#!/usr/bin/env python3
+
+##############################################################################################################
+#   _____        _             _    _       _     _                  ____              _    _                #
+#  |  __ \      | |           | |  | |     | |   | |                |  _ \            | |  (_)               #
+#  | |  | | __ _| |_ ___  _ __| | _| |_   _| |__ | |__   ___ _ __   | |_) | ___   ___ | | ___ _ __   __ _    #
+#  | |  | |/ _` | __/ _ \| '__| |/ / | | | | '_ \| '_ \ / _ \ '_ \  |  _ < / _ \ / _ \| |/ / | '_ \ / _` |   #
+#  | |__| | (_| | || (_) | |  |   <| | |_| | |_) | |_) |  __/ | | | | |_) | (_) | (_) |   <| | | | | (_| |   #
+#  |_____/ \__,_|\__\___/|_|  |_|\_\_|\__,_|_.__/|_.__/ \___|_| |_| |____/ \___/ \___/|_|\_\_|_| |_|\__, |   #
+#                                                                                                    __/ |   #
+#                                                                                                   |___/    #
+#                                                                                                            #
+# Copyright (C) 2018 - 2019, Vilhelm Prytz <vilhelm@prytznet.se>                                             #
+#                                                                                                            #
+# This project is closed source. Allowed usage only covers the computer club on Tullinge gymnasium, Sweden.  #
+# https://github.com/VilhelmPrytz/datorklubben-booking                                                       #
+#                                                                                                            #
+##############################################################################################################
 
 from flask import Flask, render_template, request, redirect, make_response, session, send_file
 from functools import wraps
 from db import *
+import string
 
 # Session Imports
 from flask_session.__init__ import Session
@@ -34,7 +50,9 @@ else:
     with open("config.json", 'r') as f:
         config = json.load(f)
 
+# illegal and legal characters
 ILLEGAL_CHARACTERS = ["<", ">", ";"]
+LEGAL_CHARACTERS = list(string.ascii_letters) + list(string.digits) + list(string.whitespace) + ["å", "ä", "ö", "Å", "Ä", "Ö", "@", "."]
 
 # Session Management
 SESSION_TYPE = 'filesystem'
@@ -111,7 +129,7 @@ def get_available_seats_list():
     """Returns list of available booking seats"""
 
     allBookings = get_bookings()
-    available_seats = range(1,61)
+    available_seats = list(range(1,61))
 
     if allBookings:
         for booking in allBookings:
@@ -178,7 +196,7 @@ def bc_get_available_seats_list():
     """Returns list of available bc_booking seats"""
     
     allBookings = bc_get_bookings()
-    available_seats = range(1,11)
+    available_seats = list(range(1,11))
 
     if allBookings:
         for booking in allBookings:
@@ -457,21 +475,40 @@ def api_admin_set_bc_booking_unpaid(id):
         sql_query("""UPDATE bc_bookings SET status = 1 WHERE seat=""" + str(id))
     return redirect("/maserati/admin?bc_id=" + str(id))
 
-@app.route("/api/book")
+@app.route("/api/book", methods=["POST"])
 @disable_check
 @login_required
 def api_book():
-    firstname = request.args.get("firstname")
-    lastname = request.args.get("lastname")
-    school_class = request.args.get("school_class")
-    email = request.args.get("email")
-    seat = request.args.get("seat")
+    validation = True
+
+    # check if only valid keys were sent
+    for key, value in request.form.items():
+        if key != "firstname" and key != "lastname" and key != "school_class" and key != "email" and key != "seat":
+            return redirect("/?fail=true")
+
+        if len(value) < 3 or len(value) > 50:
+            if key != "seat":
+                print(key)
+                print(value)
+                validation = False
+
+    firstname = request.form["firstname"]
+    lastname = request.form["lastname"]
+    school_class = request.form["school_class"]
+    email = request.form["email"]
+    seat = request.form["seat"]
+
+    if is_integer(seat) != True:
+        validation = False
 
     all_input_variables = firstname + lastname + school_class + email + seat
-    validation = True
     if any(x in all_input_variables for x in ILLEGAL_CHARACTERS):
         validation = False
 
+    # check for legal characters
+    if any(x not in LEGAL_CHARACTERS for x in all_input_variables):
+        validation = False
+    
     if "@skola.botkyrka.se" not in email:
         validation = False
 
@@ -483,21 +520,40 @@ def api_book():
     else:
         return redirect("/?fail=true")
 
-@app.route("/api/bc_book")
+@app.route("/api/bc_book", methods=["POST"])
 @disable_check
 @login_required
 def bc_api_book():
-    firstname = request.args.get("firstname")
-    lastname = request.args.get("lastname")
-    school_class = request.args.get("school_class")
-    email = request.args.get("email")
-    seat = request.args.get("seat")
+    validation = True
+
+    # check if only valid keys were sent
+    for key, value in request.form.items():
+        if key != "firstname" and key != "lastname" and key != "school_class" and key != "email" and key != "seat":
+            return redirect("/?fail=true")
+
+        if len(value) < 3 or len(value) > 50:
+            if key != "seat":
+                print(key)
+                print(value)
+                validation = False
+
+    firstname = request.form["firstname"]
+    lastname = request.form["lastname"]
+    school_class = request.form["school_class"]
+    email = request.form["email"]
+    seat = request.form["seat"]
+
+    if is_integer(seat) != True:
+        validation = False
 
     all_input_variables = firstname + lastname + school_class + email + seat
-    validation = True
     if any(x in all_input_variables for x in ILLEGAL_CHARACTERS):
         validation = False
 
+    # check for legal characters
+    if any(x not in LEGAL_CHARACTERS for x in all_input_variables):
+        validation = False
+    
     if "@skola.botkyrka.se" not in email:
         validation = False
 

@@ -1,5 +1,5 @@
 flask
 flask_session
-mysql-connector
+mysql-connector-python
 gunicorn
 qrcode[pil]

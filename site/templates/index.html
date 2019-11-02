@@ -4,6 +4,28 @@
   <link href="/static/style.css" rel="stylesheet">
   <link href="/static/mobile.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+
+<!--
+
+##############################################################################################################
+#   _____        _             _    _       _     _                  ____              _    _                #
+#  |  __ \      | |           | |  | |     | |   | |                |  _ \            | |  (_)               #
+#  | |  | | __ _| |_ ___  _ __| | _| |_   _| |__ | |__   ___ _ __   | |_) | ___   ___ | | ___ _ __   __ _    #
+#  | |  | |/ _` | __/ _ \| '__| |/ / | | | | '_ \| '_ \ / _ \ '_ \  |  _ < / _ \ / _ \| |/ / | '_ \ / _` |   #
+#  | |__| | (_| | || (_) | |  |   <| | |_| | |_) | |_) |  __/ | | | | |_) | (_) | (_) |   <| | | | | (_| |   #
+#  |_____/ \__,_|\__\___/|_|  |_|\_\_|\__,_|_.__/|_.__/ \___|_| |_| |____/ \___/ \___/|_|\_\_|_| |_|\__, |   #
+#                                                                                                    __/ |   #
+#                                                                                                   |___/    #
+#                                                                                                            #
+# Copyright (C) 2018 - 2019, Vilhelm Prytz <vilhelm@prytznet.se>                                             #
+#                                                                                                            #
+# This project is closed source. Allowed usage only covers the computer club on Tullinge gymnasium, Sweden.  #
+# https://booking.vilhelmprytz.se                                                                            #
+#                                                                                                            #
+##############################################################################################################
+
+-->
+
   <style>
     {% if id or bc_id or boka or bc_boka or swish_qr %}
     /* The Modal (background) */
@@ -88,7 +110,7 @@
       {% elif boka %}
       <p><b>Boka plats</b></p>
       <table border="1">
-          <form action="/api/book">
+          <form action="/api/book" method="post">
             <tr>
               <th>Förnamn</th>
               <th><input type="text" name="firstname" required></th>
@@ -123,7 +145,7 @@
       {% elif bc_boka %}
       <p><b>Boka konsol- och brädspelsplats plats</b></p>
       <table border="1">
-          <form action="/api/bc_book">
+          <form action="/api/bc_book" method="post">
             <tr>
               <th>Förnamn</th>
               <th><input type="text" name="firstname" required></th>
