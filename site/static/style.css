@@ -2,6 +2,10 @@
   font-family: Ubuntu;
 }
 
+body {
+    background-color: white;
+}
+
 .booking-row {
     float: left;
 }

@@ -552,3 +552,6 @@ def api_swish_bc_booking_qr(id):
             return send_file("static/temp_swish.png", mimetype="image/png")
         return "booking bc_id does not exist", 400
     return "id not defined or id not integer", 400
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')
