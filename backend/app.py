@@ -17,7 +17,7 @@
 #                                                                                                            #
 ##############################################################################################################
 
-from flask import Flask, render_template, request, redirect, make_response, session, send_file
+from flask import Flask, request, redirect, make_response, session, send_file
 from functools import wraps
 from db import *
 import string
