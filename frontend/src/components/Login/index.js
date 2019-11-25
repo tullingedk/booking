@@ -33,7 +33,7 @@ function Login() {
     const handleSubmit = (e) => {
         if (e) { e.preventDefault(); }
 
-        fetch('https://booking.vilhelmprytz.se/backend/user_login', {
+        fetch('https://booking.vilhelmprytz.se/backend/auth', {
             method: "POST",
             headers: {
                 "Accept": 'application/json',
