@@ -17,6 +17,9 @@
 #                                                                                                            #
 ##############################################################################################################
 
+import string
+import random
+
 def is_integer(variable):
     """checks if input variable is integer or not, returns bool"""
 
@@ -26,3 +29,9 @@ def is_integer(variable):
         return False
 
     return True
+
+def random_string(length = 10):
+    """Generate a random string of fixed length """
+
+    letters = string.ascii_lowercase + string.ascii_uppercase + string.digits
+    return ''.join(random.choice(letters) for i in range(length))

@@ -44,7 +44,7 @@ date DATETIME,
 PRIMARY KEY (seat)
 );""")
     except Exception:
-        print("bookings already exist")
+        print("bookings already exists")
 
 def bc_createDb():
     try:
@@ -59,8 +59,19 @@ date DATETIME,
 PRIMARY KEY (seat)
 );""")
     except Exception:
-        print("bc_bookings already exist")
+        print("bc_bookings already exists")
+
+def create_sessions():
+    try:
+        sql_query("""CREATE TABLE sessions (
+token VARCHAR(255) NOT NULL,
+expire DATETIME NOT NULL,
+PRIMARY KEY (token)
+);""")
+    except Exception:
+        print("sessions table already exists")
 
 if __name__ == "__main__":
     createDb()
     bc_createDb()
+    create_sessions()

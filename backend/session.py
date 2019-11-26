@@ -17,46 +17,36 @@
 #                                                                                                            #
 ##############################################################################################################
 
-# imports
-import json
-import os.path
-from flask import jsonify, request
-from functools import wraps
-from session import *
+from db import sql_query
+from tools import random_string
+from datetime import datetime, timedelta
 
-# config
-if os.path.exists("override.config.json"):
-    with open("override.config.json", 'r') as f:
-        config = json.load(f)
-else:
-    with open("config.json", 'r') as f:
-        config = json.load(f)
+def validate_session(token):
+    sessions = sql_query("SELECT * FROM sessions")
+    now = datetime.now()
 
-def disable_check(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        # check if system is in "disabled" mode
-        if config["disabled"]:
-            return jsonify({
-                "status": False,
-                "http_code": 401,
-                "message": "Bokningssystemet är stängt.",
-                "response": {}
-            }), 401
+    for session in sessions:
+        if token == session[0]:
+            if session[1] > now:
+                return True
+            else:
+                return False
 
-        return f(*args, **kwargs)
-    return decorated_function
+    return False
 
-def auth_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        # check for authentication
-        if not validate_session(request.json["token"]):
-            return jsonify({
-                "status": False,
-                "http_code": 401,
-                "message": "Felaktig autentisering.",
-                "response": {}
-            }), 401
-        return f(*args, **kwargs)
-    return decorated_function
+def new_session():
+    new_token = random_string(length = 255)
+    new_expire_date = datetime.now() + timedelta(minutes = 1)
+
+    sql_query(f'INSERT INTO sessions (token, expire) VALUES ("{new_token}", "{new_expire_date}")')
+
+    return new_token
+
+
+def clear_old_sessions():
+    sessions = sql_query("SELECT * FROM sessions")
+    now = datetime.now()
+
+    for session in sessions:
+        if session[1] < now:
+            sql_query('DELETE FROM sessions WHERE token="{}"'.format(str(session[0])))

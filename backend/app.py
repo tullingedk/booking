@@ -18,13 +18,15 @@
 ##############################################################################################################
 
 # imports
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
+from flask_cors import CORS
 import os.path
 
 # modules
 from tools import *
 from db import *
 from decorators import *
+from session import *
 from version import version
 from swish_qr_generator import generate_swish_qr
 
@@ -41,6 +43,7 @@ else:
 
 # flask application
 app = Flask(__name__)
+CORS(app)
 
 # functions
 def get_bookings():
@@ -97,23 +100,23 @@ def get_specific_bc_booking_details(id):
 # error routes
 @app.errorhandler(400)
 def error_400(e):
-    return jsonify({"status": False, "http_code": 400, "message": "bad request", "response": {}}), 400
+    return jsonify({"status": False, "http_code": 400, "message": "Felaktig begäran.", "response": {}}), 400
 
 @app.errorhandler(401)
 def error_401(e):
-    return jsonify({"status": False, "http_code": 401, "message": "unauthorized", "response": {}}), 401
+    return jsonify({"status": False, "http_code": 401, "message": "Åtkomst nekas.", "response": {}}), 401
 
 @app.errorhandler(404)
 def error_404(e):
-    return jsonify({"status": False, "http_code": 404, "message": "resource not found", "response": {}}), 404
+    return jsonify({"status": False, "http_code": 404, "message": "Resursen du söker hittades inte.", "response": {}}), 404
 
 @app.errorhandler(405)
 def error_405(e):
-    return jsonify({"status": False, "http_code": 405, "message": "method not allowed", "response": {}}), 405
+    return jsonify({"status": False, "http_code": 405, "message": "Felaktig begäran, ej tillåten metod.", "response": {}}), 405
 
 @app.errorhandler(500)
 def error_500(e):
-    return jsonify({"status": False, "http_code": 500, "message": "internal server error", "response": {}}), 500
+    return jsonify({"status": False, "http_code": 500, "message": "Internt serverfel inträffade.", "response": {}}), 500
 
 # application routes
 @app.route(f"{BASEPATH}/info", methods=["GET"])
@@ -135,17 +138,32 @@ def info():
 @app.route(f"{BASEPATH}/auth", methods=["POST"])
 @disable_check
 def auth():
+    if request.json["password"] == config["lock_password"]:
+        clear_old_sessions()
+        token = new_session()
+
+        if token != False:
+            return jsonify({
+                "status": True,
+                "http_code": 200,
+                "message": "request successful",
+                "response": {
+                    "session": token
+                }
+            })
+        else:
+            return error_500(None), 500
+    
     return jsonify({
-        "status": True,
-        "http_code": 200,
-        "message": "request successful",
-        "response": {
-            "session": None
-        }
+        "status": False,
+        "http_code": 401,
+        "message": "Felaktigt lösenord.",
+        "response": {}
     })
 
 @app.route(f"{BASEPATH}/bookings", methods=["POST"])
 @disable_check
+@auth_required
 def bookings():
     bookings = get_bookings()        
 
@@ -160,6 +178,7 @@ def bookings():
 
 @app.route(f"{BASEPATH}/bookings/<id>", methods=["POST"])
 @disable_check
+@auth_required
 def booking(id):
     if not is_integer(id):
         return error_400(None), 400
@@ -177,6 +196,7 @@ def booking(id):
 
 @app.route(f"{BASEPATH}/book", methods=["POST"])
 @disable_check
+@auth_required
 def book():
     return jsonify({
         "status": True,
@@ -189,6 +209,7 @@ def book():
 
 @app.route(f"{BASEPATH}/bc/bookings", methods=["POST"])
 @disable_check
+@auth_required
 def bc_bookings():
     bookings = get_bc_bookings()        
 
@@ -203,6 +224,7 @@ def bc_bookings():
 
 @app.route(f"{BASEPATH}/bc/bookings/<id>", methods=["POST"])
 @disable_check
+@auth_required
 def bc_booking(id):
     if not is_integer(id):
         return error_400(None), 400
@@ -220,6 +242,7 @@ def bc_booking(id):
 
 @app.route(f"{BASEPATH}/bc/book", methods=["POST"])
 @disable_check
+@auth_required
 def bc_book():
     return jsonify({
         "status": True,

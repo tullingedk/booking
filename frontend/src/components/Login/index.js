@@ -46,25 +46,28 @@ function Login() {
         .then(response => response.json())
         .then(data => {
             setStatusColor("red");
-            if (data.status === 201) {
-              console.log(data.message);
+            if (data.status === true) {
+              console.log(data);
 
               // clear variable
               setPassword("");
 
               // should set session cookie and redirect
-            } else if (data.status === 429) {
-              console.log(data.message)
-              setStatus("Du har skickat för många anrop, vänta en stund innan du försöker igen. Om problemet kvarstår, kontakta Prytz via Discord.");
-            } else if (data.status === 400) {
-              console.log(data.message);
-              setStatus(data.message);
-            } else if (data.status === 502) {
-              console.log("bad gateway, backend is down!")
-              setStatus("Något fungerar inte med våra servrar. Om problemet kvarstår, kontakta Prytz via Discord.")
+            } else if (data.http_code === 429) {
+                console.log(data)
+                setStatus("Du har skickat för många anrop, vänta en stund innan du försöker igen. Om problemet kvarstår, kontakta Prytz via Discord.");
+            } else if (data.http_code === 400) {
+                console.log(data);
+                setStatus(data.message);
+            } else if (data.http_code === 401) {
+                console.log(data)
+                setStatus(data.message)
+            } else if (data.http_code === 502) {
+                console.log("bad gateway, backend is down!")
+                setStatus("Något fungerar inte med våra servrar. Om problemet kvarstår, kontakta Prytz via Discord.")
             } else {
-              console.log(data.message);
-              setStatus("Okänt fel inträffat (felkod " + data.status + "): " + data.message);
+                console.log(data);
+                setStatus("Okänt fel inträffat (felkod " + data.http_code + "): " + data.message);
             }
         })
     };
