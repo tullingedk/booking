@@ -51,6 +51,7 @@ def auth_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         # check for authentication
+        clear_old_sessions()
         if not validate_session(request.json["token"]):
             return jsonify({
                 "status": False,

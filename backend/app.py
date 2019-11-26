@@ -49,10 +49,7 @@ CORS(app)
 def get_bookings():
     """Returns list of all bookings"""
 
-    if config["development"]:
-        return dev_bookings
-    else:
-        return sql_query("SELECT * FROM bookings")
+    return sql_query("SELECT * FROM bookings")
 
 def get_available_seats_list():
     """Returns list of available booking seats"""
@@ -82,11 +79,7 @@ def get_specific_booking_details(id):
 def get_bc_bookings():
     """Returns list of all bc_bookings"""
     
-    # if development
-    if config["development"]:
-        return dev_bc_bookings
-    else:
-        return sql_query("SELECT * FROM bc_bookings")
+    return sql_query("SELECT * FROM bc_bookings")
 
 def get_specific_bc_booking_details(id):
     """Returns list variable with bc_booking details of specified id"""
@@ -120,7 +113,6 @@ def error_500(e):
 
 # application routes
 @app.route(f"{BASEPATH}/info", methods=["GET"])
-@disable_check
 def info():
     return jsonify({
         "status": True,
@@ -128,8 +120,8 @@ def info():
         "message": "request successful",
         "response": {
             "version": version,
+            "disabled": config["disabled"],
             "event_date": config["event_date"],
-            "development_mode": config["development"],
             "int_available_seats": int(len(get_available_seats_list())),
             "int_booked_seats": int(len(get_bookings()))
         }
@@ -158,6 +150,18 @@ def auth():
         "status": False,
         "http_code": 401,
         "message": "Felaktigt lösenord.",
+        "response": {}
+    })
+
+@app.route(f"{BASEPATH}/validate_session", methods=["POST"])
+@disable_check
+@auth_required
+def validate_session():
+    # if come this far, user would be authenticated
+    return jsonify({
+        "status": True,
+        "http_code": 200,
+        "message": "Giltig session.",
         "response": {}
     })
 
