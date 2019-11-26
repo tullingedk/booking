@@ -161,7 +161,7 @@ def validate_session():
     return jsonify({
         "status": True,
         "http_code": 200,
-        "message": "Giltig session.",
+        "message": "valid session",
         "response": {}
     })
 

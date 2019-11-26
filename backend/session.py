@@ -36,7 +36,7 @@ def validate_session(token):
 
 def new_session():
     new_token = random_string(length = 255)
-    new_expire_date = datetime.now() + timedelta(minutes = 1)
+    new_expire_date = datetime.now() + timedelta(hours = 24)
 
     sql_query(f'INSERT INTO sessions (token, expire) VALUES ("{new_token}", "{new_expire_date}")')
 
