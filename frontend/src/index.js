@@ -7,17 +7,27 @@ import * as serviceWorker from './serviceWorker';
 
 import Login from './components/Login/index';
 import DisabledPage from './components/DisabledPage/index';
+import ErrorModal from './components/ErrorModal/index';
+import LoadingPage from './components/LoadingPage/index';
 
 import backend_url from './global_variables';
 
+
+// loading
+ReactDOM.render(<LoadingPage />, document.getElementById('root')); 
 
 fetch(`${backend_url}/backend/info`)
 .then((response) => {
     if(response.ok) {
         return response.json();
     } else {
-        throw new Error('Kunde inte kommunicera med server.');
+        console.error("Kunde inte kommunicera med backend-server.");
+        ReactDOM.render(<ErrorModal />, document.getElementById('root'));
     }
+})
+.catch(function(error) {
+    console.error("Kunde inte kommunicera med backend-server.");
+    ReactDOM.render(<ErrorModal />, document.getElementById('root'));
 })
 .then((json) => {
     console.log(json);

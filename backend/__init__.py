@@ -34,13 +34,13 @@ from db import sql_query
 def createDb():
     try:
         sql_query("""CREATE TABLE bookings (
-firstname VARCHAR(255),
-lastname VARCHAR(255),
+name VARCHAR(255),
 school_class VARCHAR(255),
 email VARCHAR(255),
 seat int NOT NULL,
 status int NOT NULL,
 date DATETIME,
+ip VARCHAR(255),
 PRIMARY KEY (seat)
 );""")
     except Exception:
@@ -49,13 +49,13 @@ PRIMARY KEY (seat)
 def bc_createDb():
     try:
         sql_query("""CREATE TABLE bc_bookings (
-firstname VARCHAR(255),
-lastname VARCHAR(255),
+name VARCHAR(255),
 school_class VARCHAR(255),
 email VARCHAR(255),
 seat int NOT NULL,
 status int NOT NULL,
 date DATETIME,
+ip VARCHAR(255),
 PRIMARY KEY (seat)
 );""")
     except Exception:

@@ -4,6 +4,7 @@ import './App.css';
 
 import BookModal from './components/BookModal/index';
 import BookingTable from './components/BookingTable/index';
+import InfoModal from './components/InfoModal/index';
 
 import backend_url from './global_variables';
 
@@ -17,6 +18,34 @@ const Container = styled.div`
 const Text = styled.p`
   padding: 0px;
   margin: auto;
+`
+
+const TableTitle = styled.h4`
+  text-align: left;
+  padding: 0px;
+  margin: auto;
+`
+
+const Row = styled.div`
+  width: 100%;
+
+  :after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+`
+
+const Column = styled.div`
+  float: left;
+  width: 63%;
+  padding: 0.5em;
+`
+
+const ColumnTwo = styled.div`
+  float: left;
+  width: 37%;
+  padding: 0.5em;
 `
 
 function App(props) {
@@ -42,8 +71,12 @@ function App(props) {
           throw new Error('Kunde inte kommunicera med server.');
       }
     })
+    .catch(function(error) {
+      console.error("Kunde inte kommunicera med backend-server.");
+    })
     .then((json) => {
-      console.log(json)
+      console.log(json);
+
       setBookings(json.response.bookings);
     });
 
@@ -82,38 +115,63 @@ function App(props) {
           modal_title="Boka en vanlig plats"
           modal_desc="Fyll i formuläret nedan för att boka en plats."
           request_url="/book"
+          available_seat_list_url="/available_seat_list"
           session_token={props.session_token}
         />
 
-        <BookModal 
+        <BookModal
           button_text="Boka en konsol- och brädsspelsplats"
           modal_title="Boka en konsol- och brädsspelsplats"
           modal_desc="Fyll i formuläret nedan för att boka en plats."
           request_url="/bc/book"
+          available_seat_list_url="/bc/available_seat_list"
           session_token={props.session_token}
         />
 
-        <BookingTable
-          start_range="0"
-          end_range="20"
-          columns="2"
-          bookings={bookings}
-        />
+        <InfoModal event_date={props.info_json.response.event_date}/>
 
-        <BookingTable
-          start_range="20"
-          end_range="40"
-          columns="2"
-          bookings={bookings}
-        />
+        <Text><b>OBS!</b> Läs informationen ovan innan du bokar en plats!</Text>
+        
+        <Row>
+          <Column>
+            <TableTitle>Vanliga platser</TableTitle>
 
-        <BookingTable
-          start_range="40"
-          end_range="60"
-          columns="2"
-          bookings={bookings}
-        />
+            <BookingTable
+              start_range="0"
+              end_range="20"
+              columns="2"
+              bookings={bookings}
+              seat_type={true}
+            />
 
+            <BookingTable
+              start_range="20"
+              end_range="36"
+              columns="2"
+              bookings={bookings}
+              seat_type={true}
+            />
+
+            <BookingTable
+              start_range="36"
+              end_range="48"
+              columns="2"
+              bookings={bookings}
+              seat_type={true}
+            />
+          </Column>
+          <ColumnTwo>
+            <TableTitle>Konsol- och brädsspelsplatser</TableTitle>
+
+            <BookingTable
+              start_range="0"
+              end_range="10"
+              columns="1"
+              bookings={bc_bookings}
+              seat_type={false}
+            />
+          </ColumnTwo>
+        </Row>
       </Container>
     </div>
   );

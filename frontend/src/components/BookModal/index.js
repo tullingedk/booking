@@ -1,22 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import styled from 'styled-components';
 
 import backend_url from './../../global_variables';
 
-let seat_list = [];
-for (var i = 0; i < 61; i++) { seat_list.push(i); };
+//let seat_list = [];
+//for (var i = 0; i < 61; i++) { seat_list.push(i); };
 
 function BookModal(props) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
 
     const [name, setName] = useState("");
+    const [schoolClass, setSchoolClass] = useState("");
     const [email, setEmail] = useState("");
-    const [seat, setSeat] = useState("");
+    const [seat, setSeat] = useState();
 
     const [status, setStatus] = useState(false);
     const [statusColor, setStatusColor] = useState("green");
+
+    const [availableSeatList, setAvailableSeatList] = useState("");
+
+    useEffect(() => {
+        fetch(`${backend_url}/backend${props.available_seat_list_url}`, {
+            method: "POST",
+            headers: {
+                "Accept": 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                token: props.session_token
+            })
+        })
+        .then((response) => {
+            if(response.ok) {
+                return response.json();
+            } else {
+                if (response.status === 502) {
+                    setStatus("Ett fel uppstod, kunde inte kommunicera med server. Kontakta Prytz via Discord om problemet kvarstår.");
+                    setStatusColor("red");
+                    throw new Error('Kunde inte kommunicera med server.');
+                } else {
+                    // other errors are handled by json
+                    return response.json();
+                }
+            }
+        })
+        .then((json) => {
+            if (json.http_code === 200) {
+                setAvailableSeatList(json.response.available_seat_list);
+                setSeat(availableSeatList[0]);
+            } else {
+                setStatus("Ett fel uppstod, kunde inte kommunicera med server. Kontakta Prytz via Discord om problemet kvarstår.");
+                setStatusColor("red");    
+            }
+        });
+    }, [show, props.session_token, props.available_seat_list_url]);
 
     const handleSubmit = (e) => {
         if (e) { e.preventDefault(); }
@@ -29,25 +67,46 @@ function BookModal(props) {
             },
             body: JSON.stringify({
                 token: props.session_token,
+                name: name,
+                class: schoolClass,
+                email: email,
+                seat: seat,
             })
         })
         .then((response) => {
             if(response.ok) {
                 return response.json();
             } else {
-                setStatus("Ett fel uppstod, kunde inte kommunicera med server.");
-                setStatusColor("red");
-                throw new Error('Kunde inte kommunicera med server.');
+                if (response.status === 502) {
+                    setStatus("Ett fel uppstod, kunde inte kommunicera med server. Kontakta Prytz via Discord om problemet kvarstår.");
+                    setStatusColor("red");
+                    throw new Error('Kunde inte kommunicera med server.');
+                } else {
+                    // other errors are handled by json
+                    return response.json();
+                }
+
             }
         })
         .then((json) => {
-            window.location.replace("/");
+            console.log(json.http_code + json.message)
+            setStatusColor("red");
+
+            if (json.http_code === 400) {
+                setStatus(json.message);
+            } else if (json.http_code === 500) {
+                setStatus(json.message)
+            } else if (json.http_code === 401) {
+                setStatus("Din session har gått ut. Ladda om sidan.")
+            } else if (json.http_code === 201) {
+                window.location.replace("/");
+            }
         });
     };
 
     return (
         <div>
-            <Button onClick={() => setShow(true)}>{props.button_text}</Button>
+            <Button style={{margin: "0.15em"}} onClick={() => setShow(true)}>{props.button_text}</Button>
         
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
@@ -63,6 +122,11 @@ function BookModal(props) {
                         </div>
 
                         <div className="form-group">
+                            <label>Klass</label>
+                            <input className="form-control" onChange={(e) => setSchoolClass(e.target.value)} value={schoolClass} type="text" name="name" required />
+                        </div>
+
+                        <div className="form-group">
                             <label>E-mail</label>
                             <input className="form-control" onChange={(e) => setEmail(e.target.value)} value={email} type="email" name="email" required />
                         </div>
@@ -70,9 +134,9 @@ function BookModal(props) {
                         <div className="form-group">
                             <label>Plats</label>
 
-                            <select className="form-control" required name="seat">
-                                {seat_list.map(function(object, i){
-                                    return <option value={i}>{i}</option>
+                            <select className="form-control" value={seat} onChange={(e) => setSeat(e.target.value)} required name="seat">
+                                {Array.from(availableSeatList).map(function(object){
+                                    return <option value={object}>{object}</option>
                                 })}
                             </select>
                         </div>
