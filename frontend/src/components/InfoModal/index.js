@@ -90,6 +90,9 @@ function InfoModal(props) {
                         <li>Hygienartiklar (det finns dusch i omklädningsrummet)</li>
                         <li>Snacks (om du inte litar på oss)</li>
                     </ul>
+
+                    <Header>Personuppgifter</Header>
+                    <Text>Denna sida använder en cookie för att hantera inloggningen. Bokningsuppgifter lagras i en skyddad databas som raderas efter LANet.</Text>
                 </div>
                 </Modal.Body>
                 <Modal.Footer>

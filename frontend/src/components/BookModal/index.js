@@ -106,6 +106,7 @@ function BookModal(props) {
                 setSchoolClass("");
                 setEmail("");
                 setSeat("");
+                setStatus("");
                 setShow(false);
             }
         });
@@ -130,7 +131,7 @@ function BookModal(props) {
 
                         <div className="form-group">
                             <label>Klass</label>
-                            <input className="form-control" onChange={(e) => setSchoolClass(e.target.value)} value={schoolClass} type="text" name="name" required />
+                            <input className="form-control" onChange={(e) => setSchoolClass(e.target.value)} value={schoolClass} type="text" name="school_class" required />
                         </div>
 
                         <div className="form-group">

@@ -103,10 +103,10 @@ def bc_get_available_seats_list():
 def get_specific_bc_booking_details(id):
     """Returns list variable with bc_booking details of specified id"""
 
-    allBookings = bc_get_bookings()
+    allBookings = get_bc_bookings()
 
     for booking in allBookings:
-        if int(id) == int(booking[4]):
+        if int(id) == int(booking[3]):
             return booking
 
 # error routes
@@ -263,6 +263,14 @@ def book():
         # check data
         for key, value in form_data.items():
             # check for extra/invalid keys
+            if len(form_data) != 5:
+                return jsonify({
+                    "status": False,
+                    "http_code": 400,
+                    "message": "Saknar variabler.",
+                    "response": {}
+                }), 400
+            
             if key != "token" and key != "name" and key != "class" and key != "email" and key != "seat":
                 return jsonify({
                     "status": False,
@@ -359,8 +367,6 @@ def book():
             remote_ip = request.environ['HTTP_X_FORWARDED_FOR']
 
         # create booking
-
-
         insert_booking = f"""INSERT INTO bookings (name, school_class, email, seat, status, date, ip) VALUES ('{name}', '{school_class}', '{email}', {seat}, 1, CURRENT_TIMESTAMP(), '{remote_ip}')"""
 
         # insert
@@ -494,6 +500,14 @@ def bc_book():
         # check data
         for key, value in form_data.items():
             # check for extra/invalid keys
+            if len(form_data) != 5:
+                return jsonify({
+                    "status": False,
+                    "http_code": 400,
+                    "message": "Saknar variabler.",
+                    "response": {}
+                }), 400
+            
             if key != "token" and key != "name" and key != "class" and key != "email" and key != "seat":
                 return jsonify({
                     "status": False,
@@ -590,8 +604,6 @@ def bc_book():
             remote_ip = request.environ['HTTP_X_FORWARDED_FOR']
 
         # create booking
-
-
         insert_booking = f"""INSERT INTO bc_bookings (name, school_class, email, seat, status, date, ip) VALUES ('{name}', '{school_class}', '{email}', {seat}, 1, CURRENT_TIMESTAMP(), '{remote_ip}')"""
 
         # insert
@@ -635,7 +647,7 @@ def bc_swish(id):
             school_class = clicked_booking[1]
             seat = clicked_booking[3]
 
-            generate_swish_qr(name, school_class, seat, 0) # 0 means normal seat
+            generate_swish_qr(name, school_class, seat, 1) # 1 means bc seat
 
             return send_file("static/temp_swish.png", mimetype="image/png")
         return jsonify({

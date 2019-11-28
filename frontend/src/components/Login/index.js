@@ -89,6 +89,7 @@ function Login() {
             <Container>
                 <Title>Datorklubben Bokningssystem - Inloggning</Title>
                 <Text>För att förhindra spam krävs ett lösenord.</Text>
+                <Text>Denna sida använder en cookie för att hantera inloggningen.</Text>
 
                 <LoginForm onSubmit={handleSubmit}>
                     <Form.Group controlId="password">

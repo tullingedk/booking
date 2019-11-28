@@ -97,7 +97,7 @@ function SeatModal(props) {
                         <Text>Status: {bookingStatus}</Text>
 
                         <div style={{display: showSwish ? 'block' : 'none' }} className="swish_qr">
-                            <img width="80%" height="80%" src={`${backend_url}/backend/swish/${props.id}`} alt={props.id} />
+                            <img width="80%" height="80%" src={`${backend_url}/backend${seatType ? '/' : '/bc/' }swish/${props.id}`} alt={props.id} />
                             <p>Denna bokning är markerad som ej betald. Du kan skanna koden ovan i Swish-appen (alla fälten fylls i automatiskt). Om du precis redan har Swishat så kan det ta ett tag innan vi manuellt registrerar betalningen.</p>
                             <p><i>Kontrolluppgifter: Telefonumret är <b>+46 73 033 31 85</b>. Mottagare i BankID ska stå som <b>VILHELM PRYTZ</b> (ekonomiansvarig).</i></p>
                         </div>
