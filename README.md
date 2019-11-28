@@ -14,7 +14,7 @@ Recommendation: use `supervisor` and `gunicorn` in conjunction with `nginx` `pro
 
 The frontend is coded in React. It's mean to be served under the project root, `/`. Replace the configuration value found in `src/global_variables.js` in order to match your setup. You can build the project using `npm run build`. Serve using `nginx`.
 
-### Admin frontend
+### Admin
 
 The admin frontend is coded in React. It's meant to be served un the `/admin` route. Replace the configuration value found in `src/global_variables.js` in order to match your setup. You can build the project using `npm run build`. Serve using `nginx`. Uses same backend as the public frontend.
 
@@ -22,4 +22,4 @@ The admin frontend is coded in React. It's meant to be served un the `/admin` ro
 
 * `backend`, application route `/backend` - Python 3 Flask backend application
 * `frontend`, application route `/` - React application, frontend
-* `admin-frontend`, application route `/admin` - React application, frontend
+* `admin`, application route `/admin` - React application, frontend

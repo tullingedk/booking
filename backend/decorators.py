@@ -83,7 +83,7 @@ def admin_required(f):
         
         # check if ip has changed
         session = get_session(request.json["token"])
-        if session[3] != remote_ip:
+        if session[2] != remote_ip:
             return jsonify({
                 "status": False,
                 "http_code": 401,
@@ -92,7 +92,7 @@ def admin_required(f):
             }), 401
 
         # check if admin
-        if session[2] != 1:
+        if session[3] != 1:
             return jsonify({
                 "status": False,
                 "http_code": 401,

@@ -1,0 +1,8 @@
+{
+  "short_name": "Datorklubben Bokningssystem",
+  "name": "Bokningssystem för Tullinge gymnasiums datorklubb",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

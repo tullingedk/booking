@@ -6,14 +6,12 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import Login from './components/Login/index';
-import DisabledPage from './components/DisabledPage/index';
 import ErrorModal from './components/ErrorModal/index';
-import LoadingPage from './components/LoadingPage/index';
 
 import backend_url from './global_variables';
 
 // loading
-ReactDOM.render(<LoadingPage />, document.getElementById('root')); 
+ReactDOM.render(<h1>Laddar...</h1>, document.getElementById('root')); 
 
 fetch(`${backend_url}/backend/info`)
 .then((response) => {
@@ -33,7 +31,7 @@ fetch(`${backend_url}/backend/info`)
 
     let Routing = App;
     if (json.response.disabled) {
-        Routing = DisabledPage;
+        Routing = () => {return (<h1>Bokningssystemet avstängt</h1>)};
     } else {
         // check for auth
         if (Cookies.get("session_token")) {

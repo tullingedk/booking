@@ -28,7 +28,7 @@ from tools import *
 from db import *
 from decorators import *
 from session import *
-from version import version
+from version import version, commit_hash
 from swish_qr_generator import generate_swish_qr
 
 # variables
@@ -139,6 +139,7 @@ def info():
         "message": "request successful",
         "response": {
             "version": version,
+            "commit_hash": commit_hash[0:6],
             "disabled": config["disabled"],
             "event_date": config["event_date"],
             "int_available_seats": int(len(get_available_seats_list())),
@@ -674,7 +675,7 @@ def admin_auth():
             remote_ip = request.environ['HTTP_X_FORWARDED_FOR']
         
         clear_old_sessions()
-        token = new_session(remote_ip, is_admin=False)
+        token = new_session(remote_ip, is_admin=True)
 
         if token != False:
             return jsonify({
@@ -695,48 +696,10 @@ def admin_auth():
         "response": {}
     })
 
-@app.route(f"{BASEPATH}/admin/paid/<id>")
+@app.route(f"{BASEPATH}/admin/paid/<id>", methods=["POST"])
 @disable_check
 @admin_required
 def admin_paid(id):
-    if is_integer(id):
-        booking = get_specific_booking_details(id)
-
-        if booking != None:
-            try:
-                sql_query(f'UPDATE bookings SET status=1 WHERE seat={id}')
-            except Exception:
-                return jsonify({
-                    "status": False,
-                    "http_code": 500,
-                    "message": "Ett internt serverfel inträffade.",
-                    "response": {}
-                }), 500
-
-            return jsonify({
-                "status": True,
-                "http_code": 200,
-                "message": "request successful",
-                "response": {}
-            })
-        return jsonify({
-            "status": False,
-            "http_code": 400,
-            "message": "Denna bokning existerar inte.",
-            "response": {}
-        }), 400
-    
-    return jsonify({
-        "status": False,
-        "http_code": 400,
-        "message": "id must be integer",
-        "response": {}
-    }), 400
-
-@app.route(f"{BASEPATH}/admin/unpaid/<id>")
-@disable_check
-@admin_required
-def admin_unpaid(id):
     if is_integer(id):
         booking = get_specific_booking_details(id)
 
@@ -770,7 +733,45 @@ def admin_unpaid(id):
         "message": "id must be integer",
         "response": {}
     }), 400
-@app.route(f"{BASEPATH}/admin/bc/paid/<id>")
+
+@app.route(f"{BASEPATH}/admin/unpaid/<id>", methods=["POST"])
+@disable_check
+@admin_required
+def admin_unpaid(id):
+    if is_integer(id):
+        booking = get_specific_booking_details(id)
+
+        if booking != None:
+            try:
+                sql_query(f'UPDATE bookings SET status=1 WHERE seat={id}')
+            except Exception:
+                return jsonify({
+                    "status": False,
+                    "http_code": 500,
+                    "message": "Ett internt serverfel inträffade.",
+                    "response": {}
+                }), 500
+
+            return jsonify({
+                "status": True,
+                "http_code": 200,
+                "message": "request successful",
+                "response": {}
+            })
+        return jsonify({
+            "status": False,
+            "http_code": 400,
+            "message": "Denna bokning existerar inte.",
+            "response": {}
+        }), 400
+    
+    return jsonify({
+        "status": False,
+        "http_code": 400,
+        "message": "id must be integer",
+        "response": {}
+    }), 400
+@app.route(f"{BASEPATH}/admin/bc/paid/<id>", methods=["POST"])
 @disable_check
 @admin_required
 def admin_bc_paid(id):
@@ -779,7 +780,7 @@ def admin_bc_paid(id):
 
         if booking != None:
             try:
-                sql_query(f'UPDATE bc_bookings SET status=1 WHERE seat={id}')
+                sql_query(f'UPDATE bc_bookings SET status=0 WHERE seat={id}')
             except Exception:
                 return jsonify({
                     "status": False,
@@ -808,7 +809,7 @@ def admin_bc_paid(id):
         "response": {}
     }), 400
 
-@app.route(f"{BASEPATH}/admin/bc/unpaid/<id>")
+@app.route(f"{BASEPATH}/admin/bc/unpaid/<id>", methods=["POST"])
 @disable_check
 @admin_required
 def admin_bc_unpaid(id):
@@ -817,7 +818,7 @@ def admin_bc_unpaid(id):
 
         if booking != None:
             try:
-                sql_query(f'UPDATE bc_bookings SET status=0 WHERE seat={id}')
+                sql_query(f'UPDATE bc_bookings SET status=1 WHERE seat={id}')
             except Exception:
                 return jsonify({
                     "status": False,

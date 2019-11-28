@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import './App.css';
 
-import BookModal from './components/BookModal/index';
 import BookingTable from './components/BookingTable/index';
-import InfoModal from './components/InfoModal/index';
 import ErrorModal from './components/ErrorModal/index';
 
 import backend_url from './global_variables';
@@ -126,30 +124,8 @@ function App(props) {
       <ErrorModal show_modal={updateFail} />
       <Container>
         <h1>Datorklubben Bokningssystem</h1>
-        <Text>Kör version {props.info_json.response.version} (commit <i>{props.info_json.response.commit_hash}</i>).</Text>
-        <Text>LAN-datum: {props.info_json.response.event_date}</Text>
+        <Text>Kör version {props.info_json.response.version}.</Text>
         <Text>{props.info_json.response.int_booked_seats} bokade platser, alltså {props.info_json.response.int_available_seats} lediga platser.</Text>
-        <BookModal
-          button_text="Boka en vanlig plats"
-          modal_title="Boka en vanlig plats"
-          modal_desc="Fyll i formuläret nedan för att boka en plats."
-          request_url="/book"
-          available_seat_list_url="/available_seat_list"
-          session_token={props.session_token}
-        />
-
-        <BookModal
-          button_text="Boka en konsol- och brädsspelsplats"
-          modal_title="Boka en konsol- och brädsspelsplats"
-          modal_desc="Fyll i formuläret nedan för att boka en plats."
-          request_url="/bc/book"
-          available_seat_list_url="/bc/available_seat_list"
-          session_token={props.session_token}
-        />
-
-        <InfoModal event_date={props.info_json.response.event_date}/>
-
-        <Text><b>OBS!</b> Läs informationen ovan innan du bokar en plats!</Text>
         
         <Row>
           <Column>
