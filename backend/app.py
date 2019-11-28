@@ -700,17 +700,36 @@ def admin_auth():
 @admin_required
 def admin_paid(id):
     if is_integer(id):
-        return jsonify({
-            "status": True,
-            "http_code": 200,
-            "message": "request successful",
-            "response": {}
-        })
+        booking = get_specific_booking_details(id)
 
+        if booking != None:
+            try:
+                sql_query(f'UPDATE bookings SET status=1 WHERE seat={id}')
+            except Exception:
+                return jsonify({
+                    "status": False,
+                    "http_code": 500,
+                    "message": "Ett internt serverfel inträffade.",
+                    "response": {}
+                }), 500
+
+            return jsonify({
+                "status": True,
+                "http_code": 200,
+                "message": "request successful",
+                "response": {}
+            })
+        return jsonify({
+            "status": False,
+            "http_code": 400,
+            "message": "Denna bokning existerar inte.",
+            "response": {}
+        }), 400
+    
     return jsonify({
         "status": False,
         "http_code": 400,
-        "message": "id has to be integer",
+        "message": "id must be integer",
         "response": {}
     }), 400
 
@@ -719,36 +738,73 @@ def admin_paid(id):
 @admin_required
 def admin_unpaid(id):
     if is_integer(id):
-        return jsonify({
-            "status": True,
-            "http_code": 200,
-            "message": "request successful",
-            "response": {}
-        })
+        booking = get_specific_booking_details(id)
 
+        if booking != None:
+            try:
+                sql_query(f'UPDATE bookings SET status=0 WHERE seat={id}')
+            except Exception:
+                return jsonify({
+                    "status": False,
+                    "http_code": 500,
+                    "message": "Ett internt serverfel inträffade.",
+                    "response": {}
+                }), 500
+
+            return jsonify({
+                "status": True,
+                "http_code": 200,
+                "message": "request successful",
+                "response": {}
+            })
+        return jsonify({
+            "status": False,
+            "http_code": 400,
+            "message": "Denna bokning existerar inte.",
+            "response": {}
+        }), 400
+    
     return jsonify({
         "status": False,
         "http_code": 400,
-        "message": "id has to be integer",
+        "message": "id must be integer",
         "response": {}
     }), 400
-
 @app.route(f"{BASEPATH}/admin/bc/paid/<id>")
 @disable_check
 @admin_required
 def admin_bc_paid(id):
     if is_integer(id):
-        return jsonify({
-            "status": True,
-            "http_code": 200,
-            "message": "request successful",
-            "response": {}
-        })
+        booking = get_specific_bc_booking_details(id)
 
+        if booking != None:
+            try:
+                sql_query(f'UPDATE bc_bookings SET status=1 WHERE seat={id}')
+            except Exception:
+                return jsonify({
+                    "status": False,
+                    "http_code": 500,
+                    "message": "Ett internt serverfel inträffade.",
+                    "response": {}
+                }), 500
+
+            return jsonify({
+                "status": True,
+                "http_code": 200,
+                "message": "request successful",
+                "response": {}
+            })
+        return jsonify({
+            "status": False,
+            "http_code": 400,
+            "message": "Denna bokning existerar inte.",
+            "response": {}
+        }), 400
+    
     return jsonify({
         "status": False,
         "http_code": 400,
-        "message": "id has to be integer",
+        "message": "id must be integer",
         "response": {}
     }), 400
 
@@ -757,17 +813,36 @@ def admin_bc_paid(id):
 @admin_required
 def admin_bc_unpaid(id):
     if is_integer(id):
-        return jsonify({
-            "status": True,
-            "http_code": 200,
-            "message": "request successful",
-            "response": {}
-        })
+        booking = get_specific_bc_booking_details(id)
 
+        if booking != None:
+            try:
+                sql_query(f'UPDATE bc_bookings SET status=0 WHERE seat={id}')
+            except Exception:
+                return jsonify({
+                    "status": False,
+                    "http_code": 500,
+                    "message": "Ett internt serverfel inträffade.",
+                    "response": {}
+                }), 500
+
+            return jsonify({
+                "status": True,
+                "http_code": 200,
+                "message": "request successful",
+                "response": {}
+            })
+        return jsonify({
+            "status": False,
+            "http_code": 400,
+            "message": "Denna bokning existerar inte.",
+            "response": {}
+        }), 400
+    
     return jsonify({
         "status": False,
         "http_code": 400,
-        "message": "id has to be integer",
+        "message": "id must be integer",
         "response": {}
     }), 400
 
