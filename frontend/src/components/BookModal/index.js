@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 import backend_url from './../../global_variables';
 
@@ -99,7 +101,12 @@ function BookModal(props) {
             } else if (json.http_code === 401) {
                 setStatus("Din session har gått ut. Ladda om sidan.")
             } else if (json.http_code === 201) {
-                window.location.replace("/");
+                NotificationManager.success('Din bokning är nu sparad', 'Bokningen lyckades');
+                setName("");
+                setSchoolClass("");
+                setEmail("");
+                setSeat("");
+                setShow(false);
             }
         });
     };
@@ -153,6 +160,7 @@ function BookModal(props) {
                 </Button>
                 </Modal.Footer>
             </Modal>
+            <NotificationContainer/>
         </div>
     )
 }

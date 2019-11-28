@@ -1,27 +1,25 @@
 # datorklubben-booking
 
-Bokningsystem för datorklubben på Tullinge gymnasium. Grunden kodades under 2018, mindre uppdateringar/förbättringar sedan dess.
+Booking system for Tullinge gymnasium datorklubb. Inital revision was coded during 2018, major overhaul in 2019 (split application into three).
 
-Kodat i Python 3 och modulen Flask. Se filen `requirements.txt` för alla "dependencies".
+Production application is available at [booking.vilhelmprytz.se](https://booking.vilhelmprytz.se).
 
-Produktionssida fins på [booking.vilhelmprytz.se](https://booking.vilhelmprytz.se).
+## Backend
 
-# Kom igång
+The backend is coded in Python 3 Flask. It's meant to be served under the `/backend` route. Install the required modules in `backend/requirements.txt` using `pip3` and update configuration values in `config.json` and `mysql.json` (if developing, you can use `override.config.json` and `override.mysql.json` to avoid configuration being commited to project).
 
-1. Installera python 3 moduler med hjälp av pip3. `pip3 install -r requirements.txt` (i en virtualenv förslagsvis?)
-2. Uppdatera konfigurationsvariabler i `config.json` respektive `mysql.json` för att passa setup (använd `development` för att testa utan databas och med begränsad funktionalitet).
-3. Förslag i produktion: Använd gunicorn och supervisor för att köra applikationen (agerar som backend) med nginx som frontend (proxy_pass).
+Recommendation: use `supervisor` and `gunicorn` in conjunction with `nginx` `proxy_pass` in order to serve the backend application.
 
-## Filstruktur
+## Frontend
 
-* `__init__.py` - initera MySQL tables
-* `app.py` - huvudfil, där applikationen initieras och Flask endpoints ligger
-* `db.py` - funktioner för kommunicering med MySQL
-* `swish_qr_generator.py` - funktioner för att generera QR koder (Swish QR)
-* `version.py` - variablen byts ut när jag deployar mot min webbserver till Git commit hash
+The frontend is coded in React. It's mean to be served under the project root, `/`. Replace the configuration value found in `src/global_variables.js` in order to match your setup. You can build the project using `npm run build`. Serve using `nginx`.
 
-* `mark_booking_as_paid.py` - skript för att markera bokning som betald, endast kommandorad
-* `remove_tables.py` - skript för att radera alla tables i MySQL, används när jag debuggar
+### Admin frontend
 
-* `config.json` - JSON fil för generell konfiguration
-* `mysql.json` - JSON fil för MySQL-uppgifter
+The admin frontend is coded in React. It's meant to be served un the `/admin` route. Replace the configuration value found in `src/global_variables.js` in order to match your setup. You can build the project using `npm run build`. Serve using `nginx`. Uses same backend as the public frontend.
+
+## File structure
+
+* `backend`, application route `/backend` - Python 3 Flask backend application
+* `frontend`, application route `/` - React application, frontend
+* `admin-frontend`, application route `/admin` - React application, frontend

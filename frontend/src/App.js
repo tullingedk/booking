@@ -5,12 +5,13 @@ import './App.css';
 import BookModal from './components/BookModal/index';
 import BookingTable from './components/BookingTable/index';
 import InfoModal from './components/InfoModal/index';
+import ErrorModal from './components/ErrorModal/index';
 
 import backend_url from './global_variables';
 
 const Container = styled.div`
   padding: 1em;
-  width: 100vmin;
+  width: 95vmax;
   margin: auto;
   text-align: center;
 `
@@ -52,8 +53,10 @@ function App(props) {
   const [bookings, setBookings] = useState(0);
   const [bc_bookings, setBcBookings] = useState(0);
 
-  // retrieves all bookings using token
-  useEffect(() => {
+  const [updateFail, setUpdateFail] = useState(false);
+
+  // get data
+  const getData = () => {
     fetch(`${backend_url}/backend/bookings`, {
       method: "POST",
       headers: {
@@ -68,15 +71,16 @@ function App(props) {
       if(response.ok) {
           return response.json();
       } else {
-          throw new Error('Kunde inte kommunicera med server.');
+        setUpdateFail(true);
+        throw new Error('Kunde inte kommunicera med server.');
       }
     })
     .catch(function(error) {
+      setUpdateFail(true);
       console.error("Kunde inte kommunicera med backend-server.");
     })
     .then((json) => {
       console.log(json);
-
       setBookings(json.response.bookings);
     });
 
@@ -94,17 +98,32 @@ function App(props) {
       if(response.ok) {
           return response.json();
       } else {
-          throw new Error('Kunde inte kommunicera med server.');
+        setUpdateFail(true);
+        throw new Error('Kunde inte kommunicera med server.');
       }
     })
     .then((json) => {
       console.log(json)
       setBcBookings(json.response.bookings);
     });
+  };
+
+  // retrieves all bookings using token
+  useEffect(() => {
+    getData();
   }, [props.session_token]);
+
+  // update every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getData();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="App">
+      <ErrorModal show_modal={updateFail} />
       <Container>
         <h1>Datorklubben Bokningssystem</h1>
         <Text>Kör version {props.info_json.response.version}.</Text>

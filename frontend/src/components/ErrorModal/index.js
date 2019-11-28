@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
 function reload() {
@@ -6,7 +6,11 @@ function reload() {
 }
 
 function ErrorModal(props) {
-    const [show] = useState(true);
+    const [show, setShow] = useState(props.show_modal);
+
+    useEffect(() => {
+        setShow(props.show_modal);
+    }, [props.show_modal]);
 
     return (
         <div>

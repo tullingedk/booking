@@ -22,7 +22,7 @@ const LoginForm = styled.form`
 
 const Container = styled.div`
     padding: 1em;
-    width: 100vmin;
+    width: 95vmax;
     margin: auto;
     text-align: center;
 `

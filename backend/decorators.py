@@ -61,3 +61,44 @@ def auth_required(f):
             }), 401
         return f(*args, **kwargs)
     return decorated_function
+
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        # get remote ip
+        if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+            remote_ip = request.environ['REMOTE_ADDR']
+        else:
+            remote_ip = request.environ['HTTP_X_FORWARDED_FOR']
+        
+        # check for authentication
+        clear_old_sessions()
+        if not validate_session(request.json["token"]):
+            return jsonify({
+                "status": False,
+                "http_code": 401,
+                "message": "Felaktig autentisering.",
+                "response": {}
+            }), 401
+        
+        # check if ip has changed
+        session = get_session(request.json["token"])
+        if session[3] != remote_ip:
+            return jsonify({
+                "status": False,
+                "http_code": 401,
+                "message": "user ip has changed",
+                "response": {}
+            }), 401
+
+        # check if admin
+        if session[2] != 1:
+            return jsonify({
+                "status": False,
+                "http_code": 401,
+                "message": "user is not admin",
+                "response": {}
+            }), 401
+        
+        return f(*args, **kwargs)
+    return decorated_function

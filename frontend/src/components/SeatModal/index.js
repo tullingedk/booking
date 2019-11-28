@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import styled from 'styled-components';
 
 import backend_url from './../../global_variables';
@@ -73,35 +73,45 @@ function SeatModal(props) {
     }, [props.seat_type])
 
     return (
-        <Container style={{backgroundColor: seatColor, cursor: cursor}}>
-            <Seat onClick={handleShow}>{props.children}</Seat>
+        <OverlayTrigger
+            placement="top"
+            delay={{ show: 250, hide: 400 }}
+            overlay={            
+                <Tooltip style={{display: blockShow ? 'none' : 'block' }} id={props.id}>
+                    {name} {schoolClass}
+                </Tooltip>
+            }
+        >
+            <Container style={{backgroundColor: seatColor, cursor: cursor}}>
+                <Seat onClick={handleShow}>{props.children}</Seat>
 
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                <Modal.Title>{seatType ? 'Plats' : 'Konsol- och brädspelssplats' } {props.id}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                <div>
-                    <Text>Namn: {name}</Text>
-                    <Text>Klass: {schoolClass}</Text>
-                    <Text>Bokades: {date}</Text>
-                    <Text>Status: {bookingStatus}</Text>
+                <Modal show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                    <Modal.Title>{seatType ? 'Plats' : 'Konsol- och brädspelssplats' } {props.id}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                    <div>
+                        <Text>Namn: {name}</Text>
+                        <Text>Klass: {schoolClass}</Text>
+                        <Text>Bokades: {date}</Text>
+                        <Text>Status: {bookingStatus}</Text>
 
-                    <div style={{display: showSwish ? 'block' : 'none' }} className="swish_qr">
-                        <img width="80%" height="80%" src={`${backend_url}/backend/swish/${props.id}`} alt={props.id} />
-                        <p>Denna bokning är markerad som ej betald. Du kan skanna koden ovan i Swish-appen (alla fälten fylls i automatiskt). Om du precis redan har Swishat så kan det ta ett tag innan vi manuellt registrerar betalningen.</p>
-                        <p><i>Kontrolluppgifter: Telefonumret är <b>+46 73 033 31 85</b>. Mottagare i BankID ska stå som <b>VILHELM PRYTZ</b> (ekonomiansvarig).</i></p>
+                        <div style={{display: showSwish ? 'block' : 'none' }} className="swish_qr">
+                            <img width="80%" height="80%" src={`${backend_url}/backend/swish/${props.id}`} alt={props.id} />
+                            <p>Denna bokning är markerad som ej betald. Du kan skanna koden ovan i Swish-appen (alla fälten fylls i automatiskt). Om du precis redan har Swishat så kan det ta ett tag innan vi manuellt registrerar betalningen.</p>
+                            <p><i>Kontrolluppgifter: Telefonumret är <b>+46 73 033 31 85</b>. Mottagare i BankID ska stå som <b>VILHELM PRYTZ</b> (ekonomiansvarig).</i></p>
+                        </div>
+                        
                     </div>
-                    
-                </div>
-                </Modal.Body>
-                <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Stäng
-                </Button>
-                </Modal.Footer>
-            </Modal>
-        </Container>
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Stäng
+                    </Button>
+                    </Modal.Footer>
+                </Modal>
+            </Container>
+        </OverlayTrigger>
     )
 }
 

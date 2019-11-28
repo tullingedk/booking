@@ -66,6 +66,8 @@ def create_sessions():
         sql_query("""CREATE TABLE sessions (
 token VARCHAR(255) NOT NULL,
 expire DATETIME NOT NULL,
+ip VARCHAR(255) NOT NULL,
+is_admin BOOLEAN NOT NULL,
 PRIMARY KEY (token)
 );""")
     except Exception:

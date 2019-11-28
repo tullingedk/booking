@@ -22,12 +22,12 @@ fetch(`${backend_url}/backend/info`)
         return response.json();
     } else {
         console.error("Kunde inte kommunicera med backend-server.");
-        ReactDOM.render(<ErrorModal />, document.getElementById('root'));
+        ReactDOM.render(<ErrorModal show_modal={true} />, document.getElementById('root'));
     }
 })
 .catch(function(error) {
     console.error("Kunde inte kommunicera med backend-server.");
-    ReactDOM.render(<ErrorModal />, document.getElementById('root'));
+    ReactDOM.render(<ErrorModal show_modal={true} />, document.getElementById('root'));
 })
 .then((json) => {
     console.log(json);

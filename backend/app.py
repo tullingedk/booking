@@ -150,8 +150,13 @@ def info():
 @disable_check
 def auth():
     if request.json["password"] == config["lock_password"]:
+        if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+            remote_ip = request.environ['REMOTE_ADDR']
+        else:
+            remote_ip = request.environ['HTTP_X_FORWARDED_FOR']
+        
         clear_old_sessions()
-        token = new_session()
+        token = new_session(remote_ip, is_admin=False)
 
         if token != False:
             return jsonify({
@@ -325,7 +330,7 @@ def book():
         
         # check if seat is already booked or if this user has booked any other
         name = form_data["name"]
-        school_class = form_data["class"]
+        school_class = form_data["class"].upper()
         email = form_data["email"]
         seat = form_data["seat"]
 
@@ -556,7 +561,7 @@ def bc_book():
         
         # check if seat is already booked or if this user has booked any other
         name = form_data["name"]
-        school_class = form_data["class"]
+        school_class = form_data["class"].upper()
         email = form_data["email"]
         seat = form_data["seat"]
 
@@ -643,6 +648,114 @@ def bc_swish(id):
         "status": False,
         "http_code": 400,
         "message": "id is not defined or not integer",
+        "response": {}
+    }), 400
+
+# admin routes
+@app.route(f"{BASEPATH}/admin/auth", methods=["POST"])
+@disable_check
+def admin_auth():
+    if request.json["password"] == config["admin_password"]:
+        if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+            remote_ip = request.environ['REMOTE_ADDR']
+        else:
+            remote_ip = request.environ['HTTP_X_FORWARDED_FOR']
+        
+        clear_old_sessions()
+        token = new_session(remote_ip, is_admin=False)
+
+        if token != False:
+            return jsonify({
+                "status": True,
+                "http_code": 200,
+                "message": "request successful",
+                "response": {
+                    "session": token
+                }
+            })
+        else:
+            return error_500(None), 500
+    
+    return jsonify({
+        "status": False,
+        "http_code": 401,
+        "message": "Felaktigt lösenord.",
+        "response": {}
+    })
+
+@app.route(f"{BASEPATH}/admin/paid/<id>")
+@disable_check
+@admin_required
+def admin_paid(id):
+    if is_integer(id):
+        return jsonify({
+            "status": True,
+            "http_code": 200,
+            "message": "request successful",
+            "response": {}
+        })
+
+    return jsonify({
+        "status": False,
+        "http_code": 400,
+        "message": "id has to be integer",
+        "response": {}
+    }), 400
+
+@app.route(f"{BASEPATH}/admin/unpaid/<id>")
+@disable_check
+@admin_required
+def admin_unpaid(id):
+    if is_integer(id):
+        return jsonify({
+            "status": True,
+            "http_code": 200,
+            "message": "request successful",
+            "response": {}
+        })
+
+    return jsonify({
+        "status": False,
+        "http_code": 400,
+        "message": "id has to be integer",
+        "response": {}
+    }), 400
+
+@app.route(f"{BASEPATH}/admin/bc/paid/<id>")
+@disable_check
+@admin_required
+def admin_bc_paid(id):
+    if is_integer(id):
+        return jsonify({
+            "status": True,
+            "http_code": 200,
+            "message": "request successful",
+            "response": {}
+        })
+
+    return jsonify({
+        "status": False,
+        "http_code": 400,
+        "message": "id has to be integer",
+        "response": {}
+    }), 400
+
+@app.route(f"{BASEPATH}/admin/bc/unpaid/<id>")
+@disable_check
+@admin_required
+def admin_bc_unpaid(id):
+    if is_integer(id):
+        return jsonify({
+            "status": True,
+            "http_code": 200,
+            "message": "request successful",
+            "response": {}
+        })
+
+    return jsonify({
+        "status": False,
+        "http_code": 400,
+        "message": "id has to be integer",
         "response": {}
     }), 400
 
