@@ -46,6 +46,10 @@ else:
     with open("config.json", 'r') as f:
         config = json.load(f)
 
+# validate some configuration values
+if len(config["lock_password"]) < 3 or len(config["lock_password"]) > 200 or len(config["admin_password"]) < 3 or len(config["admin_password"]) > 200:
+    raise Exception("passwords should be 3 to 200 characters long")
+
 # flask application
 app = Flask(__name__)
 CORS(app)
@@ -149,6 +153,15 @@ def info():
 @app.route(f"{BASEPATH}/auth", methods=["POST"])
 @disable_check
 def auth():
+    # check for invalid length
+    if len(request.json["password"]) < 3 or len(request.json["password"]) > 200:
+        return jsonify({
+            "status": False,
+            "http_code": 400,
+            "message": "invalid password length (3 to 200 characters)",
+            "response": {}
+        }), 400
+
     if request.json["password"] == config["lock_password"]:
         if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
             remote_ip = request.environ['REMOTE_ADDR']
@@ -694,6 +707,15 @@ def bc_swish(id):
 @app.route(f"{BASEPATH}/admin/auth", methods=["POST"])
 @disable_check
 def admin_auth():
+    # check for invalid length
+    if len(request.json["password"]) < 3 or len(request.json["password"]) > 200:
+        return jsonify({
+            "status": False,
+            "http_code": 400,
+            "message": "invalid password length (3 to 200 characters)",
+            "response": {}
+        }), 400
+    
     if request.json["password"] == config["admin_password"]:
         if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
             remote_ip = request.environ['REMOTE_ADDR']

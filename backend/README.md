@@ -2,6 +2,10 @@
 
 Backend written in Python 3, Flask.
 
+## Configuration
+
+Update `config.json` and `mysql.json` with appropriate values. Passwords should be between 3 and 200 characters long.
+
 ## Routes
 
 ### Entrypoint

@@ -1,4 +1,7 @@
-# v2.0.0 (release on 2019-11-29)
+# v2.0.1 (in development)
+* Solve issue #3 - passwords cannot be longer than 50 characters. Length has been limited to 200 characters.
+
+# v2.0.0 (released on 2019-11-29)
 * Major re-work
 * Split project into three (backend, frontend, admin)
 * Backend now only returns JSON responses

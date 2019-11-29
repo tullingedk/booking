@@ -81,7 +81,7 @@ function Login() {
     };
 
     const validateForm = () => {
-        return password.length >= 3 && password.length < 50;
+        return password.length >= 3 && password.length < 200;
     };
 
     return (
