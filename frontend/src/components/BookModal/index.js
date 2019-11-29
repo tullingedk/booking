@@ -5,9 +5,6 @@ import 'react-notifications/lib/notifications.css';
 
 import backend_url from './../../global_variables';
 
-//let seat_list = [];
-//for (var i = 0; i < 61; i++) { seat_list.push(i); };
-
 function BookModal(props) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);

@@ -20,11 +20,10 @@
 import os.path
 import string
 
-# imports
-from flask import Flask, jsonify, request, send_file
-
 from db import *
 from decorators import *
+# imports
+from flask import Flask, jsonify, request, send_file
 from flask_cors import CORS
 from session import *
 from swish_qr_generator import generate_swish_qr

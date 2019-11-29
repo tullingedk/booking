@@ -23,7 +23,6 @@ import os.path
 from functools import wraps
 
 from flask import jsonify, request
-
 from session import *
 
 # config
