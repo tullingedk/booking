@@ -1,8 +1,0 @@
-{
-  "lock_password": "",
-  "event_date": "",
-  "admin_password": "",
-  "disabled": false,
-  "development": false,
-  "session_path": "flask_session"
-}
