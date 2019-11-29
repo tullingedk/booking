@@ -17,9 +17,11 @@
 #                                                                                                            #
 ##############################################################################################################
 
+from datetime import datetime, timedelta
+
 from db import sql_query
 from tools import random_string
-from datetime import datetime, timedelta
+
 
 def validate_session(token):
     sessions = sql_query("SELECT * FROM sessions")

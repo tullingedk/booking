@@ -17,10 +17,10 @@
 #                                                                                                            #
 ##############################################################################################################
 
-import mysql.connector
-
 import json
 import os.path
+
+import mysql.connector
 
 if os.path.exists("override.mysql.json"):
     with open("override.mysql.json", 'r') as f:

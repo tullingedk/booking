@@ -17,19 +17,19 @@
 #                                                                                                            #
 ##############################################################################################################
 
+import os.path
+import string
+
 # imports
 from flask import Flask, jsonify, request, send_file
-from flask_cors import CORS
-import string
-import os.path
 
-# modules
-from tools import *
 from db import *
 from decorators import *
+from flask_cors import CORS
 from session import *
-from version import version, commit_hash
 from swish_qr_generator import generate_swish_qr
+from tools import *
+from version import commit_hash, version
 
 # variables
 ILLEGAL_CHARACTERS = ["<", ">", ";"]

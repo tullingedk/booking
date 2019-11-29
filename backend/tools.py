@@ -17,8 +17,9 @@
 #                                                                                                            #
 ##############################################################################################################
 
-import string
 import random
+import string
+
 
 def is_integer(variable):
     """checks if input variable is integer or not, returns bool"""
