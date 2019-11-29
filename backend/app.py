@@ -182,13 +182,40 @@ def auth():
 @disable_check
 @auth_required
 def validate_session():
+    # get user session
+    session = get_session(request.json["token"])
+
     # if come this far, user would be authenticated
     return jsonify({
         "status": True,
         "http_code": 200,
         "message": "valid session",
-        "response": {}
+        "response": {
+            "is_admin": session[3]
+        }
     })
+
+@app.route(f"{BASEPATH}/logout", methods=["POST"])
+@disable_check
+@auth_required
+def logout():
+    # get user session
+    session = get_session(request.json["token"])
+
+    if destroy_session(request.json["token"]):
+        return jsonify({
+            "status": True,
+            "http_code": 200,
+            "message": "session destroyed",
+            "response": {}
+        })
+    
+    return jsonify({
+        "status": False,
+        "http_code": 500,
+        "message": "Internal server error - unable to destroy session",
+        "response": {}
+    }), 500
 
 # bookings
 @app.route(f"{BASEPATH}/bookings", methods=["POST"])

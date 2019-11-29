@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { Button } from 'react-bootstrap';
+import Cookies from 'js-cookie';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 import './App.css';
 
 import BookingTable from './components/BookingTable/index';
@@ -52,6 +55,49 @@ function App(props) {
   const [bc_bookings, setBcBookings] = useState(0);
 
   const [updateFail, setUpdateFail] = useState(false);
+
+  const handleLogout = (e) => {
+    if (e) { e.preventDefault(); }
+    
+    fetch(`${backend_url}/backend/logout`, {
+      method: "POST",
+      headers: {
+          "Accept": 'application/json',
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+          token: props.session_token,
+      })
+    })
+    .then((response) => {
+        if(response.ok) {
+            return response.json();
+        } else {
+            if (response.status === 502) {
+                NotificationManager.error("Kunde inte kommunicera med server", 'Ett fel uppstod');
+                throw new Error('Kunde inte kommunicera med server.');
+            } else {
+                // other errors are handled by json
+                return response.json();
+            }
+
+        }
+    })
+    .then((json) => {
+        console.log(json.http_code + json.message)
+
+        if (json.http_code === 400) {
+            NotificationManager.error(json.message, 'Ett fel uppstod');
+        } else if (json.http_code === 500) {
+            NotificationManager.error(json.message, 'Ett fel uppstod');
+        } else if (json.http_code === 401) {
+            NotificationManager.error(json.message, 'Ett fel uppstod');
+        } else if (json.http_code === 200) {
+            Cookies.remove('session_token');
+            window.location.replace("/");
+        }
+    });
+  }
 
   // get data
   const getData = () => {
@@ -127,6 +173,10 @@ function App(props) {
         <Text>Kör version {props.info_json.response.version} (commit <i>{props.info_json.response.commit_hash}</i>).</Text>
         <Text>{props.info_json.response.int_booked_seats} bokade platser, alltså {props.info_json.response.int_available_seats} lediga platser.</Text>
         
+        <form onSubmit={handleLogout}>
+          <Button style={{margin: "0.15em"}} type="submit">Logga ut</Button>
+        </form>
+
         <Row>
           <Column>
             <TableTitle>Vanliga platser</TableTitle>
@@ -172,6 +222,7 @@ function App(props) {
           </ColumnTwo>
         </Row>
       </Container>
+      <NotificationContainer />
     </div>
   );
 }

@@ -8,6 +8,7 @@ Backend written in Python 3, Flask.
 * `/backend/info` - returns general system information
 * `/backend/auth` - authentication, used for creating user sessions
 * `/backend/validate_session` - validate user token to see if valid or expired
+* `/backend/logout` - destroy user session
 
 ### Bookings
 * `/backend/bookings` - returns list of all bookings with all information
