@@ -1,5 +1,5 @@
-# v2.0.0 (development)
-* Major rehaul
+# v2.0.0 (release on 2019-11-29)
+* Major re-work
 * Split project into three (backend, frontend, admin)
 * Backend now only returns JSON responses
 * Frontend has been rewritten in React
