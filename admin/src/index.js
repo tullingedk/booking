@@ -51,10 +51,10 @@ fetch(`${backend_url}/backend/info`)
 
                 if (data.status === false) {
                     Cookies.remove('session_token');
-                    window.location.replace("/");
+                    window.location.replace("/admin");
                 } else if (data.response.is_admin === 0) {
                     Cookies.remove('session_token');
-                    window.location.replace("/");
+                    window.location.replace("/admin");
                 }
             });
         } else {

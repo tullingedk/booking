@@ -95,7 +95,7 @@ function App(props) {
             NotificationManager.error(json.message, 'Ett fel uppstod');
         } else if (json.http_code === 200) {
             Cookies.remove('session_token');
-            window.location.replace("/");
+            window.location.replace("/admin");
         }
     });
   }

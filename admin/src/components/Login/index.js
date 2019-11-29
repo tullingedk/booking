@@ -55,7 +55,7 @@ function Login() {
                 Cookies.set('session_token', data.response.session, { expires: 7, path: '/' })
 
                 // redirect
-                window.location.replace("/");
+                window.location.replace("/admin");
 
             } else if (data.http_code === 429) {
                 console.log(data)
