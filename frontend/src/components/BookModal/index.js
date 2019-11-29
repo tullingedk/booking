@@ -137,6 +137,7 @@ function BookModal(props) {
                         <div className="form-group">
                             <label>E-mail</label>
                             <input className="form-control" onChange={(e) => setEmail(e.target.value)} value={email} type="email" name="email" required />
+                            <small id="emailHelp" class="form-text text-muted">Du måste ange din skolmailadress. Detta är för att förhindra spam.</small>
                         </div>
 
                         <div className="form-group">

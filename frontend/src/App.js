@@ -12,6 +12,7 @@ import backend_url from './global_variables';
 const Container = styled.div`
   padding: 1em;
   width: 95vmax;
+  max-width: 950px;
   margin: auto;
   text-align: center;
 `
