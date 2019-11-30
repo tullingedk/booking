@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { Button } from 'react-bootstrap';
-import Cookies from 'js-cookie';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { Button } from "react-bootstrap";
+import Cookies from "js-cookie";
+import {
+  NotificationContainer,
+  NotificationManager
+} from "react-notifications";
+import "./App.css";
 
-import BookingTable from './components/BookingTable/index';
-import ErrorModal from './components/ErrorModal/index';
+import BookingTable from "./components/BookingTable/index";
+import ErrorModal from "./components/ErrorModal/index";
 
-import backend_url from './global_variables';
+import backend_url from "./global_variables";
 
 const Container = styled.div`
   padding: 1em;
@@ -16,18 +19,18 @@ const Container = styled.div`
   max-width: 950px;
   margin: auto;
   text-align: center;
-`
+`;
 
 const Text = styled.p`
   padding: 0px;
   margin: auto;
-`
+`;
 
 const TableTitle = styled.h4`
   text-align: left;
   padding: 0px;
   margin: auto;
-`
+`;
 
 const Row = styled.div`
   width: 100%;
@@ -37,19 +40,19 @@ const Row = styled.div`
     display: table;
     clear: both;
   }
-`
+`;
 
 const Column = styled.div`
   float: left;
   width: 63%;
   padding: 0.5em;
-`
+`;
 
 const ColumnTwo = styled.div`
   float: left;
   width: 37%;
   padding: 0.5em;
-`
+`;
 
 function App(props) {
   const [bookings, setBookings] = useState(0);
@@ -57,100 +60,104 @@ function App(props) {
 
   const [updateFail, setUpdateFail] = useState(false);
 
-  const handleLogout = (e) => {
-    if (e) { e.preventDefault(); }
-    
+  const handleLogout = e => {
+    if (e) {
+      e.preventDefault();
+    }
+
     fetch(`${backend_url}/backend/logout`, {
       method: "POST",
       headers: {
-          "Accept": 'application/json',
-          'Content-Type': 'application/json',
+        Accept: "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-          token: props.session_token,
+        token: props.session_token
       })
     })
-    .then((response) => {
-        if(response.ok) {
-            return response.json();
+      .then(response => {
+        if (response.ok) {
+          return response.json();
         } else {
-            if (response.status === 502) {
-                NotificationManager.error("Kunde inte kommunicera med server", 'Ett fel uppstod');
-                throw new Error('Kunde inte kommunicera med server.');
-            } else {
-                // other errors are handled by json
-                return response.json();
-            }
-
+          if (response.status === 502) {
+            NotificationManager.error(
+              "Kunde inte kommunicera med server",
+              "Ett fel uppstod"
+            );
+            throw new Error("Kunde inte kommunicera med server.");
+          } else {
+            // other errors are handled by json
+            return response.json();
+          }
         }
-    })
-    .then((json) => {
-        console.log(json.http_code + json.message)
+      })
+      .then(json => {
+        console.log(json.http_code + json.message);
 
         if (json.http_code === 400) {
-            NotificationManager.error(json.message, 'Ett fel uppstod');
+          NotificationManager.error(json.message, "Ett fel uppstod");
         } else if (json.http_code === 500) {
-            NotificationManager.error(json.message, 'Ett fel uppstod');
+          NotificationManager.error(json.message, "Ett fel uppstod");
         } else if (json.http_code === 401) {
-            NotificationManager.error(json.message, 'Ett fel uppstod');
+          NotificationManager.error(json.message, "Ett fel uppstod");
         } else if (json.http_code === 200) {
-            Cookies.remove('session_token');
-            window.location.replace("/admin");
+          Cookies.remove("session_token");
+          window.location.replace("/admin");
         }
-    });
-  }
+      });
+  };
 
   // get data
   const getData = () => {
     fetch(`${backend_url}/backend/bookings`, {
       method: "POST",
       headers: {
-          "Accept": 'application/json',
-          'Content-Type': 'application/json',
+        Accept: "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-          token: props.session_token,
+        token: props.session_token
       })
     })
-    .then((response) => {
-      if(response.ok) {
+      .then(response => {
+        if (response.ok) {
           return response.json();
-      } else {
+        } else {
+          setUpdateFail(true);
+          throw new Error("Kunde inte kommunicera med server.");
+        }
+      })
+      .catch(function(error) {
         setUpdateFail(true);
-        throw new Error('Kunde inte kommunicera med server.');
-      }
-    })
-    .catch(function(error) {
-      setUpdateFail(true);
-      console.error("Kunde inte kommunicera med backend-server.");
-    })
-    .then((json) => {
-      console.log(json);
-      setBookings(json.response.bookings);
-    });
+        console.error("Kunde inte kommunicera med backend-server.");
+      })
+      .then(json => {
+        console.log(json);
+        setBookings(json.response.bookings);
+      });
 
     fetch(`${backend_url}/backend/bc/bookings`, {
       method: "POST",
       headers: {
-          "Accept": 'application/json',
-          'Content-Type': 'application/json',
+        Accept: "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-          token: props.session_token,
+        token: props.session_token
       })
     })
-    .then((response) => {
-      if(response.ok) {
+      .then(response => {
+        if (response.ok) {
           return response.json();
-      } else {
-        setUpdateFail(true);
-        throw new Error('Kunde inte kommunicera med server.');
-      }
-    })
-    .then((json) => {
-      console.log(json)
-      setBcBookings(json.response.bookings);
-    });
+        } else {
+          setUpdateFail(true);
+          throw new Error("Kunde inte kommunicera med server.");
+        }
+      })
+      .then(json => {
+        console.log(json);
+        setBcBookings(json.response.bookings);
+      });
   };
 
   // retrieves all bookings using token
@@ -171,11 +178,19 @@ function App(props) {
       <ErrorModal show_modal={updateFail} />
       <Container>
         <h1>Datorklubben Bokningssystem</h1>
-        <Text>Kör version {props.info_json.response.version} (commit <i>{props.info_json.response.commit_hash}</i>).</Text>
-        <Text>{props.info_json.response.int_booked_seats} bokade platser, alltså {props.info_json.response.int_available_seats} lediga platser.</Text>
-        
+        <Text>
+          Kör version {props.info_json.response.version} (commit{" "}
+          <i>{props.info_json.response.commit_hash}</i>).
+        </Text>
+        <Text>
+          {props.info_json.response.int_booked_seats} bokade platser, alltså{" "}
+          {props.info_json.response.int_available_seats} lediga platser.
+        </Text>
+
         <form onSubmit={handleLogout}>
-          <Button style={{margin: "0.15em"}} type="submit">Logga ut</Button>
+          <Button style={{ margin: "0.15em" }} type="submit">
+            Logga ut
+          </Button>
         </form>
 
         <Row>

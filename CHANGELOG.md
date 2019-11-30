@@ -1,4 +1,5 @@
 # next-release
+* Use code formatter [prettier](https://prettier.io/) on frontend and admin.
 * Use code formatter [black](https://github.com/psf/black) on backend.
 
 # v2.0.1 (released on 2019-11-29)
