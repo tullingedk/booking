@@ -23,17 +23,21 @@ import os.path
 import mysql.connector
 
 if os.path.exists("override.mysql.json"):
-    with open("override.mysql.json", 'r') as f:
+    with open("override.mysql.json", "r") as f:
         mysql_config = json.load(f)
 else:
-    with open("mysql.json", 'r') as f:
+    with open("mysql.json", "r") as f:
         mysql_config = json.load(f)
+
 
 def dbConnection():
     try:
-        cnx = mysql.connector.connect(user=mysql_config["username"], password=mysql_config["password"],
-                              host=mysql_config["host"],
-                              database=mysql_config["database"])
+        cnx = mysql.connector.connect(
+            user=mysql_config["username"],
+            password=mysql_config["password"],
+            host=mysql_config["host"],
+            database=mysql_config["database"],
+        )
     except mysql.connector.Error as err:
         print(err)
         print("error")

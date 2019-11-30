@@ -31,9 +31,11 @@ from db import sql_query
 #       1: booked and paid
 #       0: booked, not paid
 
+
 def createDb():
     try:
-        sql_query("""CREATE TABLE bookings (
+        sql_query(
+            """CREATE TABLE bookings (
 name VARCHAR(255),
 school_class VARCHAR(255),
 email VARCHAR(255),
@@ -42,13 +44,16 @@ status int NOT NULL,
 date DATETIME,
 ip VARCHAR(255),
 PRIMARY KEY (seat)
-);""")
+);"""
+        )
     except Exception:
         print("bookings already exists")
 
+
 def bc_createDb():
     try:
-        sql_query("""CREATE TABLE bc_bookings (
+        sql_query(
+            """CREATE TABLE bc_bookings (
 name VARCHAR(255),
 school_class VARCHAR(255),
 email VARCHAR(255),
@@ -57,21 +62,26 @@ status int NOT NULL,
 date DATETIME,
 ip VARCHAR(255),
 PRIMARY KEY (seat)
-);""")
+);"""
+        )
     except Exception:
         print("bc_bookings already exists")
 
+
 def create_sessions():
     try:
-        sql_query("""CREATE TABLE sessions (
+        sql_query(
+            """CREATE TABLE sessions (
 token VARCHAR(255) NOT NULL,
 expire DATETIME NOT NULL,
 ip VARCHAR(255) NOT NULL,
 is_admin BOOLEAN NOT NULL,
 PRIMARY KEY (token)
-);""")
+);"""
+        )
     except Exception:
         print("sessions table already exists")
+
 
 if __name__ == "__main__":
     createDb()

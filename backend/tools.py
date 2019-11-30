@@ -31,8 +31,9 @@ def is_integer(variable):
 
     return True
 
-def random_string(length = 10):
+
+def random_string(length=10):
     """Generate a random string of fixed length """
 
     letters = string.ascii_lowercase + string.ascii_uppercase + string.digits
-    return ''.join(random.choice(letters) for i in range(length))
+    return "".join(random.choice(letters) for i in range(length))

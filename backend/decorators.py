@@ -27,26 +27,34 @@ from session import *
 
 # config
 if os.path.exists("override.config.json"):
-    with open("override.config.json", 'r') as f:
+    with open("override.config.json", "r") as f:
         config = json.load(f)
 else:
-    with open("config.json", 'r') as f:
+    with open("config.json", "r") as f:
         config = json.load(f)
+
 
 def disable_check(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         # check if system is in "disabled" mode
         if config["disabled"]:
-            return jsonify({
-                "status": False,
-                "http_code": 401,
-                "message": "Bokningssystemet är stängt.",
-                "response": {}
-            }), 401
+            return (
+                jsonify(
+                    {
+                        "status": False,
+                        "http_code": 401,
+                        "message": "Bokningssystemet är stängt.",
+                        "response": {},
+                    }
+                ),
+                401,
+            )
 
         return f(*args, **kwargs)
+
     return decorated_function
+
 
 def auth_required(f):
     @wraps(f)
@@ -54,52 +62,75 @@ def auth_required(f):
         # check for authentication
         clear_old_sessions()
         if not validate_session(request.json["token"]):
-            return jsonify({
-                "status": False,
-                "http_code": 401,
-                "message": "Felaktig autentisering.",
-                "response": {}
-            }), 401
+            return (
+                jsonify(
+                    {
+                        "status": False,
+                        "http_code": 401,
+                        "message": "Felaktig autentisering.",
+                        "response": {},
+                    }
+                ),
+                401,
+            )
         return f(*args, **kwargs)
+
     return decorated_function
+
 
 def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         # get remote ip
-        if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-            remote_ip = request.environ['REMOTE_ADDR']
+        if request.environ.get("HTTP_X_FORWARDED_FOR") is None:
+            remote_ip = request.environ["REMOTE_ADDR"]
         else:
-            remote_ip = request.environ['HTTP_X_FORWARDED_FOR']
-        
+            remote_ip = request.environ["HTTP_X_FORWARDED_FOR"]
+
         # check for authentication
         clear_old_sessions()
         if not validate_session(request.json["token"]):
-            return jsonify({
-                "status": False,
-                "http_code": 401,
-                "message": "Felaktig autentisering.",
-                "response": {}
-            }), 401
-        
+            return (
+                jsonify(
+                    {
+                        "status": False,
+                        "http_code": 401,
+                        "message": "Felaktig autentisering.",
+                        "response": {},
+                    }
+                ),
+                401,
+            )
+
         # check if ip has changed
         session = get_session(request.json["token"])
         if session[2] != remote_ip:
-            return jsonify({
-                "status": False,
-                "http_code": 401,
-                "message": "user ip has changed",
-                "response": {}
-            }), 401
+            return (
+                jsonify(
+                    {
+                        "status": False,
+                        "http_code": 401,
+                        "message": "user ip has changed",
+                        "response": {},
+                    }
+                ),
+                401,
+            )
 
         # check if admin
         if session[3] != 1:
-            return jsonify({
-                "status": False,
-                "http_code": 401,
-                "message": "user is not admin",
-                "response": {}
-            }), 401
-        
+            return (
+                jsonify(
+                    {
+                        "status": False,
+                        "http_code": 401,
+                        "message": "user is not admin",
+                        "response": {},
+                    }
+                ),
+                401,
+            )
+
         return f(*args, **kwargs)
+
     return decorated_function
