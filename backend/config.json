@@ -1,6 +1,6 @@
 {
-  "lock_password": "",
-  "event_date": "",
-  "admin_password": "",
+  "lock_password": "password",
+  "event_date": "Demo Date",
+  "admin_password": "adminpassword",
   "disabled": false
 }

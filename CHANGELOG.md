@@ -1,4 +1,5 @@
 # next-release
+* Add `docker-compose` configuration for development.
 * Use code formatter [prettier](https://prettier.io/) on frontend and admin.
 * Use code formatter [black](https://github.com/psf/black) on backend.
 
