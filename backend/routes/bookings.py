@@ -207,7 +207,7 @@ def book():
 
             # validate email
             if key == "email":
-                if not "@skola.botkyrka.se" in value:
+                if "@skola.botkyrka.se" not in value:
                     return (
                         jsonify(
                             {
@@ -338,7 +338,7 @@ def swish(id):
     if id and is_integer(id):
         clicked_booking = get_specific_booking_details(id)
 
-        if clicked_booking != None:
+        if clicked_booking is not None:
             name = clicked_booking[0]
             school_class = clicked_booking[1]
             seat = clicked_booking[3]

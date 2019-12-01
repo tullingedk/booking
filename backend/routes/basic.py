@@ -83,7 +83,7 @@ def auth():
         clear_old_sessions()
         token = new_session(remote_ip, is_admin=False)
 
-        if token != False:
+        if token is not False:
             return jsonify(
                 {
                     "status": True,
@@ -137,9 +137,6 @@ def validate_session():
 @disable_check
 @auth_required
 def logout():
-    # get user session
-    session = get_session(request.json["token"])
-
     if destroy_session(request.json["token"]):
         return jsonify(
             {

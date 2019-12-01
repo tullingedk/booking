@@ -23,6 +23,12 @@ from flask_cors import CORS
 
 from components.configuration import read_config
 
+# blueprints
+from routes.basic import basic_routes
+from routes.bookings import bookings_routes
+from routes.bc_bookings import bc_bookings_routes
+from routes.admin import admin_routes
+
 # configuration
 config = read_config()
 
@@ -116,11 +122,6 @@ def error_500(e):
 
 
 # register blueprints
-from routes.basic import basic_routes
-from routes.bookings import bookings_routes
-from routes.bc_bookings import bc_bookings_routes
-from routes.admin import admin_routes
-
 app.register_blueprint(basic_routes)
 app.register_blueprint(bookings_routes)
 app.register_blueprint(bc_bookings_routes)

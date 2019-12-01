@@ -58,8 +58,6 @@ def new_session(remote_ip, is_admin=False):
 
 
 def destroy_session(token):
-    session = get_session(token)
-
     try:
         sql_query(f'DELETE FROM sessions WHERE token="{token}"')
     except Exception:

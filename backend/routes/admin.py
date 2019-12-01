@@ -23,11 +23,9 @@ from components.decorators import disable_check, admin_required
 from components.objects.bookings import get_specific_booking_details
 from components.objects.bc_bookings import get_specific_bc_booking_details
 from components.configuration import read_config
-from components.session import get_session, clear_old_sessions, new_session
+from components.session import clear_old_sessions, new_session
 from components.db import sql_query
 from components.tools import is_integer
-
-from version import commit_hash, version
 
 admin_routes = Blueprint("admin_routes", __name__)
 
@@ -62,7 +60,7 @@ def admin_auth():
         clear_old_sessions()
         token = new_session(remote_ip, is_admin=True)
 
-        if token != False:
+        if token is not False:
             return jsonify(
                 {
                     "status": True,

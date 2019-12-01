@@ -23,7 +23,7 @@ import os.path
 from functools import wraps
 
 from flask import jsonify, request
-from components.session import *
+from components.session import validate_session, get_session, clear_old_sessions
 
 # config
 if os.path.exists("override.config.json"):
