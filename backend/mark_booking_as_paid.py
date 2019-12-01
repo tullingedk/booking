@@ -17,7 +17,7 @@
 #                                                                                                            #
 ##############################################################################################################
 
-from components.db import *
+from components.db import sql_query
 
 id = input("Enter ID of seat that should be marked as paid: ")
 

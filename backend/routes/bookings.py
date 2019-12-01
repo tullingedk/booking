@@ -31,8 +31,6 @@ from components.tools import is_integer
 from components.db import sql_query
 from components.swish_qr_generator import generate_swish_qr
 
-from version import commit_hash, version
-
 bookings_routes = Blueprint("bookings_routes", __name__)
 
 BASEPATH = "/backend"

@@ -72,14 +72,17 @@ def admin_auth():
                 }
             )
         else:
-            return jsonify(
-                {
-                    "status": False,
-                    "http_code": 500,
-                    "message": "Internt serverfel inträffade.",
-                    "response": {}
-                }
-            ), 500
+            return (
+                jsonify(
+                    {
+                        "status": False,
+                        "http_code": 500,
+                        "message": "Internt serverfel inträffade.",
+                        "response": {},
+                    }
+                ),
+                500,
+            )
 
     return jsonify(
         {
