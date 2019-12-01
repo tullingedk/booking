@@ -1,4 +1,4 @@
-name: Python application
+name: Backend application
 
 on: [push]
 
