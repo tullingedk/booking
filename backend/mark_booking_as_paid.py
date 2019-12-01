@@ -17,7 +17,7 @@
 #                                                                                                            #
 ##############################################################################################################
 
-from db import *
+from components.db import *
 
 id = input("Enter ID of seat that should be marked as paid: ")
 

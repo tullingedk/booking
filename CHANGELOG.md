@@ -1,4 +1,5 @@
 # next-release
+* Solve issue [#7](https://github.com/VilhelmPrytz/datorklubben-booking/issues/7) - backend: re-organize and re-structure (refactoring), move routes into separate blueprints
 * Add `docker-compose` configuration for development.
 * Use code formatter [prettier](https://prettier.io/) on frontend and admin.
 * Use code formatter [black](https://github.com/psf/black) on backend.

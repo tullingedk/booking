@@ -17,61 +17,16 @@
 #                                                                                                            #
 ##############################################################################################################
 
-from datetime import datetime, timedelta
-
-from db import sql_query
-from tools import random_string
+import json
+import os.path
 
 
-def validate_session(token):
-    sessions = sql_query("SELECT * FROM sessions")
-    now = datetime.now()
+def read_config():
+    if os.path.exists("override.config.json"):
+        with open("override.config.json", "r") as f:
+            config = json.load(f)
+    else:
+        with open("config.json", "r") as f:
+            config = json.load(f)
 
-    for session in sessions:
-        if token == session[0]:
-            if session[1] > now:
-                return True
-            else:
-                return False
-
-    return False
-
-
-def get_session(token):
-    session = sql_query(f"SELECT * FROM sessions WHERE token='{token}'")
-
-    if len(session) != 0:
-        return session[0]
-
-    return False
-
-
-def new_session(remote_ip, is_admin=False):
-    new_token = random_string(length=255)
-    new_expire_date = datetime.now() + timedelta(hours=24)
-
-    sql_query(
-        f'INSERT INTO sessions (token, expire, ip, is_admin) VALUES ("{new_token}", "{new_expire_date}", "{remote_ip}", {is_admin})'
-    )
-
-    return new_token
-
-
-def destroy_session(token):
-    session = get_session(token)
-
-    try:
-        sql_query(f'DELETE FROM sessions WHERE token="{token}"')
-    except Exception:
-        return False
-
-    return True
-
-
-def clear_old_sessions():
-    sessions = sql_query("SELECT * FROM sessions")
-    now = datetime.now()
-
-    for session in sessions:
-        if session[1] < now:
-            sql_query('DELETE FROM sessions WHERE token="{}"'.format(str(session[0])))
+    return config

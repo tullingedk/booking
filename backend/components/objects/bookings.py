@@ -16,8 +16,38 @@
 # https://github.com/VilhelmPrytz/datorklubben-booking                                                       #
 #                                                                                                            #
 ##############################################################################################################
+
 from components.db import sql_query
 
-sql_query("DROP TABLE bookings")
-sql_query("DROP TABLE bc_bookings")
-sql_query("DROP TABLE sessions")
+NUM_TOTAL_SEATS = 48
+
+
+def get_bookings():
+    """Returns list of all bookings"""
+
+    return sql_query("SELECT * FROM bookings")
+
+
+def get_available_seats_list():
+    """Returns list of available booking seats"""
+
+    bookings = get_bookings()
+    available_seats = list(range(1, NUM_TOTAL_SEATS + 1))
+
+    if bookings:
+        for booking in bookings:
+            for seat in range(1, NUM_TOTAL_SEATS + 1):
+                if seat == int(booking[3]):
+                    available_seats.remove(seat)
+
+    return available_seats
+
+
+def get_specific_booking_details(id):
+    """Returns list variable with booking details of specified id"""
+
+    allBookings = get_bookings()
+
+    for booking in allBookings:
+        if int(id) == int(booking[3]):
+            return booking

@@ -20,7 +20,7 @@
 
 # init database
 
-from db import sql_query
+from components.db import sql_query
 
 # firstname
 # lastname
