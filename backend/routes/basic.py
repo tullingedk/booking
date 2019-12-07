@@ -28,6 +28,7 @@ from components.session import (
     clear_old_sessions,
     new_session,
 )
+from components.core import limiter
 
 from version import commit_hash, version
 
@@ -39,6 +40,8 @@ config = read_config()
 
 # application routes
 @basic_routes.route(f"{BASEPATH}/info", methods=["GET"])
+@limiter.limit("200 per hour")
+@limiter.limit("5 per second")
 def info():
     return jsonify(
         {
@@ -58,6 +61,7 @@ def info():
 
 
 @basic_routes.route(f"{BASEPATH}/auth", methods=["POST"])
+@limiter.limit("50 per hour")
 @disable_check
 def auth():
     # check for invalid length
@@ -116,6 +120,7 @@ def auth():
 
 
 @basic_routes.route(f"{BASEPATH}/validate_session", methods=["POST"])
+@limiter.limit("500 per hour")
 @disable_check
 @auth_required
 def validate_session():
@@ -134,6 +139,7 @@ def validate_session():
 
 
 @basic_routes.route(f"{BASEPATH}/logout", methods=["POST"])
+@limiter.limit("500 per hour")
 @disable_check
 @auth_required
 def logout():

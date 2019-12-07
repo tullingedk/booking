@@ -26,6 +26,7 @@ from components.configuration import read_config
 from components.session import clear_old_sessions, new_session
 from components.db import sql_query
 from components.tools import is_integer
+from components.core import limiter
 
 admin_routes = Blueprint("admin_routes", __name__)
 
@@ -35,6 +36,7 @@ config = read_config()
 
 
 @admin_routes.route(f"{BASEPATH}/admin/auth", methods=["POST"])
+@limiter.limit("5 per hour")
 @disable_check
 def admin_auth():
     # check for invalid length
@@ -52,11 +54,7 @@ def admin_auth():
         )
 
     if request.json["password"] == config["admin_password"]:
-        if request.environ.get("HTTP_X_FORWARDED_FOR") is None:
-            remote_ip = request.environ["REMOTE_ADDR"]
-        else:
-            remote_ip = request.environ["HTTP_X_FORWARDED_FOR"]
-
+        remote_ip = get_client_ip()
         clear_old_sessions()
         token = new_session(remote_ip, is_admin=True)
 
@@ -93,6 +91,8 @@ def admin_auth():
 
 
 @admin_routes.route(f"{BASEPATH}/admin/paid/<id>", methods=["POST"])
+@limiter.limit("200 per hour")
+@limiter.limit("5 per second")
 @disable_check
 @admin_required
 def admin_paid(id):
@@ -149,6 +149,8 @@ def admin_paid(id):
 
 
 @admin_routes.route(f"{BASEPATH}/admin/unpaid/<id>", methods=["POST"])
+@limiter.limit("200 per hour")
+@limiter.limit("5 per second")
 @disable_check
 @admin_required
 def admin_unpaid(id):
@@ -205,6 +207,8 @@ def admin_unpaid(id):
 
 
 @admin_routes.route(f"{BASEPATH}/admin/bc/paid/<id>", methods=["POST"])
+@limiter.limit("200 per hour")
+@limiter.limit("5 per second")
 @disable_check
 @admin_required
 def admin_bc_paid(id):
@@ -261,6 +265,8 @@ def admin_bc_paid(id):
 
 
 @admin_routes.route(f"{BASEPATH}/admin/bc/unpaid/<id>", methods=["POST"])
+@limiter.limit("200 per hour")
+@limiter.limit("5 per second")
 @disable_check
 @admin_required
 def admin_bc_unpaid(id):

@@ -30,6 +30,7 @@ from components.objects.bookings import (
 from components.tools import is_integer
 from components.db import sql_query
 from components.swish_qr_generator import generate_swish_qr
+from components.core import limiter
 
 bookings_routes = Blueprint("bookings_routes", __name__)
 
@@ -43,6 +44,8 @@ config = read_config()
 
 # bookings
 @bookings_routes.route(f"{BASEPATH}/bookings", methods=["POST"])
+@limiter.limit("800 per hour")
+@limiter.limit("5 per second")
 @disable_check
 @auth_required
 def bookings():
@@ -71,6 +74,8 @@ def bookings():
 
 
 @bookings_routes.route(f"{BASEPATH}/available_seat_list", methods=["POST"])
+@limiter.limit("800 per hour")
+@limiter.limit("5 per second")
 @disable_check
 @auth_required
 def available_seat_list():
@@ -87,6 +92,8 @@ def available_seat_list():
 
 
 @bookings_routes.route(f"{BASEPATH}/book", methods=["POST"])
+@limiter.limit("50 per hour")
+@limiter.limit("1 per second")
 @disable_check
 @auth_required
 def book():
@@ -330,6 +337,8 @@ def book():
 
 
 @bookings_routes.route(f"{BASEPATH}/swish/<id>", methods=["GET"])
+@limiter.limit("800 per hour")
+@limiter.limit("5 per second")
 @disable_check
 def swish(id):
     # get specific id

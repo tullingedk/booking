@@ -8,6 +8,8 @@ Production application is available at [booking.vilhelmprytz.se](https://booking
 
 The backend is coded in Python 3 Flask. It's meant to be served under the `/backend` route. Install the required modules in `backend/requirements.txt` using `pip3` and update configuration values in `config.json` and `mysql.json` (if developing, you can use `override.config.json` and `override.mysql.json` to avoid configuration being commited to project).
 
+The backend also requires a `redis` server for rate limiting cache.
+
 Recommendation: use `supervisor` and `gunicorn` in conjunction with `nginx` `proxy_pass` in order to serve the backend application.
 
 ## Frontend

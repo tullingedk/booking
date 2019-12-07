@@ -17,33 +17,7 @@
 #                                                                                                            #
 ##############################################################################################################
 
-import random
-import string
-from flask import request
+from flask_limiter import Limiter
+from components.tools import get_client_ip
 
-
-def is_integer(variable):
-    """checks if input variable is integer or not, returns bool"""
-
-    try:
-        check_int = int(variable)
-    except Exception:
-        return False
-
-    return True
-
-
-def random_string(length=10):
-    """Generate a random string of fixed length """
-
-    letters = string.ascii_lowercase + string.ascii_uppercase + string.digits
-    return "".join(random.choice(letters) for i in range(length))
-
-
-def get_client_ip():
-    if request.environ.get("HTTP_X_FORWARDED_FOR") is None:
-        remote_ip = request.environ["REMOTE_ADDR"]
-    else:
-        remote_ip = request.environ["HTTP_X_FORWARDED_FOR"]
-
-    return remote_ip
+limiter = Limiter(key_func=get_client_ip)

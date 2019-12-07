@@ -22,12 +22,16 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 
 from components.configuration import read_config
+from components.tools import get_client_ip
 
 # blueprints
 from routes.basic import basic_routes
 from routes.bookings import bookings_routes
 from routes.bc_bookings import bc_bookings_routes
 from routes.admin import admin_routes
+
+# limiter from core
+from components.core import limiter
 
 # configuration
 config = read_config()
@@ -44,6 +48,13 @@ if (
 # flask application
 app = Flask(__name__)
 CORS(app)
+
+# flaks app config
+app.config[
+    "RATELIMIT_STORAGE_URL"
+] = f"redis://{config['redis']['host']}:{config['redis']['port']}"
+
+limiter.init_app(app)
 
 # error routes
 @app.errorhandler(400)
@@ -103,6 +114,21 @@ def error_405(e):
             }
         ),
         405,
+    )
+
+
+@app.errorhandler(429)
+def error_429(e):
+    return (
+        jsonify(
+            {
+                "status": False,
+                "http_code": 429,
+                "message": "too many requests, you are being rate limited",
+                "response": {},
+            }
+        ),
+        429,
     )
 
 

@@ -2,5 +2,9 @@
   "lock_password": "password",
   "event_date": "Demo Date",
   "admin_password": "adminpassword",
-  "disabled": false
+  "disabled": false,
+  "redis": {
+    "host": "127.0.0.1",
+    "port": 6379
+  }
 }
