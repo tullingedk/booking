@@ -15,10 +15,13 @@ import backend_url from "./global_variables";
 
 const Container = styled.div`
   padding: 1em;
-  width: 95vmax;
+  width: 95%;
   max-width: 950px;
   margin: auto;
   text-align: center;
+  @media (max-width:950px) {
+    padding: 0px;
+  }
 `;
 
 const Text = styled.p`
@@ -46,14 +49,22 @@ const Column = styled.div`
   float: left;
   width: 63%;
   padding: 0.5em;
+
+  @media (max-width:950px) {
+    width: 100%;
+    float: none;
+    margin: auto;
+  }
 `;
 
 const ColumnTwo = styled.div`
   float: left;
   width: 37%;
   padding: 0.5em;
+  @media (max-width:950px) {
+    width: 100%;
+  }
 `;
-
 function App(props) {
   const [bookings, setBookings] = useState(0);
   const [bc_bookings, setBcBookings] = useState(0);

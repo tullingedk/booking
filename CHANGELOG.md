@@ -2,6 +2,7 @@
 
 ## next-release
 
+* Solve issue [#6](https://github.com/VilhelmPrytz/datorklubben-booking/issues/6) - admin/frontend: optimize for mobile usage
 * Solve issue [#5](https://github.com/VilhelmPrytz/datorklubben-booking/issues/5) - backend: rate limit API calls
 * Update dependencies (housekeeping)
 * Add GitHub workflow (test backend application using `flake8` and `black`).
@@ -17,7 +18,7 @@
 
 ## v2.0.0 (released on 2019-11-29)
 
-* Major re-work
+* Major rework
 * Split project into three (backend, frontend, admin)
 * Backend now only returns JSON responses
 * Frontend has been rewritten in React
@@ -25,4 +26,4 @@
 
 ## v1.0.0 (released on 2019-11-28, commit from 2019-11-13)
 
-* Inital release
+* Initial release

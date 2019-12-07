@@ -7,11 +7,19 @@ const Table = styled.div`
   float: left;
   padding-left: 2em;
   padding-right: 2em;
+  @media (max-width:950px) {
+    padding: 0px;
+    padding-left: 15px;
+    padding-top: 15px;
+  }
 `;
 
 const Column = styled.div`
   float: left;
   padding: 0.2em;
+  @media (max-width:950px) {
+    padding: 0px;
+  }
 `;
 
 const SeatText = styled.p`

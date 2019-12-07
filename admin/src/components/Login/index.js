@@ -9,14 +9,15 @@ import backend_url from "./../../global_variables";
 const Title = styled.h1``;
 
 const LoginForm = styled.form`
-  max-width: 50%;
+  width: 100%;
+  max-width: 400px;
   margin: auto;
   padding: 0;
 `;
 
 const Container = styled.div`
   padding: 1em;
-  width: 95vmax;
+  width: 95%;
   margin: auto;
   text-align: center;
 `;
