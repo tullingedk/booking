@@ -108,7 +108,9 @@ function BookModal(props) {
         } else if (json.http_code === 401) {
           setStatus("Din session har gått ut. Ladda om sidan.");
         } else if (json.http_code === 429) {
-          setStatus("Du har skickat för många anrop. Kontakta Prytz via Discord om problemet kvarstår.");
+          setStatus(
+            "Du har skickat för många anrop. Kontakta Prytz via Discord om problemet kvarstår."
+          );
         } else if (json.http_code === 201) {
           NotificationManager.success(
             "Din bokning är nu sparad",

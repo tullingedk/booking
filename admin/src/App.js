@@ -19,7 +19,7 @@ const Container = styled.div`
   max-width: 950px;
   margin: auto;
   text-align: center;
-  @media (max-width:950px) {
+  @media (max-width: 950px) {
     padding: 0px;
   }
 `;
@@ -50,7 +50,7 @@ const Column = styled.div`
   width: 63%;
   padding: 0.5em;
 
-  @media (max-width:950px) {
+  @media (max-width: 950px) {
     width: 100%;
     float: none;
     margin: auto;
@@ -61,7 +61,7 @@ const ColumnTwo = styled.div`
   float: left;
   width: 37%;
   padding: 0.5em;
-  @media (max-width:950px) {
+  @media (max-width: 950px) {
     width: 100%;
   }
 `;
