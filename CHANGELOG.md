@@ -1,9 +1,9 @@
 # Changelog
 
-## next-release
+## v2.1.0 (released on 2019-12-08)
 
 * Solve issue [#6](https://github.com/VilhelmPrytz/datorklubben-booking/issues/6) - admin/frontend: optimize for mobile usage
-* Solve issue [#5](https://github.com/VilhelmPrytz/datorklubben-booking/issues/5) - backend: rate limit API calls
+* Solve issue [#5](https://github.com/VilhelmPrytz/datorklubben-booking/issues/5) - backend: rate limit API calls, backend now requires `redis` in order to run
 * Update dependencies (housekeeping)
 * Add GitHub workflow (test backend application using `flake8` and `black`).
 * Solve issue [#7](https://github.com/VilhelmPrytz/datorklubben-booking/issues/7) - backend: re-organize and re-structure (refactoring), move routes into separate blueprints
