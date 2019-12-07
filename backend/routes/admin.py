@@ -25,7 +25,7 @@ from components.objects.bc_bookings import get_specific_bc_booking_details
 from components.configuration import read_config
 from components.session import clear_old_sessions, new_session
 from components.db import sql_query
-from components.tools import is_integer
+from components.tools import is_integer, get_client_ip
 from components.core import limiter
 
 admin_routes = Blueprint("admin_routes", __name__)
