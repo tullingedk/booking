@@ -47,7 +47,7 @@ if (
 
 # flask application
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "https://booking.vilhelmprytz.se"}})
 
 # flaks app config
 app.config[

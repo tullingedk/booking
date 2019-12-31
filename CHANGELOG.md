@@ -1,5 +1,9 @@
 # Changelog
 
+## next-release
+
+* 
+
 ## v2.1.0 (released on 2019-12-08)
 
 * Solve issue [#6](https://github.com/VilhelmPrytz/datorklubben-booking/issues/6) - admin/frontend: optimize for mobile usage
