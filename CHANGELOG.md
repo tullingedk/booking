@@ -2,7 +2,7 @@
 
 ## next-release
 
-* 
+* Improve `Access-Control-Allow-Origin` header policy on backend.
 
 ## v2.1.0 (released on 2019-12-08)
 
