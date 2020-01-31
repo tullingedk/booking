@@ -1,8 +1,0 @@
-flask
-flask_session
-mysql-connector-python
-gunicorn
-qrcode[pil]
-flask-cors
-Flask-Limiter
-redis

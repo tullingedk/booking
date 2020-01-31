@@ -1,5 +1,10 @@
 # Changelog
 
+## next-release
+
+* Use pipenv for backend
+* Update dependencies
+
 ## v2.1.1 (released on 2020-01-22)
 
 * Improve `Access-Control-Allow-Origin` header policy on backend.
