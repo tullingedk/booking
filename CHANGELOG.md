@@ -1,5 +1,9 @@
 # Changelog
 
+## next-release
+
+* Update Bootstrap version (from `4.3.1` to `4.4.1`).
+
 ## v2.1.2 (released on 2020-02-07)
 
 * Use pipenv for backend
