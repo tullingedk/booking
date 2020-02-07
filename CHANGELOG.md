@@ -1,6 +1,6 @@
 # Changelog
 
-## next-release
+## v2.1.2 (released on 2020-02-07)
 
 * Use pipenv for backend
 * Update dependencies
