@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Konami from "react-konami-code";
 
 import backend_url from "./../../global_variables";
 
@@ -120,6 +121,11 @@ function Login() {
           {status}
         </p>
       </Container>
+      <Konami
+        action={() => {
+          window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+        }}
+      />
     </div>
   );
 }

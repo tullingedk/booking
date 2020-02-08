@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import Konami from "react-konami-code";
 import "./App.css";
 
 import BookModal from "./components/BookModal/index";
@@ -213,6 +214,11 @@ function App(props) {
           </ColumnTwo>
         </Row>
       </Container>
+      <Konami
+        action={() => {
+          window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+        }}
+      />
     </div>
   );
 }

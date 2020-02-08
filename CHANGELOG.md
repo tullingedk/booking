@@ -4,6 +4,7 @@
 
 * Fix [#10](https://github.com/VilhelmPrytz/datorklubben-booking/issues/10) - misspelling on "brädspelsplatser"
 * Environment variable `DEVELOPMENT` removes CORS-policy on `backend`
+* Add konami-code easteregg on frontend
 
 ## v2.1.2 (released on 2020-02-07)
 
