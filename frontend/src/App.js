@@ -158,8 +158,8 @@ function App(props) {
         />
 
         <BookModal
-          button_text="Boka en konsol- och brädsspelsplats"
-          modal_title="Boka en konsol- och brädsspelsplats"
+          button_text="Boka en konsol- och brädspelsplats"
+          modal_title="Boka en konsol- och brädspelsplats"
           modal_desc="Fyll i formuläret nedan för att boka en plats."
           request_url="/bc/book"
           available_seat_list_url="/bc/available_seat_list"
@@ -201,7 +201,7 @@ function App(props) {
             />
           </Column>
           <ColumnTwo>
-            <TableTitle>Konsol- och brädsspelsplatser</TableTitle>
+            <TableTitle>Konsol- och brädspelsplatser</TableTitle>
 
             <BookingTable
               start_range="0"

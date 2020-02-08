@@ -1,6 +1,6 @@
 # datorklubben-booking
 
-Booking system for Tullinge gymnasium datorklubb. Inital revision was coded during 2018, major overhaul in 2019 (split application into three).
+Booking system for Tullinge gymnasium datorklubb. Initial revision was coded during 2018, major overhaul in 2019 (split application into three).
 
 Production application is available at [booking.vilhelmprytz.se](https://booking.vilhelmprytz.se).
 

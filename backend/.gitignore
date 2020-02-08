@@ -4,4 +4,4 @@ override.config.json
 override.mysql.json
 flask_session
 static/temp_swish.png
-env
+.env

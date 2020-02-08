@@ -1,6 +1,6 @@
 # datorklubben-booking/backend
 
-Backend written in Python 3, Flask.
+Backend API written in Flask.
 
 ## Configuration
 
@@ -8,9 +8,43 @@ Update `config.json` and `mysql.json` with appropriate values. Passwords should 
 
 ## Requirements
 
+Requires Python 3.6 or newer (recommended 3.7/3.8).
+
 The backend requires a `redis` server running (for rate limiting cache). You can specify connection details in `config.json`.
 
+## Working locally
+
+This project uses Pipenv. Make sure you're in the `backend` folder.
+
+Start temporary MySQL and Redis containers.
+
+```bash
+docker-compose up -d
+```
+
+Install dependencies.
+
+```bash
+pipenv install --dev
+```
+
+Enter shell of environment.
+
+```bash
+pipenv shell
+```
+
+Run app.
+
+```bash
+python app.py
+```
+
+Define the `DEVELOPMENT` variable to disable the CORS-policy while working locally (you can create `backend/.env` and define it there before using `pipenv shell`).
+
 ## Routes
+
+These are routes the API exposes.
 
 ### Entrypoint
 

@@ -1,5 +1,10 @@
 # Changelog
 
+## next-release
+
+* Fix [#10](https://github.com/VilhelmPrytz/datorklubben-booking/issues/10) - misspelling on "brädspelsplatser"
+* Environment variable `DEVELOPMENT` removes CORS-policy on `backend`
+
 ## v2.1.2 (released on 2020-02-07)
 
 * Update Bootstrap version (from `4.3.1` to `4.4.1`).

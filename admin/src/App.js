@@ -236,7 +236,7 @@ function App(props) {
             />
           </Column>
           <ColumnTwo>
-            <TableTitle>Konsol- och brädsspelsplatser</TableTitle>
+            <TableTitle>Konsol- och brädspelsplatser</TableTitle>
 
             <BookingTable
               start_range="0"

@@ -20,6 +20,7 @@
 # imports
 from flask import Flask, jsonify
 from flask_cors import CORS
+from os import environ
 
 from components.configuration import read_config
 from components.tools import get_client_ip
@@ -47,7 +48,15 @@ if (
 
 # flask application
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "https://booking.vilhelmprytz.se"}})
+
+if not "DEVELOPMENT" in environ:
+    CORS(app, resources={r"/*": {"origins": "https://booking.vilhelmprytz.se"}})
+    print("Strict CORS-policy enabled")
+
+if "DEVELOPMENT" in environ:
+    CORS(app)
+    print("Lazy CORS-policy enabled ('DEVELOPMENT' environment variable present)")
+
 
 # flaks app config
 app.config[
