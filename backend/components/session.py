@@ -10,7 +10,7 @@
 #                                                                                                    __/ |   #
 #                                                                                                   |___/    #
 #                                                                                                            #
-# Copyright (C) 2018 - 2019, Vilhelm Prytz <vilhelm@prytznet.se>                                             #
+# Copyright (C) 2018 - 2020, Vilhelm Prytz <vilhelm@prytznet.se>                                             #
 #                                                                                                            #
 # This project is closed source. Allowed usage only covers the computer club on Tullinge gymnasium, Sweden.  #
 # https://github.com/VilhelmPrytz/datorklubben-booking                                                       #
