@@ -42,6 +42,10 @@ python app.py
 
 Define the `DEVELOPMENT` variable to disable the CORS-policy while working locally (you can create `backend/.env` and define it there before using `pipenv shell`).
 
+## Scripts
+
+The script are meant to be run from the `backend` directory (e.g. `python scripts/setup_db.py`).
+
 ## Routes
 
 These are routes the API exposes.
