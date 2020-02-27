@@ -146,8 +146,19 @@ function App(props) {
         </Text>
         <Text>LAN-datum: {props.info_json.response.event_date}</Text>
         <Text>
+          <b>Vanliga platser</b>
+        </Text>
+        <Text>
           {props.info_json.response.int_booked_seats} bokade platser, alltså{" "}
           {props.info_json.response.int_available_seats} lediga platser.
+        </Text>
+        <br />
+        <Text>
+          <b>Konsol- och brädspelsplatser</b>
+        </Text>
+        <Text>
+          {props.info_json.response.bc_int_booked_seats} bokade platser, alltså{" "}
+          {props.info_json.response.bc_int_available_seats} lediga platser.
         </Text>
         <BookModal
           button_text="Boka en vanlig plats"

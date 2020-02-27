@@ -21,6 +21,7 @@ from flask import Blueprint, jsonify, request
 
 from components.decorators import disable_check, auth_required
 from components.objects.bookings import get_available_seats_list, get_bookings
+from components.objects.bc_bookings import bc_get_available_seats_list, get_bc_bookings
 from components.configuration import read_config
 from components.session import (
     get_session,
@@ -55,6 +56,8 @@ def info():
                 "event_date": config["event_date"],
                 "int_available_seats": int(len(get_available_seats_list())),
                 "int_booked_seats": int(len(get_bookings())),
+                "bc_int_available_seats": int(len(bc_get_available_seats_list())),
+                "bc_int_booked_seats": int(len(get_bc_bookings())),
             },
         }
     )

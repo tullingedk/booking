@@ -5,6 +5,7 @@
 * Updated copyright years
 * Move backend scripts to `backend/scripts` directory
 * Update dependencies
+* Fix [#12](https://github.com/VilhelmPrytz/datorklubben-booking/issues/12) - show number of available "bc" seats
 
 ## v2.2.0 (released on 2020-02-08)
 

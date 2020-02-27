@@ -190,12 +190,19 @@ function App(props) {
       <Container>
         <h1>Datorklubben Bokningssystem</h1>
         <Text>
-          Kör version {props.info_json.response.version} (commit{" "}
-          <i>{props.info_json.response.commit_hash}</i>).
+          <b>Vanliga platser</b>
         </Text>
         <Text>
           {props.info_json.response.int_booked_seats} bokade platser, alltså{" "}
           {props.info_json.response.int_available_seats} lediga platser.
+        </Text>
+        <br />
+        <Text>
+          <b>Konsol- och brädspelsplatser</b>
+        </Text>
+        <Text>
+          {props.info_json.response.bc_int_booked_seats} bokade platser, alltså{" "}
+          {props.info_json.response.bc_int_available_seats} lediga platser.
         </Text>
 
         <form onSubmit={handleLogout}>
