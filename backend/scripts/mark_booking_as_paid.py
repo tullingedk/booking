@@ -17,6 +17,12 @@
 #                                                                                                            #
 ##############################################################################################################
 
+import sys
+from pathlib import Path
+
+# Add parent folder
+sys.path.append(str(Path(__file__).parent.parent.absolute()))
+
 from components.db import sql_query
 
 id = input("Enter ID of seat that should be marked as paid: ")

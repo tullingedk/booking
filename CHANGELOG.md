@@ -4,6 +4,7 @@
 
 * Updated copyright years
 * Move backend scripts to `backend/scripts` directory
+* Update dependencies
 
 ## v2.2.0 (released on 2020-02-08)
 
