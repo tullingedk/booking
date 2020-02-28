@@ -1,5 +1,9 @@
 # Changelog
 
+## next-release
+
+* Update dependencies
+
 ## v2.3.0 (released on 2020-02-27)
 
 * Updated copyright years
