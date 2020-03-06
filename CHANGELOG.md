@@ -2,6 +2,7 @@
 
 ## next-release
 
+* Make it more clear to users what user data the application stores and for what purposes.
 * Update dependencies
 
 ## v2.3.0 (released on 2020-02-27)

@@ -175,7 +175,14 @@ function InfoModal(props) {
             <Text>
               Denna sida använder en cookie för att hantera inloggningen.
               Bokningsuppgifter lagras i en skyddad databas som raderas efter
-              LANet.
+              eventets datum. Anslutningen till sidan är krypterad med HTTPS.
+              När du bokar en plats kommer uppgifter som namn, klass,
+              e-postadress och IP-adress att lagras i databasen. Namn och klass
+              visas synligt för alla som har åtkomst till sidan. Inga
+              personuppgifter delas aktivt med tredjepart. Namn och klass
+              används för bokningen. E-postadressen och IP-adressen hanteras
+              automatiskt av systemet i syfte att förhindra spam. Vid avbokning
+              raderas eventuella personuppgifter permanent.
             </Text>
           </div>
         </Modal.Body>
