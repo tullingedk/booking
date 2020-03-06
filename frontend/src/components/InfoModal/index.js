@@ -79,7 +79,7 @@ function InfoModal(props) {
               bokning, kontakta Vilhelm Prytz (ekonomiansvarig) via Discord
               eller <a href="mailto:vilhelm@prytznet.se">mail</a>.
               Swishtelefonnumret går inte att ringa/SMSa till. Mottagare i
-              BankID ska stå som <i>VILHELM PRYTZ</i>.
+              BankID ska stå som <i>Vilhelm Prytz</i>.
             </Text>
 
             <Header>FAQ</Header>

@@ -123,7 +123,7 @@ function SeatModal(props) {
                 <p>
                   <i>
                     Kontrolluppgifter: Telefonumret är <b>+46 73 033 31 85</b>.
-                    Mottagare i BankID ska stå som <b>VILHELM PRYTZ</b>{" "}
+                    Mottagare i BankID ska stå som <b>Vilhelm Prytz</b>{" "}
                     (ekonomiansvarig).
                   </i>
                 </p>
