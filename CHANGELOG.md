@@ -2,6 +2,7 @@
 
 ## next-release
 
+* Fix [#9](https://github.com/VilhelmPrytz/datorklubben-booking/issues/9) - tooltips now hide when opening the seat modal
 * Decapitalize BankID name
 * Make it more clear to users what user data the application stores and for what purposes.
 * Update dependencies

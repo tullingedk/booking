@@ -78,10 +78,7 @@ function SeatModal(props) {
       placement="top"
       delay={{ show: 250, hide: 400 }}
       overlay={
-        <Tooltip
-          style={{ display: blockShow ? "none" : "block" }}
-          id={props.id}
-        >
+        <Tooltip style={{ display: show ? "none" : "block" }} id={props.id}>
           {name} {schoolClass}
         </Tooltip>
       }
