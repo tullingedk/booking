@@ -1,5 +1,9 @@
 # Changelog
 
+## next-release
+
+* Update dependencies
+
 ## v2.3.1 (released on 2020-03-11)
 
 * Fix [#9](https://github.com/VilhelmPrytz/datorklubben-booking/issues/9) - tooltips now hide when opening the seat modal
