@@ -28,7 +28,7 @@ function Login() {
   const [status, setStatus] = useState("");
   const [statusColor, setStatusColor] = useState("");
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     if (e) {
       e.preventDefault();
     }
@@ -37,14 +37,14 @@ function Login() {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        password: password
-      })
+        password: password,
+      }),
     })
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         setStatusColor("red");
         if (data.status === true) {
           console.log(data);
@@ -55,7 +55,7 @@ function Login() {
           // set session
           Cookies.set("session_token", data.response.session, {
             expires: 7,
-            path: "/"
+            path: "/",
           });
 
           // redirect
@@ -100,7 +100,7 @@ function Login() {
           <Form.Group controlId="password">
             <Form.Control
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               type="password"
               placeholder="Lösenord"
               name="password"

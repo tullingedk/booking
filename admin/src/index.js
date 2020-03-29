@@ -14,7 +14,7 @@ import backend_url from "./global_variables";
 ReactDOM.render(<h1>Laddar...</h1>, document.getElementById("root"));
 
 fetch(`${backend_url}/backend/info`)
-  .then(response => {
+  .then((response) => {
     if (response.ok) {
       return response.json();
     } else {
@@ -25,14 +25,14 @@ fetch(`${backend_url}/backend/info`)
       );
     }
   })
-  .catch(function(error) {
+  .catch(function (error) {
     console.error("Kunde inte kommunicera med backend-server.");
     ReactDOM.render(
       <ErrorModal show_modal={true} />,
       document.getElementById("root")
     );
   })
-  .then(json => {
+  .then((json) => {
     console.log(json);
 
     let Routing = App;
@@ -47,14 +47,14 @@ fetch(`${backend_url}/backend/info`)
           method: "POST",
           headers: {
             Accept: "application/json",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            token: Cookies.get("session_token")
-          })
+            token: Cookies.get("session_token"),
+          }),
         })
-          .then(response => response.json())
-          .then(data => {
+          .then((response) => response.json())
+          .then((data) => {
             console.log(data);
 
             if (data.status === false) {

@@ -17,7 +17,7 @@
 #                                                                                                            #
 ##############################################################################################################
 
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, abort
 
 from components.decorators import disable_check, auth_required
 from components.objects.bookings import get_available_seats_list, get_bookings
@@ -30,6 +30,7 @@ from components.session import (
     new_session,
 )
 from components.core import limiter
+from components.google import google_login
 
 from version import commit_hash, version
 
@@ -58,15 +59,79 @@ def info():
                 "int_booked_seats": int(len(get_bookings())),
                 "bc_int_available_seats": int(len(bc_get_available_seats_list())),
                 "bc_int_booked_seats": int(len(get_bc_bookings())),
+                "google_signin": config["google_signin"],
             },
         }
     )
+
+
+@basic_routes.route(f"{BASEPATH}/google_callback", methods=["POST"])
+@limiter.limit("50 per hour")
+@disable_check
+def google_callback():
+    if not config["google_signin"]:
+        abort(400)
+
+    if not request.get_json("idtoken"):
+        return (
+            jsonify(
+                {
+                    "status": False,
+                    "http_code": 400,
+                    "message": "missing form data",
+                    "response": {},
+                }
+            ),
+            400,
+        )
+
+    # verify using separate module
+    google = google_login(request.json["idtoken"], config["gsuite_domain_name"])
+
+    if not google["status"]:
+        return google["resp"]
+
+    data = google["resp"]["data"]
+
+    # perform some validation against database
+    if request.environ.get("HTTP_X_FORWARDED_FOR") is None:
+        remote_ip = request.environ["REMOTE_ADDR"]
+    else:
+        remote_ip = request.environ["HTTP_X_FORWARDED_FOR"]
+
+    clear_old_sessions()
+    token = new_session(remote_ip, is_admin=False)
+
+    if token is not False:
+        return jsonify(
+            {
+                "status": True,
+                "http_code": 200,
+                "message": "request successful",
+                "response": {"session": token, "email": data["email"]},
+            }
+        )
+    else:
+        return (
+            jsonify(
+                {
+                    "status": False,
+                    "http_code": 500,
+                    "message": "Internt serverfel inträffade.",
+                    "response": {},
+                }
+            ),
+            500,
+        )
 
 
 @basic_routes.route(f"{BASEPATH}/auth", methods=["POST"])
 @limiter.limit("50 per hour")
 @disable_check
 def auth():
+    if config["google_signin"]:
+        abort(400)
+
     # check for invalid length
     if len(request.json["password"]) < 3 or len(request.json["password"]) > 200:
         return (

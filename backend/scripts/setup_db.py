@@ -89,7 +89,21 @@ PRIMARY KEY (token)
         print("sessions table already exists")
 
 
+def create_gogle_allowed_users():
+    try:
+        sql_query(
+            """CREATE TABLE google_allowed_users (
+email VARCHAR(255) NOT NULL,
+school_class VARCHAR(255),
+PRIMARY KEY (email)
+);"""
+        )
+    except Exception:
+        print("google_allowed_users table already exists")
+
+
 if __name__ == "__main__":
     createDb()
     bc_createDb()
     create_sessions()
+    create_gogle_allowed_users()

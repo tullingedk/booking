@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Tooltip, OverlayTrigger } from "react-bootstrap";
 import {
   NotificationContainer,
-  NotificationManager
+  NotificationManager,
 } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 import styled from "styled-components";
@@ -43,21 +43,21 @@ function SeatModal(props) {
   const [date, setDate] = useState("");
   const [bookingStatus, setBookingStatus] = useState("");
 
-  const handlePaid = e => {
+  const handlePaid = (e) => {
     if (e) {
       e.preventDefault();
     }
     handleSubmit(true);
   };
 
-  const handleUnpaid = e => {
+  const handleUnpaid = (e) => {
     if (e) {
       e.preventDefault();
     }
     handleSubmit(false);
   };
 
-  const handleSubmit = action => {
+  const handleSubmit = (action) => {
     fetch(
       `${backend_url}/backend/admin${seatType ? "/" : "/bc/"}${
         action ? "paid" : "unpaid"
@@ -66,14 +66,14 @@ function SeatModal(props) {
         method: "POST",
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token: props.session_token
-        })
+          token: props.session_token,
+        }),
       }
     )
-      .then(response => {
+      .then((response) => {
         if (response.ok) {
           return response.json();
         } else {
@@ -89,7 +89,7 @@ function SeatModal(props) {
           }
         }
       })
-      .then(json => {
+      .then((json) => {
         console.log(json.http_code + json.message);
 
         if (json.http_code === 400) {
@@ -108,7 +108,7 @@ function SeatModal(props) {
   };
 
   useEffect(() => {
-    var booking = Array.from(props.bookings).filter(obj => {
+    var booking = Array.from(props.bookings).filter((obj) => {
       return obj.id === props.id;
     });
 

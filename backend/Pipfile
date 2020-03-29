@@ -16,6 +16,9 @@ Flask = "*"
 Flask-Session = "*"
 Flask-Cors = "*"
 Flask-Limiter = "*"
+requests = "*"
+google-auth = "*"
+google-api-python-client = "*"
 
 [requires]
 python_version = "3.8"

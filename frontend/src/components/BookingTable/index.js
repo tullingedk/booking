@@ -48,7 +48,7 @@ function BookingColumn(props) {
 
   return (
     <Column>
-      {per_column_list.map(function(seat_object, x) {
+      {per_column_list.map(function (seat_object, x) {
         seat_counter++;
         return (
           <SeatModal
@@ -81,7 +81,7 @@ function BookingTable(props) {
 
   return (
     <Table>
-      {column_list.map(function(object, i) {
+      {column_list.map(function (object, i) {
         return (
           <BookingColumn
             start_range={props.start_range}

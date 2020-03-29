@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 import Cookies from "js-cookie";
 import {
   NotificationContainer,
-  NotificationManager
+  NotificationManager,
 } from "react-notifications";
 import "./App.css";
 
@@ -71,7 +71,7 @@ function App(props) {
 
   const [updateFail, setUpdateFail] = useState(false);
 
-  const handleLogout = e => {
+  const handleLogout = (e) => {
     if (e) {
       e.preventDefault();
     }
@@ -80,13 +80,13 @@ function App(props) {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        token: props.session_token
-      })
+        token: props.session_token,
+      }),
     })
-      .then(response => {
+      .then((response) => {
         if (response.ok) {
           return response.json();
         } else {
@@ -102,7 +102,7 @@ function App(props) {
           }
         }
       })
-      .then(json => {
+      .then((json) => {
         console.log(json.http_code + json.message);
 
         if (json.http_code === 400) {
@@ -124,13 +124,13 @@ function App(props) {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        token: props.session_token
-      })
+        token: props.session_token,
+      }),
     })
-      .then(response => {
+      .then((response) => {
         if (response.ok) {
           return response.json();
         } else {
@@ -138,11 +138,11 @@ function App(props) {
           throw new Error("Kunde inte kommunicera med server.");
         }
       })
-      .catch(function(error) {
+      .catch(function (error) {
         setUpdateFail(true);
         console.error("Kunde inte kommunicera med backend-server.");
       })
-      .then(json => {
+      .then((json) => {
         console.log(json);
         setBookings(json.response.bookings);
       });
@@ -151,13 +151,13 @@ function App(props) {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        token: props.session_token
-      })
+        token: props.session_token,
+      }),
     })
-      .then(response => {
+      .then((response) => {
         if (response.ok) {
           return response.json();
         } else {
@@ -165,7 +165,7 @@ function App(props) {
           throw new Error("Kunde inte kommunicera med server.");
         }
       })
-      .then(json => {
+      .then((json) => {
         console.log(json);
         setBcBookings(json.response.bookings);
       });

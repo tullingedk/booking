@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import {
   NotificationContainer,
-  NotificationManager
+  NotificationManager,
 } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 
@@ -27,13 +27,13 @@ function BookModal(props) {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        token: props.session_token
-      })
+        token: props.session_token,
+      }),
     })
-      .then(response => {
+      .then((response) => {
         if (response.ok) {
           return response.json();
         } else {
@@ -49,7 +49,7 @@ function BookModal(props) {
           }
         }
       })
-      .then(json => {
+      .then((json) => {
         if (json.http_code === 200) {
           setAvailableSeatList(json.response.available_seat_list);
           setSeat(availableSeatList[0]);
@@ -62,7 +62,7 @@ function BookModal(props) {
       });
   }, [show, props.session_token, props.available_seat_list_url]);
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     if (e) {
       e.preventDefault();
     }
@@ -71,17 +71,17 @@ function BookModal(props) {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         token: props.session_token,
         name: name,
         class: schoolClass,
         email: email,
-        seat: seat
-      })
+        seat: seat,
+      }),
     })
-      .then(response => {
+      .then((response) => {
         if (response.ok) {
           return response.json();
         } else {
@@ -97,7 +97,7 @@ function BookModal(props) {
           }
         }
       })
-      .then(json => {
+      .then((json) => {
         console.log(json.http_code + json.message);
         setStatusColor("red");
 
@@ -144,7 +144,7 @@ function BookModal(props) {
                 <label>Namn</label>
                 <input
                   className="form-control"
-                  onChange={e => setName(e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
                   value={name}
                   type="text"
                   name="name"
@@ -156,7 +156,7 @@ function BookModal(props) {
                 <label>Klass</label>
                 <input
                   className="form-control"
-                  onChange={e => setSchoolClass(e.target.value)}
+                  onChange={(e) => setSchoolClass(e.target.value)}
                   value={schoolClass}
                   type="text"
                   name="school_class"
@@ -168,7 +168,7 @@ function BookModal(props) {
                 <label>E-mail</label>
                 <input
                   className="form-control"
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                   value={email}
                   type="email"
                   name="email"
@@ -186,11 +186,11 @@ function BookModal(props) {
                 <select
                   className="form-control"
                   value={seat}
-                  onChange={e => setSeat(e.target.value)}
+                  onChange={(e) => setSeat(e.target.value)}
                   required
                   name="seat"
                 >
-                  {Array.from(availableSeatList).map(function(object) {
+                  {Array.from(availableSeatList).map(function (object) {
                     return <option value={object}>{object}</option>;
                   })}
                 </select>

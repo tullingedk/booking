@@ -3,6 +3,9 @@
   "event_date": "Demo Date",
   "admin_password": "adminpassword",
   "disabled": false,
+  "google_signin": true,
+  "google_clientid": "716369516349-33ujlcld3rupvjfaih8t6rhduobek1d5.apps.googleusercontent.com",
+  "gsuite_domain_name": "skola.botkyrka.se",
   "redis": {
     "host": "127.0.0.1",
     "port": 6379

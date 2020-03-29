@@ -40,7 +40,7 @@ function SeatModal(props) {
   const [bookingStatus, setBookingStatus] = useState("");
 
   useEffect(() => {
-    var booking = Array.from(props.bookings).filter(obj => {
+    var booking = Array.from(props.bookings).filter((obj) => {
       return obj.id === props.id;
     });
 
