@@ -77,7 +77,7 @@ fetch(`${backend_url}/backend/info`)
         info_json={json}
         session_token={Cookies.get("session_token")}
         email={Cookies.get("email")}
-        class_name={Cookies.get("class_name")}
+        class_name={Cookies.get("school_class")}
         name={Cookies.get("name")}
       />,
       document.getElementById("root")

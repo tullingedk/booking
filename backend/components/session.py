@@ -29,7 +29,7 @@ def validate_session(token):
 
     for session in sessions:
         if token == session[0]:
-            if session[1] > now:
+            if session[4] > now:
                 return True
             else:
                 return False
@@ -46,12 +46,17 @@ def get_session(token):
     return False
 
 
-def new_session(remote_ip, is_admin=False):
+def new_session(remote_ip, name, email, school_class, is_admin=False):
     new_token = random_string(length=255)
     new_expire_date = datetime.now() + timedelta(hours=24)
 
     sql_query(
-        f'INSERT INTO sessions (token, expire, ip, is_admin) VALUES ("{new_token}", "{new_expire_date}", "{remote_ip}", {is_admin})'
+        " ".join(
+            (
+                "INSERT INTO sessions (token, name, email, school_class, expire, ip, is_admin)",
+                f'VALUES ("{new_token}", "{name}", "{email}", "{school_class}", "{new_expire_date}", "{remote_ip}", {is_admin})',
+            )
+        )
     )
 
     return new_token
@@ -71,5 +76,5 @@ def clear_old_sessions():
     now = datetime.now()
 
     for session in sessions:
-        if session[1] < now:
+        if session[4] < now:
             sql_query('DELETE FROM sessions WHERE token="{}"'.format(str(session[0])))

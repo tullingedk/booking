@@ -30,6 +30,7 @@ from components.session import (
     new_session,
 )
 from components.core import limiter
+from components.db import dict_sql_query
 from components.google import google_login
 
 from version import commit_hash, version
@@ -99,8 +100,30 @@ def google_callback():
     else:
         remote_ip = request.environ["HTTP_X_FORWARDED_FOR"]
 
+    # lookup user
+    user = dict_sql_query(
+        f'SELECT * FROM users WHERE email="{data["email"]}"', fetchone=True
+    )
+
+    if not user:
+        return (
+            jsonify(
+                {
+                    "status": False,
+                    "http_code": 401,
+                    "message": "Användaren är inte konfigurerad.",
+                    "response": {"configure_user": True,},
+                }
+            ),
+            401,
+        )
+
+    school_class = user["school_class"]
+
     clear_old_sessions()
-    token = new_session(remote_ip, is_admin=False)
+    token = new_session(
+        remote_ip, data["name"], data["email"], school_class, is_admin=False
+    )
 
     if token is not False:
         return jsonify(
@@ -109,10 +132,12 @@ def google_callback():
                 "http_code": 200,
                 "message": "request successful",
                 "response": {
+                    "configure_user": False,
                     "session": token,
                     "email": data["email"],
                     "name": data["name"],
                     "picture_url": data["picture"],
+                    "school_class": school_class,
                 },
             }
         )
@@ -158,7 +183,7 @@ def auth():
             remote_ip = request.environ["HTTP_X_FORWARDED_FOR"]
 
         clear_old_sessions()
-        token = new_session(remote_ip, is_admin=False)
+        token = new_session(remote_ip, None, None, None, is_admin=False)
 
         if token is not False:
             return jsonify(
@@ -206,7 +231,7 @@ def validate_session():
             "status": True,
             "http_code": 200,
             "message": "valid session",
-            "response": {"is_admin": session[3]},
+            "response": {"is_admin": session[6]},
         }
     )
 

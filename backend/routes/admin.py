@@ -56,7 +56,7 @@ def admin_auth():
     if request.json["password"] == config["admin_password"]:
         remote_ip = get_client_ip()
         clear_old_sessions()
-        token = new_session(remote_ip, is_admin=True)
+        token = new_session(remote_ip, None, None, None, is_admin=True)
 
         if token is not False:
             return jsonify(

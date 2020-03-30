@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 
 ##############################################################################################################
 #   _____        _             _    _       _     _                  ____              _    _                #
@@ -18,8 +17,6 @@
 #                                                                                                            #
 ##############################################################################################################
 
-# init database
-
 import sys
 from pathlib import Path
 
@@ -28,85 +25,7 @@ sys.path.append(str(Path(__file__).parent.parent.absolute()))
 
 from components.db import sql_query
 
-# firstname
-# lastname
-# school_class
-# email
-# seat
-# status
-#       1: booked and paid
-#       0: booked, not paid
+email = input("Email: ")
+school_class = input("School class: ")
 
-
-def createDb():
-    try:
-        sql_query(
-            """CREATE TABLE bookings (
-name VARCHAR(255),
-school_class VARCHAR(255),
-email VARCHAR(255),
-seat int NOT NULL,
-status int NOT NULL,
-date DATETIME,
-ip VARCHAR(255),
-PRIMARY KEY (seat)
-);"""
-        )
-    except Exception:
-        print("bookings already exists")
-
-
-def bc_createDb():
-    try:
-        sql_query(
-            """CREATE TABLE bc_bookings (
-name VARCHAR(255),
-school_class VARCHAR(255),
-email VARCHAR(255),
-seat int NOT NULL,
-status int NOT NULL,
-date DATETIME,
-ip VARCHAR(255),
-PRIMARY KEY (seat)
-);"""
-        )
-    except Exception:
-        print("bc_bookings already exists")
-
-
-def create_sessions():
-    try:
-        sql_query(
-            """CREATE TABLE sessions (
-token VARCHAR(255) NOT NULL,
-name VARCHAR(255) NOT NULL,
-email VARCHAR(255) NOT NULL,
-school_class VARCHAR(255) NOT NULL,
-expire DATETIME NOT NULL,
-ip VARCHAR(255) NOT NULL,
-is_admin BOOLEAN NOT NULL,
-PRIMARY KEY (token)
-);"""
-        )
-    except Exception:
-        print("sessions table already exists")
-
-
-def create_users():
-    try:
-        sql_query(
-            """CREATE TABLE users (
-email VARCHAR(255) NOT NULL,
-school_class VARCHAR(255),
-PRIMARY KEY (email)
-);"""
-        )
-    except Exception:
-        print("users table already exists")
-
-
-if __name__ == "__main__":
-    createDb()
-    bc_createDb()
-    create_sessions()
-    create_users()
+sql_query(f'INSERT INTO users VALUES ("{email}", "{school_class}")')

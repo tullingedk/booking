@@ -19,6 +19,7 @@ Flask-Limiter = "*"
 requests = "*"
 google-auth = "*"
 google-api-python-client = "*"
+pymysql = "*"
 
 [requires]
 python_version = "3.8"

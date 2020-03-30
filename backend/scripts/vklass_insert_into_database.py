@@ -17,7 +17,7 @@ with open("scripts/students.csv") as csv_file:
 
         if email != "" and email.lower() != "none":
             sql_query(
-                """INSERT INTO google_allowed_users (email, school_class) VALUES ("{}", "{}");""".format(
+                """INSERT INTO users (email, school_class) VALUES ("{}", "{}");""".format(
                     email.lower(), class_name
                 )
             )

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Cookies from "js-cookie";
 import styled from "styled-components";
 import Konami from "react-konami-code";
@@ -24,7 +24,7 @@ function Login() {
   const [status, setStatus] = useState("");
   const [statusColor, setStatusColor] = useState("");
 
-  const { signOut, loaded } = useGoogleLogout({});
+  const { signOut } = useGoogleLogout({});
 
   const responseGoogle = (response) => {
     var id_token = response.tokenId;
@@ -40,7 +40,11 @@ function Login() {
       }),
     })
       .then(function (response) {
-        if (response.status == 200 || response.status == 400) {
+        if (
+          response.status === 200 ||
+          response.status === 400 ||
+          response.status === 401
+        ) {
           return response.json();
         } else {
           signOut();
@@ -66,12 +70,21 @@ function Login() {
             path: "/",
           });
 
+          Cookies.set("school_class", json.response.school_class, {
+            expires: 7,
+            path: "/",
+          });
+
           // redirect
           window.location.replace("/");
         } else {
-          signOut();
-          setStatus("Ett fel uppstod. Fel: " + json.message);
-          setStatusColor("red");
+          if (json.response.configure_user) {
+            console.log("ah yeet");
+          } else {
+            signOut();
+            setStatus("Ett fel uppstod. Fel: " + json.message);
+            setStatusColor("red");
+          }
         }
       });
   };

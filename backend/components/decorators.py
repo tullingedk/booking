@@ -104,7 +104,7 @@ def admin_required(f):
 
         # check if ip has changed
         session = get_session(request.json["token"])
-        if session[2] != remote_ip:
+        if session[5] != remote_ip:
             return (
                 jsonify(
                     {
@@ -118,7 +118,7 @@ def admin_required(f):
             )
 
         # check if admin
-        if session[3] != 1:
+        if session[6] != 1:
             return (
                 jsonify(
                     {

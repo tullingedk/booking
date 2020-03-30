@@ -21,6 +21,7 @@ import json
 import os.path
 
 import mysql.connector
+import pymysql
 
 if os.path.exists("override.mysql.json"):
     with open("override.mysql.json", "r") as f:
@@ -60,5 +61,38 @@ def sql_query(query):
     cnx.commit()
     cursor.close()
     cnx.cursor()
+
+    return result
+
+
+def pymysql_create_conn():
+    """
+    Creates a connection from config
+    """
+    return pymysql.connect(
+        host=mysql_config["host"],
+        user=mysql_config["username"],
+        password=mysql_config["password"],
+        db=mysql_config["database"],
+    )
+
+
+def dict_sql_query(query, fetchone=False):
+    """
+    Performs specified SQL query in database, return data as dict
+    
+    Try to use this one as much as possible when querying for data.
+    """
+
+    conn = pymysql_create_conn()
+
+    try:
+        with conn.cursor(pymysql.cursors.DictCursor) as cursor:
+            cursor.execute(query)
+            result = cursor.fetchone() if fetchone else cursor.fetchall()
+
+        conn.commit()
+    finally:
+        conn.close()
 
     return result
