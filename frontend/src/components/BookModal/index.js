@@ -12,9 +12,9 @@ function BookModal(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
 
-  const [name, setName] = useState("");
-  const [schoolClass, setSchoolClass] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState(props.name);
+  const [schoolClass, setSchoolClass] = useState(props.class_name);
+  const [email, setEmail] = useState(props.email);
   const [seat, setSeat] = useState();
 
   const [status, setStatus] = useState(false);
@@ -149,6 +149,7 @@ function BookModal(props) {
                   type="text"
                   name="name"
                   required
+                  disabled
                 />
               </div>
 
@@ -161,6 +162,7 @@ function BookModal(props) {
                   type="text"
                   name="school_class"
                   required
+                  disabled
                 />
               </div>
 
@@ -173,6 +175,7 @@ function BookModal(props) {
                   type="email"
                   name="email"
                   required
+                  disabled
                 />
                 <small id="emailHelp" class="form-text text-muted">
                   Du måste ange din skolmailadress. Detta är för att förhindra

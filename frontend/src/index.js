@@ -73,7 +73,13 @@ fetch(`${backend_url}/backend/info`)
     }
 
     ReactDOM.render(
-      <Routing info_json={json} session_token={Cookies.get("session_token")} />,
+      <Routing
+        info_json={json}
+        session_token={Cookies.get("session_token")}
+        email={Cookies.get("email")}
+        class_name={Cookies.get("class_name")}
+        name={Cookies.get("name")}
+      />,
       document.getElementById("root")
     );
   });

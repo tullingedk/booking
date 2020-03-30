@@ -61,6 +61,11 @@ function Login() {
             path: "/",
           });
 
+          Cookies.set("name", json.response.name, {
+            expires: 7,
+            path: "/",
+          });
+
           // redirect
           window.location.replace("/");
         } else {

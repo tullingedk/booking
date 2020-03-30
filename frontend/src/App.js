@@ -145,6 +145,9 @@ function App(props) {
           <i>{props.info_json.response.commit_hash}</i>).
         </Text>
         <Text>LAN-datum: {props.info_json.response.event_date}</Text>
+        <Text>Inloggad som {props.email}</Text>
+        <Text>Klass {props.class_name}</Text>
+        <br />
         <Text>
           <b>Vanliga platser</b>
         </Text>
@@ -167,6 +170,9 @@ function App(props) {
           request_url="/book"
           available_seat_list_url="/available_seat_list"
           session_token={props.session_token}
+          email={props.email}
+          class_name={props.class_name}
+          name={props.name}
         />
 
         <BookModal
@@ -176,6 +182,9 @@ function App(props) {
           request_url="/bc/book"
           available_seat_list_url="/bc/available_seat_list"
           session_token={props.session_token}
+          email={props.email}
+          class_name={props.class_name}
+          name={props.name}
         />
 
         <InfoModal event_date={props.info_json.response.event_date} />

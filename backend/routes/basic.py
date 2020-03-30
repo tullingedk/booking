@@ -108,7 +108,12 @@ def google_callback():
                 "status": True,
                 "http_code": 200,
                 "message": "request successful",
-                "response": {"session": token, "email": data["email"]},
+                "response": {
+                    "session": token,
+                    "email": data["email"],
+                    "name": data["name"],
+                    "picture_url": data["picture"],
+                },
             }
         )
     else:
