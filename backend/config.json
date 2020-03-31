@@ -4,7 +4,7 @@
   "admin_password": "adminpassword",
   "disabled": false,
   "google_signin": true,
-  "google_clientid": "716369516349-33ujlcld3rupvjfaih8t6rhduobek1d5.apps.googleusercontent.com",
+  "google_clientid": "716369516349-qijdusbm4nfe9g4ic4hu72kmdmsr9qr1.apps.googleusercontent.com",
   "gsuite_domain_name": "skola.botkyrka.se",
   "redis": {
     "host": "127.0.0.1",

@@ -9,7 +9,7 @@ import UserModal from "../UserModal/index";
 import backend_url from "./../../global_variables";
 
 const google_client_id =
-  "716369516349-33ujlcld3rupvjfaih8t6rhduobek1d5.apps.googleusercontent.com";
+  "716369516349-qijdusbm4nfe9g4ic4hu72kmdmsr9qr1.apps.googleusercontent.com";
 
 const Title = styled.h1``;
 
