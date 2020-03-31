@@ -105,7 +105,7 @@ def google_callback():
         f'SELECT * FROM users WHERE email="{data["email"]}"', fetchone=True
     )
 
-    if not user:
+    if not user and not request.json["create"]:
         return (
             jsonify(
                 {
@@ -116,6 +116,39 @@ def google_callback():
                 }
             ),
             401,
+        )
+
+    # create user
+    if not user and request.json["create"]:
+        if request.json["password"] != config["lock_password"]:
+            return (
+                (
+                    jsonify(
+                        {
+                            "status": False,
+                            "http_code": 401,
+                            "message": "Fel lösenord",
+                            "response": {},
+                        }
+                    )
+                ),
+                401,
+            )
+
+        if not request.get_json("class"):
+            abort(400)
+
+        _class = request.json["class"]
+
+        if len(_class) < 3 or len(_class) > 6:
+            abort(400)
+
+        dict_sql_query(
+            f'INSERT INTO users VALUES ("{data["email"]}", "{request.json["class"].upper()}")',
+            fetchone=True,
+        )
+        user = dict_sql_query(
+            f'SELECT * FROM users WHERE email="{data["email"]}"', fetchone=True
         )
 
     school_class = user["school_class"]

@@ -4,6 +4,8 @@ import styled from "styled-components";
 import Konami from "react-konami-code";
 import { GoogleLogin, useGoogleLogout } from "react-google-login";
 
+import UserModal from "../UserModal/index";
+
 import backend_url from "./../../global_variables";
 
 const google_client_id =
@@ -23,6 +25,8 @@ const Container = styled.div`
 function Login() {
   const [status, setStatus] = useState("");
   const [statusColor, setStatusColor] = useState("");
+  const [userCreateModal, setUserCreateModal] = useState(false);
+  const [userCreateTokenId, setUserCreateTokenId] = useState("");
 
   const { signOut } = useGoogleLogout({});
 
@@ -37,6 +41,7 @@ function Login() {
       },
       body: JSON.stringify({
         idtoken: id_token,
+        create: false,
       }),
     })
       .then(function (response) {
@@ -79,7 +84,8 @@ function Login() {
           window.location.replace("/");
         } else {
           if (json.response.configure_user) {
-            console.log("ah yeet");
+            setUserCreateTokenId(id_token);
+            setUserCreateModal(true);
           } else {
             signOut();
             setStatus("Ett fel uppstod. Fel: " + json.message);
@@ -112,6 +118,7 @@ function Login() {
           window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
         }}
       />
+      <UserModal show_modal={userCreateModal} idtoken={userCreateTokenId} />
     </div>
   );
 }

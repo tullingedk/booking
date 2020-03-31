@@ -28,7 +28,7 @@ from components.objects.bc_bookings import (
     get_specific_bc_booking_details,
 )
 from components.tools import is_integer
-from components.db import sql_query
+from components.db import sql_query, dict_sql_query
 from components.swish_qr_generator import generate_swish_qr
 from components.core import limiter
 
@@ -255,10 +255,24 @@ def bc_book():
                         400,
                     )
 
+        if config["google_signin"]:
+            session = dict_sql_query(
+                f'SELECT * FROM sessions WHERE token="{form_data["token"]}"',
+                fetchone=True,
+            )
+
+            if not session:
+                abort(401)
+
+            name = session["name"]
+            school_class = session["school_class"].upper()
+            email = session["email"]
+        else:
+            name = form_data["name"]
+            school_class = form_data["class"].upper()
+            email = form_data["email"]
+
         # check if seat is already booked or if this user has booked any other
-        name = form_data["name"]
-        school_class = form_data["class"].upper()
-        email = form_data["email"]
         seat = form_data["seat"]
 
         already_used = False
