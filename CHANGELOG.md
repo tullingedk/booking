@@ -1,6 +1,6 @@
 # Changelog
 
-## next-release
+## v2.4.1 (relesed on 2020-03-31)
 
 * Fix [#8](https://github.com/VilhelmPrytz/datorklubben-booking/issues/8) - Use Google Sign-In for authentication
 * Update dependencies
