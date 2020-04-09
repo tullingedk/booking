@@ -28,7 +28,7 @@ The admin frontend is coded in React. It's meant to be served un the `/admin` ro
 
 ## License
 
-This project is licensed under the terms of the GNU General Public License 3.0. This license was added to the project in the commit [56df59a]([56df59a](https://github.com/VilhelmPrytz/datorklubben-booking/commit/56df59a5d90060c44f4d3f1570d2ac95705a9068)). The author of all previous commits, Vilhelm Prytz, has decided to license all previous work and commits under the same license.
+This project is licensed under the terms of the GNU General Public License 3.0. This license was added to the project in the commit [56df59a](https://github.com/VilhelmPrytz/datorklubben-booking/commit/56df59a5d90060c44f4d3f1570d2ac95705a9068). The author of all previous commits, Vilhelm Prytz, has decided to license all previous work and commits under the same license.
 
 ## Contributors ✨
 
