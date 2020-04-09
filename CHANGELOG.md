@@ -2,6 +2,7 @@
 
 ## next-release
 
+* Add LICENSE file.
 * Update dependencies
 
 ## v2.4.1 (relesed on 2020-03-31)
