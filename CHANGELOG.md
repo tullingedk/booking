@@ -1,6 +1,6 @@
 # Changelog
 
-## next-release
+## v2.4.2 (release on 2020-04-11)
 
 * Update FQDN.
 * Add LICENSE file.
