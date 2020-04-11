@@ -50,7 +50,7 @@ if (
 app = Flask(__name__)
 
 if not "DEVELOPMENT" in environ:
-    CORS(app, resources={r"/*": {"origins": "https://booking.vilhelmprytz.se"}})
+    CORS(app, resources={r"/*": {"origins": "https://booking.tgdk.se"}})
     print("Strict CORS-policy enabled")
 
 if "DEVELOPMENT" in environ:

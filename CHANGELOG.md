@@ -2,6 +2,7 @@
 
 ## next-release
 
+* Update FQDN.
 * Add LICENSE file.
 * Update dependencies
 

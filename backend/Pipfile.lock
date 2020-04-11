@@ -129,10 +129,10 @@
         },
         "httplib2": {
             "hashes": [
-                "sha256:4e26d60a6b37ff0e8401e976f13667cb3746dfa1b50833003b7f138042b54247",
-                "sha256:b81b2cd2248285168a4359f2acf24521a4099b5853e790309c45dcb90ee4b3c6"
+                "sha256:396ef66a170f76d5b2103f6c474da8aa3ff0c3c34c546323885e9de7e9eb08cd",
+                "sha256:eb7a6b137ae31e61c5f429083c5bebb71fe5fd1958e7f3d5c39b21b11cd4b290"
             ],
-            "version": "==0.17.1"
+            "version": "==0.17.2"
         },
         "idna": {
             "hashes": [
