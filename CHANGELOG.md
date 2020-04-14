@@ -1,5 +1,9 @@
 # Changelog
 
+## next-release
+
+* Update dependencies
+
 ## v2.4.2 (release on 2020-04-11)
 
 * Update FQDN.
