@@ -62,9 +62,10 @@ function InfoModal(props) {
               (gärna plats också) i meddelandet!
             </Text>
             <Text>
-              Mottagare ska vara <b>073 033 31 85</b>, belopp ska vara{" "}
-              <b>100 kr</b> för vanlig plats och <b>50 kr</b> för en konsol- och
-              brädspelsplats. Ange ditt namn och klass i meddelandet.
+              Mottagare ska vara <b>{props.info_json.swish_number}</b>, belopp
+              ska vara <b>100 kr</b> för vanlig plats och <b>50 kr</b> för en
+              konsol- och brädspelsplats. Ange ditt namn och klass i
+              meddelandet.
             </Text>
 
             <SubHeader>Städhjälp</SubHeader>
@@ -76,10 +77,10 @@ function InfoModal(props) {
             <SubHeader>Vid problem / kontakt</SubHeader>
             <Text>
               Om du har problem med bokningen eller om du vill ändra din
-              bokning, kontakta Vilhelm Prytz (ekonomiansvarig) via Discord
-              eller <a href="mailto:vilhelm@prytznet.se">mail</a>.
+              bokning, kontakta {props.info_json.swish_name} (ekonomiansvarig)
+              via Discord eller <a href="mailto:vilhelm@prytznet.se">mail</a>.
               Swishtelefonnumret går inte att ringa/SMSa till. Mottagare i
-              BankID ska stå som <i>Vilhelm Prytz</i>.
+              BankID ska stå som <i>{props.info_json.swish_name}</i>.
             </Text>
 
             <Header>FAQ</Header>

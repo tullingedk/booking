@@ -55,6 +55,7 @@ function BookingColumn(props) {
             bookings={props.bookings}
             id={seat_counter}
             seat_type={props.seat_type}
+            info_json={props.info_json}
           >
             <SeatText>{seat_counter}</SeatText>
           </SeatModal>
@@ -90,6 +91,7 @@ function BookingTable(props) {
             i={i}
             bookings={props.bookings}
             seat_type={props.seat_type}
+            info_json={props.info_json}
           />
         );
       })}

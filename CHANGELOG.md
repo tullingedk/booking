@@ -2,6 +2,7 @@
 
 ## next-release
 
+* Use `config.json` and don't hardcode all values (swish number, swish name, Google Client ID etc.)
 * Update dependencies
 
 ## v2.4.2 (release on 2020-04-11)

@@ -61,6 +61,9 @@ def info():
                 "bc_int_available_seats": int(len(bc_get_available_seats_list())),
                 "bc_int_booked_seats": int(len(get_bc_bookings())),
                 "google_signin": config["google_signin"],
+                "google_clientid": config["google_clientid"],
+                "swish_number": config["swish_number"],
+                "swish_name": config["swish_name"],
             },
         }
     )

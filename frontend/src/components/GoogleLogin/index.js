@@ -8,9 +8,6 @@ import UserModal from "../UserModal/index";
 
 import backend_url from "./../../global_variables";
 
-const google_client_id =
-  "716369516349-qijdusbm4nfe9g4ic4hu72kmdmsr9qr1.apps.googleusercontent.com";
-
 const Title = styled.h1``;
 
 const Text = styled.p``;
@@ -22,7 +19,7 @@ const Container = styled.div`
   text-align: center;
 `;
 
-function Login() {
+function Login(props) {
   const [status, setStatus] = useState("");
   const [statusColor, setStatusColor] = useState("");
   const [userCreateModal, setUserCreateModal] = useState(false);
@@ -103,7 +100,7 @@ function Login() {
         <Text>Denna sida använder en cookie för att hantera inloggningen.</Text>
 
         <GoogleLogin
-          clientId={google_client_id}
+          clientId={props.info_json.google_clientid}
           buttonText="Login"
           onSuccess={responseGoogle}
           onFailure={responseGoogle}

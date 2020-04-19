@@ -187,7 +187,10 @@ function App(props) {
           name={props.name}
         />
 
-        <InfoModal event_date={props.info_json.response.event_date} />
+        <InfoModal
+          event_date={props.info_json.response.event_date}
+          info_json={props.info_json}
+        />
 
         <Text>
           <b>OBS!</b> Läs informationen ovan innan du bokar en plats!
@@ -203,6 +206,7 @@ function App(props) {
               columns="2"
               bookings={bookings}
               seat_type={true}
+              info_json={props.info_json}
             />
 
             <BookingTable
@@ -211,6 +215,7 @@ function App(props) {
               columns="2"
               bookings={bookings}
               seat_type={true}
+              info_json={props.info_json}
             />
 
             <BookingTable
@@ -219,6 +224,7 @@ function App(props) {
               columns="2"
               bookings={bookings}
               seat_type={true}
+              info_json={props.info_json}
             />
           </Column>
           <ColumnTwo>
@@ -230,6 +236,7 @@ function App(props) {
               columns="1"
               bookings={bc_bookings}
               seat_type={false}
+              info_json={props.info_json}
             />
           </ColumnTwo>
         </Row>

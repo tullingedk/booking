@@ -4,10 +4,13 @@
   "admin_password": "adminpassword",
   "disabled": false,
   "google_signin": true,
-  "google_clientid": "716369516349-qijdusbm4nfe9g4ic4hu72kmdmsr9qr1.apps.googleusercontent.com",
-  "gsuite_domain_name": "skola.botkyrka.se",
+  "google_clientid": "????.apps.googleusercontent.com",
+  "gsuite_domain_name": "example.com",
+  "url": "https://booking.tgdk.se",
   "redis": {
     "host": "127.0.0.1",
     "port": 6379
-  }
+  },
+  "swish_number": "+46000000000",
+  "swish_name": "Firstname Lastname"
 }

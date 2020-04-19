@@ -20,8 +20,12 @@
 import qrcode
 import qrcode.image.svg
 
+from components.configuration import read_config
+
 # normal, bc
 amount_types = ["100", "50"]
+
+config = read_config()
 
 
 def generate_swish_qr(name, school_class, seat, booking_type):
@@ -34,9 +38,7 @@ def generate_swish_qr(name, school_class, seat, booking_type):
         border=4,
     )
 
-    data = "C+46730333185;{};{}+{}+{};0".format(
-        str(amount), name.replace(" ", "+"), school_class, "plats+" + str(seat)
-    )
+    data = f"C{config['swish_phone']};{str(amount)};{name.replace(' ', '+')}+{school_class}+{'plats+' + str(seat)};0"
 
     qr.add_data(data)
     qr.make(fit=True)

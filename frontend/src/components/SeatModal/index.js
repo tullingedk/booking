@@ -119,8 +119,9 @@ function SeatModal(props) {
                 </p>
                 <p>
                   <i>
-                    Kontrolluppgifter: Telefonumret är <b>+46 73 033 31 85</b>.
-                    Mottagare i BankID ska stå som <b>Vilhelm Prytz</b>{" "}
+                    Kontrolluppgifter: Telefonumret är{" "}
+                    <b>{props.info_json.swish_number}</b>. Mottagare i BankID
+                    ska stå som <b>{props.info_json.swish_name}</b>{" "}
                     (ekonomiansvarig).
                   </i>
                 </p>
