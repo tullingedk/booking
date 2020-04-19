@@ -1,2 +1,2 @@
 commit_hash = "development"
-version = "v2.4.2"
+version = "v2.5.0"

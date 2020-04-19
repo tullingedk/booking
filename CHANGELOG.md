@@ -1,11 +1,11 @@
 # Changelog
 
-## next-release
+## v2.5.0 (released on 2020-04-19)
 
 * Use `config.json` and don't hardcode all values (swish number, swish name, Google Client ID etc.)
 * Update dependencies
 
-## v2.4.2 (release on 2020-04-11)
+## v2.4.2 (released on 2020-04-11)
 
 * Update FQDN.
 * Add LICENSE file.
