@@ -1,6 +1,6 @@
-# datorklubben-booking
+# tullingedk/booking
 
-Booking system for Tullinge gymnasium datorklubb. Initial revision was coded during 2018, major overhaul in 2019 (split application into three).
+Booking system for Tullinge gymnasium datorklubb. Initial revision was coded during 2018, major overhaul in 2019 (split application into three). Made open-source in 2020 and rewritten again.
 
 Production application is available at [booking.tgdk.se](https://booking.tgdk.se).
 
@@ -28,7 +28,7 @@ The admin frontend is coded in React. It's meant to be served un the `/admin` ro
 
 ## License
 
-This project is licensed under the terms of the GNU General Public License 3.0. This license was added to the project in the commit [56df59a](https://github.com/VilhelmPrytz/datorklubben-booking/commit/56df59a5d90060c44f4d3f1570d2ac95705a9068). The author of all previous commits, Vilhelm Prytz, has decided to license all previous work and commits under the same license.
+This project is licensed under the terms of the GNU General Public License 3.0. This license was added to the project in the commit [56df59a](https://github.com/tullingedk/booking/commit/56df59a5d90060c44f4d3f1570d2ac95705a9068). The author of all previous commits, Vilhelm Prytz, has decided to license all previous work and commits under the same license.
 
 ## Contributors ✨
 
