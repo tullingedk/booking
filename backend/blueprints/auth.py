@@ -8,9 +8,11 @@
 #                                                                         #
 ###########################################################################
 
-from flask import Blueprint, request, abort, session
+from flask import Blueprint, request, abort, session, redirect
 
 from base import base_req
+from decorators.auth import google_logged_in
+from models import User
 
 from os import environ
 from oauthlib.oauth2 import WebApplicationClient
@@ -22,6 +24,7 @@ GOOGLE_CLIENT_ID = environ.get("GOOGLE_CLIENT_ID", None)
 GOOGLE_CLIENT_SECRET = environ.get("GOOGLE_CLIENT_SECRET", None)
 GOOGLE_HOSTED_DOMAIN = environ.get("GOOGLE_HOSTED_DOMAIN", None)
 GOOGLE_DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configuration"
+FRONTEND_URL = environ.get("FRONTEND_URL", None)
 
 # OAuth 2 client setup
 client = WebApplicationClient(GOOGLE_CLIENT_ID)
@@ -54,6 +57,10 @@ def login():
 def callback():
     # Get authorization code Google sent back
     code = request.args.get("code")
+
+    # If no code was sent
+    if not code:
+        abort(400, "missing oauth token")
 
     # Find out what URL to hit to get tokens that allow you to ask for
     # things on behalf of a user
@@ -88,7 +95,7 @@ def callback():
     # The user authenticated with Google, authorized your
     # app, and now you've verified their email through Google!
     if userinfo_response.json().get("email_verified"):
-        if not "hd" in userinfo_response.json():
+        if "hd" not in userinfo_response.json():
             abort(
                 401,
                 "Email is not hosted domain. Please use organization Google Account.",
@@ -108,6 +115,28 @@ def callback():
         session["google_picture_url"] = userinfo_response.json()["picture"]
         session["google_name"] = userinfo_response.json()["name"]
 
-        return base_req(response=userinfo_response.json())
+        return redirect(FRONTEND_URL)
 
     abort(400, "User email not available or not verified by Google")
+
+
+@auth_blueprint.route("/validate")
+@google_logged_in
+def validate():
+    try:
+        user = User.query.filter_by(email=session["google_email"]).one()
+    except Exception:
+        abort(401, "User not registered.")
+
+    return base_req(message="User valid.")
+
+
+@auth_blueprint.route("/register", methods=["POST"])
+@google_logged_in
+def register():
+    user = User.query.filter_by(email=session["google_email"])
+
+    if user:
+        abort(400, "User already registered.")
+
+    return base_req(message="TODO: register.")

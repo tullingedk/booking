@@ -29,7 +29,8 @@ MYSQL_DATABASE = environ.get("MYSQL_DATABASE", "booking")
 
 app.config[
     "SQLALCHEMY_DATABASE_URI"
-] = f"mysql+pymysql://{MYSQL_USER}{MYSQL_PASSWORD}@{MYSQL_HOST}/{MYSQL_DATABASE}"
+] = f"mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}/{MYSQL_DATABASE}?charset=utf8mb4"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 from models import db
 
