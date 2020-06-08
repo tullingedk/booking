@@ -12,5 +12,6 @@ Flask backend.
 * `MYSQL_PASSWORD` - MySQL password used for database connections.
 * `MYSQL_HOST` - MySQL hostname used for database connections.
 * `MYSQL_DATABASE` - MySQL database name used for database connections.
+* `REGISTER_PASSWORD` - Password for user registration.
 * `SECRET_KEY` - Used by Flask for sessions. Can be regenerated without dataloss. Does not have to be defined in development.
 * `OAUTHLIB_INSECURE_TRANSPORT` - Set to `1` during development to allow for HTTP auth.

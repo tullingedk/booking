@@ -11,20 +11,22 @@
 from flask import Blueprint, request, abort, session, redirect
 
 from base import base_req
-from decorators.auth import google_logged_in
-from models import User
+from decorators.auth import google_logged_in, user_registered
+from models import db, User
+from validation import input_validation, length_validation
 
 from os import environ
 from oauthlib.oauth2 import WebApplicationClient
 from requests import get, post
 from json import dumps
 
-# define google configuration
+# define configuration (from environment variables)
 GOOGLE_CLIENT_ID = environ.get("GOOGLE_CLIENT_ID", None)
 GOOGLE_CLIENT_SECRET = environ.get("GOOGLE_CLIENT_SECRET", None)
 GOOGLE_HOSTED_DOMAIN = environ.get("GOOGLE_HOSTED_DOMAIN", None)
 GOOGLE_DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configuration"
 FRONTEND_URL = environ.get("FRONTEND_URL", None)
+REGISTER_PASSWORD = environ.get("REGISTER_PASSWORD", None)
 
 # OAuth 2 client setup
 client = WebApplicationClient(GOOGLE_CLIENT_ID)
@@ -122,12 +124,8 @@ def callback():
 
 @auth_blueprint.route("/validate")
 @google_logged_in
+@user_registered
 def validate():
-    try:
-        user = User.query.filter_by(email=session["google_email"]).one()
-    except Exception:
-        abort(401, "User not registered.")
-
     return base_req(message="User valid.")
 
 
@@ -139,4 +137,20 @@ def register():
     if user:
         abort(400, "User already registered.")
 
-    return base_req(message="TODO: register.")
+    password = request.json["password"]
+    school_class = request.json["school_class"]
+
+    if password != REGISTER_PASSWORD:
+        abort(401, "Invalid password")
+
+    if input_validation(school_class) and length_validation(
+        school_class, 4, 6, vanity="School class"
+    ):
+        user = User(email=session["google_email"], school_class=school_class)
+
+        db.session.add(user)
+        db.session.commit()
+
+        return base_req(message="user registered")
+
+    abort(500)
