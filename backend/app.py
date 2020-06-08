@@ -18,6 +18,7 @@ from os import environ, urandom
 from base import base_req
 
 from blueprints.auth import auth_blueprint
+from blueprints.booking import booking_blueprint
 
 app = Flask(__name__)
 app.secret_key = environ.get("SECRET_KEY") or urandom(24)
@@ -77,6 +78,7 @@ def error_500(e):
 
 # register blueprints
 app.register_blueprint(auth_blueprint, url_prefix="/api/auth")
+app.register_blueprint(booking_blueprint, url_prefix="/api/booking")
 
 
 if __name__ == "__main__":

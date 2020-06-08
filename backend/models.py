@@ -32,11 +32,10 @@ class Admin(db.Model):
 
 
 class Booking(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    seat = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
     name = db.Column(db.String(255), unique=False, nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
     school_class = db.Column(db.String(15), unique=False, nullable=False)
-    seat = db.Column(db.Integer, unique=True, nullable=False)
     paid = db.Column(db.Boolean, unique=False, nullable=False, default=False)
 
     time_created = db.Column(db.DateTime(timezone=True), server_default=func.now())

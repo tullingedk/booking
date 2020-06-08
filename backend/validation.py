@@ -16,6 +16,14 @@ ILLEGAL_CHARACTERS = ["<", ">", ";"]
 ALLOWED_CHARACTERS = list(printable) + ["å", "ä", "ö", "Å", "Ä", "Ö"]
 
 
+def is_integer(i):
+    try:
+        int(i)
+    except Exception:
+        return False
+    return True
+
+
 def input_validation(i):
     if any(x in i for x in ILLEGAL_CHARACTERS):
         abort(
