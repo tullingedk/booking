@@ -175,6 +175,7 @@ def register():
 
     abort(500)
 
+
 @auth_blueprint.route("/logout")
 @google_logged_in
 def logout():
