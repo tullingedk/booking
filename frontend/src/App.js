@@ -1,12 +1,15 @@
 import React from "react";
-import "./App.css";
+import { useSelector, useDispatch } from "react-redux";
+
+// pages
+import Login from "./pages/Login";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header"></header>
-    </div>
-  );
+  const isAuthenticated = useSelector((state) => state.isAuthenticated);
+
+  if (isAuthenticated === false) {
+    return <Login />;
+  }
 }
 
 export default App;

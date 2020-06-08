@@ -1,0 +1,2 @@
+export const USER_SET_EMAIL = "USER_SET_EMAIL";
+export const SET_AUTHENTICATED = "SET_AUTHENTICATED";

@@ -15,6 +15,7 @@ pymysql = "*"
 redis = "*"
 flask-sqlalchemy = "*"
 qrcode = {extras = ["pil"],version = "*"}
+flask-cors = "*"
 
 [requires]
 python_version = "3.8"

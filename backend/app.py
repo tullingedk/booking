@@ -9,6 +9,7 @@
 ###########################################################################
 
 from flask import Flask
+from flask_cors import CORS
 
 # imports
 from version import version, commit_hash
@@ -39,6 +40,15 @@ db.init_app(app)
 
 with app.app_context():
     db.create_all()
+
+
+if not "DEVELOPMENT" in environ:
+    CORS(app, resources={r"/*": {"origins": config["url"]}})
+    print("Strict CORS-policy enabled")
+
+if "DEVELOPMENT" in environ:
+    CORS(app)
+    print("Lazy CORS-policy enabled ('DEVELOPMENT' environment variable present)")
 
 
 @app.errorhandler(400)
