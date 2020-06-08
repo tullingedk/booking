@@ -47,7 +47,7 @@ if not "DEVELOPMENT" in environ:
     print("Strict CORS-policy enabled")
 
 if "DEVELOPMENT" in environ:
-    CORS(app)
+    CORS(app, supports_credentials=True)
     print("Lazy CORS-policy enabled ('DEVELOPMENT' environment variable present)")
 
 
@@ -58,7 +58,14 @@ def error_400(e):
 
 @app.errorhandler(401)
 def error_401(e):
-    return base_req(status=False, http_code=401, message=e.description)
+    return base_req(
+        status=False,
+        http_code=401,
+        message=e.description["description"]
+        if type(e.description) is dict
+        else e.description,
+        response=e.description["response"] if type(e.description) is dict else {},
+    )
 
 
 @app.errorhandler(403)

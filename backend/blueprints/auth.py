@@ -126,19 +126,30 @@ def callback():
 @google_logged_in
 @user_registered
 def validate():
-    return base_req(message="User valid.")
+    user = User.query.filter_by(email=session["google_email"]).one()
+
+    return base_req(
+        message="User valid.",
+        response={
+            "google": True,
+            "registered": True,
+            "email": session["google_email"],
+            "name": session["google_name"],
+            "school_class": user.school_class,
+        },
+    )
 
 
 @auth_blueprint.route("/register", methods=["POST"])
 @google_logged_in
 def register():
-    user = User.query.filter_by(email=session["google_email"])
+    user = User.query.filter_by(email=session["google_email"]).all()
 
-    if user:
+    if len(user) > 0:
         abort(400, "User already registered.")
 
     password = request.json["password"]
-    school_class = request.json["school_class"]
+    school_class = request.json["school_class"].upper()
 
     if password != REGISTER_PASSWORD:
         abort(401, "Invalid password")
@@ -151,6 +162,20 @@ def register():
         db.session.add(user)
         db.session.commit()
 
-        return base_req(message="user registered")
+        return base_req(
+            message="user registered",
+            response={
+                "email": session["google_email"],
+                "name": session["google_name"],
+                "school_class": school_class,
+            },
+        )
 
     abort(500)
+
+@auth_blueprint.route("/logout")
+@google_logged_in
+def logout():
+    session.pop("google_login")
+
+    return redirect(FRONTEND_URL)

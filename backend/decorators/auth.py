@@ -9,16 +9,23 @@
 ###########################################################################
 
 from functools import wraps
-from flask import session, abort
+from flask import session, abort, Response, make_response
 
 from models import User
+from base import base_req
 
 
 def google_logged_in(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if "google_login" not in session:
-            abort(401, "User is not authenticated using Google.")
+            abort(
+                401,
+                {
+                    "description": "User not authenticated with Google",
+                    "response": {"google": False, "registered": False},
+                },
+            )
         return f(*args, **kwargs)
 
     return decorated_function
@@ -30,7 +37,14 @@ def user_registered(f):
         try:
             user = User.query.filter_by(email=session["google_email"]).one()
         except Exception:
-            abort(401, "User not registered.")
+            abort(
+                401,
+                {
+                    "description": "User not registered",
+                    "response": {"google": True, "registered": False},
+                },
+            )
+
         return f(*args, **kwargs)
 
     return decorated_function

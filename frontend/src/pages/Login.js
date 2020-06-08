@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
 
-import { Container, Button } from "@material-ui/core";
+import { Container, Button, CircularProgress, Grid } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 import Typography from "@material-ui/core/Typography";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 function Login() {
   const [loginUrl, setLoginUrl] = useState();
+  const [error, setError] = useState();
 
   useEffect(() => {
     fetch(`${BACKEND_URL}/api/auth/login`)
       .then((response) => response.json())
       .then((data) => {
         setLoginUrl(data.response.login_url);
+      })
+      .catch((e) => {
+        setError(`Ett fel uppstod: ${e}`);
       });
   }, []);
 
@@ -25,9 +30,19 @@ function Login() {
         Bokningssystem för Tullinge gymnasium datorklubb.
       </Typography>
 
-      <Button variant="contained" color="primary" href={loginUrl}>
-        Logga in med Google
-      </Button>
+      {loginUrl && (
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Grid container justify="center" spacing={1}>
+              <Button variant="contained" color="primary" href={loginUrl}>
+                Logga in med Google
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
+      )}
+      {!loginUrl && !error && <CircularProgress />}
+      {error && <Alert severity="error">{error}</Alert>}
     </Container>
   );
 }
