@@ -45,10 +45,36 @@ function userClass(school_class = "", action) {
   }
 }
 
+function userAvatar(avatar = "", action) {
+  switch (action.type) {
+    case "USER_SET_AVATAR":
+      return action.avatar;
+    default:
+      return avatar;
+  }
+}
+
+function systemMeta(meta = { version: "", hash: "" }, action) {
+  switch (action.type) {
+    case "SYSTEM_SET_VERSION":
+      return Object.assign({}, meta, {
+        version: action.version,
+      });
+    case "SYSTEM_SET_HASH":
+      return Object.assign({}, meta, {
+        hash: action.hash,
+      });
+    default:
+      return meta;
+  }
+}
+
 export default combineReducers({
   userEmail,
   userName,
   userClass,
+  userAvatar,
   isAuthenticated,
   isRegistered,
+  systemMeta,
 });

@@ -8,7 +8,7 @@ function Error(props) {
   return (
     <Container maxWidth="sm">
       <Typography variant="h2" gutterBottom align="center">
-        Tullinge Datorklubb
+        Datorklubben Bokningssystem
       </Typography>
       <Alert severity="error">{props.error}</Alert>
     </Container>

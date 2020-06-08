@@ -135,6 +135,7 @@ def validate():
             "registered": True,
             "email": session["google_email"],
             "name": session["google_name"],
+            "avatar": session["google_picture_url"],
             "school_class": user.school_class,
         },
     )
@@ -167,6 +168,7 @@ def register():
             response={
                 "email": session["google_email"],
                 "name": session["google_name"],
+                "avatar": session["google_picture_url"],
                 "school_class": school_class,
             },
         )

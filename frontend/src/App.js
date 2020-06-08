@@ -13,6 +13,9 @@ import { setRegistered } from "./redux/actions";
 import { setUserEmail } from "./redux/actions";
 import { setUserName } from "./redux/actions";
 import { setUserClass } from "./redux/actions";
+import { setUserAvatar } from "./redux/actions";
+import { setVersion } from "./redux/actions";
+import { setHash } from "./redux/actions";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -39,6 +42,9 @@ function App() {
           dispatch(setUserEmail(data.response.email));
           dispatch(setUserName(data.response.name));
           dispatch(setUserClass(data.response.school_class));
+          dispatch(setUserAvatar(data.response.avatar));
+          dispatch(setVersion(data.meta.version));
+          dispatch(setHash(data.meta.commit_hash));
         } else if (data.http_code === 401) {
           if (data.response.google === true) {
             // if is authenticated with google

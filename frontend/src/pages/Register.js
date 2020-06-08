@@ -11,6 +11,9 @@ import { setRegistered } from "./../redux/actions";
 import { setUserEmail } from "./../redux/actions";
 import { setUserName } from "./../redux/actions";
 import { setUserClass } from "./../redux/actions";
+import { setUserAvatar } from "./../redux/actions";
+import { setVersion } from "./../redux/actions";
+import { setHash } from "./../redux/actions";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -51,6 +54,9 @@ function Register() {
           dispatch(setUserEmail(data.response.email));
           dispatch(setUserName(data.response.name));
           dispatch(setUserClass(data.response.school_class));
+          dispatch(setUserAvatar(data.response.avatar));
+          dispatch(setVersion(data.meta.version));
+          dispatch(setHash(data.meta.commit_hash));
         } else {
           setError(`${data.message} (${data.http_code})`);
         }
@@ -63,7 +69,7 @@ function Register() {
   return (
     <Container maxWidth="sm">
       <Typography variant="h2" gutterBottom align="center">
-        Tullinge Datorklubb
+        Datorklubben Bokningssystem
       </Typography>
       <Typography variant="body1" gutterBottom align="center">
         Du är inloggad men inte registrerad.

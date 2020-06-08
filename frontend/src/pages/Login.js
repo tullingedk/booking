@@ -24,7 +24,7 @@ function Login() {
   return (
     <Container maxWidth="sm">
       <Typography variant="h2" gutterBottom align="center">
-        Tullinge Datorklubb
+        Datorklubben Bokningssystem
       </Typography>
       <Typography variant="body1" gutterBottom align="center">
         Bokningssystem för Tullinge gymnasium datorklubb.
@@ -41,7 +41,15 @@ function Login() {
           </Grid>
         </Grid>
       )}
-      {!loginUrl && !error && <CircularProgress />}
+      {!loginUrl && !error && (
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Grid container justify="center" spacing={1}>
+              <CircularProgress />
+            </Grid>
+          </Grid>
+        </Grid>
+      )}
       {error && <Alert severity="error">{error}</Alert>}
     </Container>
   );
