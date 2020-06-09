@@ -8,19 +8,6 @@
 #                                                                         #
 ###########################################################################
 
-import sys
-from pathlib import Path
+from flask import Blueprint
 
-# add parent folder
-sys.path.append(str(Path(__file__).parent.parent.absolute()))
-
-from app import db, app
-from models import Admin
-
-new_email = input("Enter email: ")
-
-admin = Admin(email=new_email)
-
-with app.app_context():
-    db.session.add(admin)
-    db.session.commit()
+admin_blueprint = Blueprint("admin", __name__, template_folder="../templates")

@@ -24,9 +24,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Nav() {
-  const userName = useSelector((state) => state.userName);
-  const userClass = useSelector((state) => state.userClass);
-  const userAvatar = useSelector((state) => state.userAvatar);
+  const user = useSelector((state) => state.user);
   const meta = useSelector((state) => state.systemMeta);
 
   const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -53,7 +51,7 @@ function Nav() {
           Kör tullingedk/booking {meta.version}, commit {meta.hash}
         </Typography>
         <Typography variant="h6" className={classes.menuButton}>
-          {userName} {userClass}
+          {user.is_admin && "(Admin)"} {user.name} {user.school_class}
         </Typography>
         <div>
           <IconButton
@@ -63,7 +61,7 @@ function Nav() {
             onClick={handleMenu}
             color="inherit"
           >
-            <Avatar alt={userName} src={userAvatar} />
+            <Avatar alt={user.name} src={user.avatar} />
           </IconButton>
           <Menu
             id="menu-appbar"

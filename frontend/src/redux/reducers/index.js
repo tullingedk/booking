@@ -18,39 +18,33 @@ function isRegistered(registered = false, action) {
   }
 }
 
-function userEmail(email = "", action) {
+function user(
+  user = { email: "", name: "", school_class: "", avatar: "", is_admin: false },
+  action
+) {
   switch (action.type) {
     case "USER_SET_EMAIL":
-      return action.email;
-    default:
-      return email;
-  }
-}
-
-function userName(name = "", action) {
-  switch (action.type) {
+      return Object.assign({}, user, {
+        email: action.email,
+      });
     case "USER_SET_NAME":
-      return action.name;
-    default:
-      return name;
-  }
-}
-
-function userClass(school_class = "", action) {
-  switch (action.type) {
+      return Object.assign({}, user, {
+        name: action.name,
+      });
     case "USER_SET_CLASS":
-      return action.school_class;
-    default:
-      return school_class;
-  }
-}
-
-function userAvatar(avatar = "", action) {
-  switch (action.type) {
+      return Object.assign({}, user, {
+        school_class: action.school_class,
+      });
     case "USER_SET_AVATAR":
-      return action.avatar;
+      return Object.assign({}, user, {
+        avatar: action.avatar,
+      });
+    case "USER_IS_ADMIN":
+      return Object.assign({}, user, {
+        is_admin: action.is_admin,
+      });
     default:
-      return avatar;
+      return user;
   }
 }
 
@@ -70,10 +64,7 @@ function systemMeta(meta = { version: "", hash: "" }, action) {
 }
 
 export default combineReducers({
-  userEmail,
-  userName,
-  userClass,
-  userAvatar,
+  user,
   isAuthenticated,
   isRegistered,
   systemMeta,

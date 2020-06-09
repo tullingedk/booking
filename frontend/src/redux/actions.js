@@ -3,6 +3,7 @@ import {
   USER_SET_NAME,
   USER_SET_CLASS,
   USER_SET_AVATAR,
+  USER_IS_ADMIN,
   SET_AUTHENTICATED,
   SET_REGISTERED,
   SYSTEM_SET_VERSION,
@@ -27,6 +28,11 @@ export const setUserClass = (school_class) => ({
 export const setUserAvatar = (avatar) => ({
   type: USER_SET_AVATAR,
   avatar,
+});
+
+export const setIsAdmin = (is_admin) => ({
+  type: USER_IS_ADMIN,
+  is_admin,
 });
 
 export const setAuthenticated = (authenticated) => ({

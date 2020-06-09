@@ -12,7 +12,7 @@ from flask import Blueprint, request, abort, session, redirect
 
 from base import base_req
 from decorators.auth import google_logged_in, user_registered
-from models import db, User
+from models import db, User, Admin
 from validation import input_validation, length_validation
 
 from os import environ
@@ -116,6 +116,13 @@ def callback():
         session["google_email"] = userinfo_response.json()["email"]
         session["google_picture_url"] = userinfo_response.json()["picture"]
         session["google_name"] = userinfo_response.json()["name"]
+        session["is_admin"] = False
+
+        try:
+            admin = Admin.query.filter_by(email=session["google_email"]).one()
+            session["is_admin"] = True
+        except Exception:
+            pass
 
         return redirect(FRONTEND_URL)
 
@@ -137,6 +144,7 @@ def validate():
             "name": session["google_name"],
             "avatar": session["google_picture_url"],
             "school_class": user.school_class,
+            "is_admin": session["is_admin"],
         },
     )
 
@@ -170,6 +178,7 @@ def register():
                 "name": session["google_name"],
                 "avatar": session["google_picture_url"],
                 "school_class": school_class,
+                "is_admin": session["is_admin"],
             },
         )
 
@@ -179,6 +188,7 @@ def register():
 @auth_blueprint.route("/logout")
 @google_logged_in
 def logout():
-    session.pop("google_login")
+    session.pop("google_login", None)
+    session.pop("is_admin", None)
 
     return redirect(FRONTEND_URL)

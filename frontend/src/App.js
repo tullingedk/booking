@@ -16,6 +16,7 @@ import { setUserClass } from "./redux/actions";
 import { setUserAvatar } from "./redux/actions";
 import { setVersion } from "./redux/actions";
 import { setHash } from "./redux/actions";
+import { setIsAdmin } from "./redux/actions";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -45,6 +46,7 @@ function App() {
           dispatch(setUserAvatar(data.response.avatar));
           dispatch(setVersion(data.meta.version));
           dispatch(setHash(data.meta.commit_hash));
+          dispatch(setIsAdmin(data.response.is_admin));
         } else if (data.http_code === 401) {
           if (data.response.google === true) {
             // if is authenticated with google
