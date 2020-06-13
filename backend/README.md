@@ -16,5 +16,8 @@ Flask backend.
 * `REGISTER_PASSWORD` - Password for user registration.
 * `SWISH_PHONE` - Phone number displayed as payment recipient. Format `+46XXXXXXXXX`
 * `SECRET_KEY` - Used by Flask for sessions. Can be regenerated without dataloss. Does not have to be defined in development.
+
+### Optional (development)
+
 * `OAUTHLIB_INSECURE_TRANSPORT` - Set to `1` during development to allow for HTTP auth.
 * `DEVELOPMENT` - Define to enable lazy CORS policy.

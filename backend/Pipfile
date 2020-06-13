@@ -16,6 +16,7 @@ redis = "*"
 flask-sqlalchemy = "*"
 qrcode = {extras = ["pil"],version = "*"}
 flask-cors = "*"
+cryptography = "*"
 
 [requires]
 python_version = "3.8"
