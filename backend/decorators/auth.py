@@ -9,10 +9,9 @@
 ###########################################################################
 
 from functools import wraps
-from flask import session, abort, Response, make_response
+from flask import session, abort
 
-from models import User
-from base import base_req
+from models import User, Admin
 
 
 def google_logged_in(f):
@@ -34,9 +33,7 @@ def google_logged_in(f):
 def user_registered(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        try:
-            user = User.query.filter_by(email=session["google_email"]).one()
-        except Exception:
+        if len(User.query.filter_by(email=session["google_email"]).all()) < 1:
             abort(
                 401,
                 {
@@ -44,6 +41,17 @@ def user_registered(f):
                     "response": {"google": True, "registered": False},
                 },
             )
+
+        return f(*args, **kwargs)
+
+    return decorated_function
+
+
+def is_admin(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if len(Admin.query.filter_by(email=session["google_email"]).all()) < 1:
+            abort(401, "User is not admin.")
 
         return f(*args, **kwargs)
 

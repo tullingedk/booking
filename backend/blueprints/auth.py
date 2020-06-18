@@ -33,6 +33,7 @@ client = WebApplicationClient(GOOGLE_CLIENT_ID)
 
 auth_blueprint = Blueprint("auth", __name__, template_folder="../templates")
 
+
 # functions
 def get_google_provider_cfg():
     return get(GOOGLE_DISCOVERY_URL).json()
@@ -119,7 +120,7 @@ def callback():
         session["is_admin"] = False
 
         try:
-            admin = Admin.query.filter_by(email=session["google_email"]).one()
+            Admin.query.filter_by(email=session["google_email"]).one()
             session["is_admin"] = True
         except Exception:
             pass

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import md5 from "md5";
 
@@ -19,7 +19,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 import { blue } from "@material-ui/core/colors";
 
-const emails = ["email@example.com", "email2@example.com"];
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
 const useStyles = makeStyles({
   avatar: {
     backgroundColor: blue[100],
@@ -40,7 +41,21 @@ function SimpleDialog(props) {
   };
 
   const deleteAdmin = (value) => {
-    console.log(value);
+    fetch(`${BACKEND_URL}/api/admin/user`, {
+      credentials: "include",
+      method: "delete",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: value,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      });
   };
 
   return (
@@ -51,7 +66,7 @@ function SimpleDialog(props) {
     >
       <DialogTitle id="simple-dialog-title">Hantera adminanvändare</DialogTitle>
       <List>
-        {emails.map((email) => (
+        {props.emails.map((email) => (
           <ListItem button key={email}>
             <ListItemAvatar>
               <Avatar
@@ -87,6 +102,27 @@ SimpleDialog.propTypes = {
 };
 
 function AdminDialog() {
+  const [emails, setEmails] = useState([]);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    fetch(`${BACKEND_URL}/api/admin/user`, {
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.http_code === 200) {
+          // if 200, all is good
+          setEmails(data.response.map((a) => a.email));
+        } else {
+          setError(`Ett fel uppstod: ${data.message}`);
+        }
+      })
+      .catch((e) => {
+        setError(`Ett fel uppstod: ${e}`);
+      });
+  }, []);
+
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(emails[1]);
 
@@ -108,6 +144,7 @@ function AdminDialog() {
         selectedValue={selectedValue}
         open={open}
         onClose={handleClose}
+        emails={emails}
       />
     </Container>
   );
