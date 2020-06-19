@@ -17,6 +17,13 @@ import Container from "@material-ui/core/Container";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
+import Alert from "@material-ui/lab/Alert";
+
+import TextField from "@material-ui/core/TextField";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+
 import { blue } from "@material-ui/core/colors";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -28,16 +35,39 @@ const useStyles = makeStyles({
   },
 });
 
-function SimpleDialog(props) {
+function AdminList(props) {
+  const [createAdminDialogOpen, setCreateAdminDialogOpen] = useState(false);
+
+  const [emails, setEmails] = useState([]);
+  const [error, setError] = useState("");
+
   const classes = useStyles();
   const { onClose, selectedValue, open } = props;
 
-  const handleClose = () => {
-    onClose(selectedValue);
+  const updateAdmins = () => {
+    fetch(`${BACKEND_URL}/api/admin/user`, {
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.http_code === 200) {
+          // if 200, all is good
+          setEmails(data.response.map((a) => a.email));
+        } else {
+          setError(`Ett fel uppstod: ${data.message} (${data.http_code})`);
+        }
+      })
+      .catch((e) => {
+        setError(`Ett fel uppstod: ${e}`);
+      });
   };
 
-  const addAdmin = (value) => {
-    console.log(value);
+  useEffect(() => {
+    updateAdmins();
+  }, []);
+
+  const handleClose = () => {
+    onClose(selectedValue);
   };
 
   const deleteAdmin = (value) => {
@@ -54,7 +84,14 @@ function SimpleDialog(props) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        if (data.http_code === 200) {
+          updateAdmins();
+        } else {
+          setError(`Ett fel uppstod: ${data.message} (${data.http_code})`);
+        }
+      })
+      .catch((e) => {
+        setError(`Ett fel uppstod: ${e}`);
       });
   };
 
@@ -66,7 +103,7 @@ function SimpleDialog(props) {
     >
       <DialogTitle id="simple-dialog-title">Hantera adminanvändare</DialogTitle>
       <List>
-        {props.emails.map((email) => (
+        {emails.map((email) => (
           <ListItem button key={email}>
             <ListItemAvatar>
               <Avatar
@@ -82,7 +119,11 @@ function SimpleDialog(props) {
           </ListItem>
         ))}
 
-        <ListItem autoFocus button onClick={() => addAdmin("addAccount")}>
+        <ListItem
+          autoFocus
+          button
+          onClick={() => setCreateAdminDialogOpen(true)}
+        >
           <ListItemAvatar>
             <Avatar>
               <AddIcon />
@@ -90,41 +131,100 @@ function SimpleDialog(props) {
           </ListItemAvatar>
           <ListItemText primary="Lägg till konto" />
         </ListItem>
+        {error && <Alert severity="error">{error}</Alert>}
+        <CreateAdmin
+          open={createAdminDialogOpen}
+          onClose={() => {
+            updateAdmins();
+            setCreateAdminDialogOpen(false);
+          }}
+        />
       </List>
     </Dialog>
   );
 }
 
-SimpleDialog.propTypes = {
+AdminList.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   selectedValue: PropTypes.string.isRequired,
 };
 
-function AdminDialog() {
-  const [emails, setEmails] = useState([]);
+function CreateAdmin(props) {
   const [error, setError] = useState("");
+  const [email, setEmail] = useState("");
 
-  useEffect(() => {
+  const submit = () => {
     fetch(`${BACKEND_URL}/api/admin/user`, {
       credentials: "include",
+      method: "post",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+      }),
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.http_code === 200) {
-          // if 200, all is good
-          setEmails(data.response.map((a) => a.email));
+          setEmail("");
+          props.onClose();
         } else {
-          setError(`Ett fel uppstod: ${data.message}`);
+          setError(`Ett fel uppstod: ${data.message} (${data.http_code})`);
         }
       })
       .catch((e) => {
         setError(`Ett fel uppstod: ${e}`);
       });
-  }, []);
+  };
 
+  return (
+    <div>
+      <Dialog
+        open={props.open}
+        onClose={props.onClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">
+          Lägg till adminanvändare
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Ange e-postadressen på det Googlekonto du vill lägga till som
+            adminanvändare.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="E-post"
+            type="email"
+            fullWidth
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
+          {error && <Alert severity="error">{error}</Alert>}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={props.onClose} color="primary">
+            Avbryt
+          </Button>
+          <Button onClick={submit} color="primary">
+            Skapa
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+}
+
+function AdminDialog() {
   const [open, setOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState(emails[1]);
+  const [selectedValue, setSelectedValue] = useState("");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -140,11 +240,10 @@ function AdminDialog() {
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         Hantera Adminanvändare
       </Button>
-      <SimpleDialog
+      <AdminList
         selectedValue={selectedValue}
         open={open}
         onClose={handleClose}
-        emails={emails}
       />
     </Container>
   );
