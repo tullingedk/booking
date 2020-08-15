@@ -70,7 +70,7 @@ def book():
         abort(400, f"Seat already booked.")
 
     # Check if this user already has a booking
-    if len(Booking.query.filter_by(email=session["google_email"])) != 0:
+    if len(Booking.query.filter_by(email=session["google_email"]).all()) != 0:
         abort(
             400,
             "You have already booked a seat. Contact administrator for help with cancellation or seat movement.",

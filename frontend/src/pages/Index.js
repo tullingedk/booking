@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import Nav from "../components/Index/Nav";
 import Table from "../components/Index/Table";
 import AdminDialog from "../components/Index/AdminDialog";
+import BookingDialog from "../components/Index/BookingDialog";
 
 function Index() {
   // redux
@@ -14,6 +15,7 @@ function Index() {
     <div>
       <Nav />
       {user.is_admin && <AdminDialog />}
+      <BookingDialog />
       <Table />
     </div>
   );
