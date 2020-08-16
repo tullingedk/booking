@@ -12,11 +12,10 @@ from flask import Flask
 from flask_cors import CORS
 
 # imports
-from version import version, commit_hash
-from time import strftime
 from os import environ, urandom
 
 from base import base_req
+from models import db
 
 from blueprints.auth import auth_blueprint
 from blueprints.booking import booking_blueprint
@@ -29,22 +28,20 @@ MYSQL_USER = environ.get("MYSQL_USER", "booking")
 MYSQL_PASSWORD = environ.get("MYSQL_PASSWORD", "password")
 MYSQL_HOST = environ.get("MYSQL_HOST", "127.0.0.1")
 MYSQL_DATABASE = environ.get("MYSQL_DATABASE", "booking")
+BACKEND_URL = environ.get("BACKEND_URL", "http://localhost:5000")
 
 app.config[
     "SQLALCHEMY_DATABASE_URI"
 ] = f"mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}/{MYSQL_DATABASE}?charset=utf8mb4"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-from models import db
-
 db.init_app(app)
 
 with app.app_context():
     db.create_all()
 
-
-if not "DEVELOPMENT" in environ:
-    CORS(app, resources={r"/*": {"origins": config["url"]}})
+if "DEVELOPMENT" not in environ:
+    CORS(app, resources={r"/*": {"origins": BACKEND_URL}})
     print("Strict CORS-policy enabled")
 
 if "DEVELOPMENT" in environ:

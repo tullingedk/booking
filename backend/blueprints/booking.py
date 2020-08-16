@@ -8,10 +8,10 @@
 #                                                                         #
 ###########################################################################
 
-from flask import session, abort, jsonify, Blueprint, request, send_file
+from flask import session, abort, Blueprint, request, send_file
 
 from decorators.auth import google_logged_in, user_registered
-from validation import input_validation, length_validation, is_integer
+from validation import is_integer
 from models import db, Booking, User
 from base import base_req
 from swish import generate_swish_qr
@@ -67,7 +67,7 @@ def book():
 
     # Check if this seat is already booked by querying the database
     if Booking.query.get(int(seat)):
-        abort(400, f"Seat already booked.")
+        abort(400, "Seat already booked.")
 
     # Check if this user already has a booking
     if len(Booking.query.filter_by(email=session["google_email"]).all()) != 0:
