@@ -109,7 +109,12 @@ def callback():
         if hd != GOOGLE_HOSTED_DOMAIN:
             abort(
                 401,
-                f"Booking system only allows hosted domains for organization {GOOGLE_HOSTED_DOMAIN}. Your organization, {hd}, is not allowed.",
+                " ".join(
+                    (
+                        f"Booking system only allows hosted domains for organization {GOOGLE_HOSTED_DOMAIN}.",
+                        f"Your organization, {hd}, is not allowed.",
+                    )
+                ),
             )
 
         session["google_login"] = True
