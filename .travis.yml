@@ -1,0 +1,16 @@
+matrix:
+  include:
+    - language: python
+      python: 3.8
+      install:
+        - pip install flake8 black --upgrade
+      script:
+        - black --check backend/
+        - flake8 backend
+
+    - language: node_js
+      node_js: 12
+      install:
+        - npm install --global prettier
+      script:
+        - prettier --check "frontend/src/**/*.js"
