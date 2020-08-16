@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 // material-ui
 import Button from "@material-ui/core/Button";
@@ -12,9 +13,14 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 
+// redux
+import { fetchBookings } from "../../redux/bookingActions";
+
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 function BookingDialog() {
+  const dispatch = useDispatch();
+
   const [open, setOpen] = useState(false);
   const [available, setAvailable] = useState([]);
   const [error, setError] = useState("");
@@ -63,6 +69,7 @@ function BookingDialog() {
       .then((response) => response.json())
       .then((data) => {
         if (data.http_code === 200) {
+          dispatch(fetchBookings());
           handleClose();
         } else {
           setError(`Ett fel uppstod: ${data.message} (${data.http_code})`);

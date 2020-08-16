@@ -18,6 +18,9 @@ import { setVersion } from "./redux/actions";
 import { setHash } from "./redux/actions";
 import { setIsAdmin } from "./redux/actions";
 
+// redux bookings
+import { fetchBookings } from "./redux/bookingActions";
+
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 function App() {
@@ -47,6 +50,9 @@ function App() {
           dispatch(setVersion(data.meta.version));
           dispatch(setHash(data.meta.commit_hash));
           dispatch(setIsAdmin(data.response.is_admin));
+
+          // initial data fetch
+          dispatch(fetchBookings());
         } else if (data.http_code === 401) {
           if (data.response.google === true) {
             // if is authenticated with google
