@@ -30,8 +30,7 @@ function bookingReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        error: action.payload.error,
-        bookings: [],
+        error: `${action.payload.error}`,
       };
 
     default:

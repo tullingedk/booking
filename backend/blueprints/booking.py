@@ -10,7 +10,7 @@
 
 from flask import session, abort, Blueprint, request, send_file
 
-from decorators.auth import google_logged_in, user_registered
+from decorators.auth import google_logged_in, user_registered, is_admin
 from validation import is_integer
 from models import db, Booking, User
 from base import base_req
@@ -40,6 +40,23 @@ def bookings():
     ]
 
     return base_req(response=response)
+
+
+@booking_blueprint.route("/<id>", methods=["PUT"])
+@google_logged_in
+@user_registered
+@is_admin
+def modify(id):
+    paid = request.json["paid"]
+    booking = Booking.query.get(id)
+
+    if not booking:
+        abort(404, "Booking does not exist")
+
+    booking.paid = paid
+    db.session.commit()
+
+    return base_req()
 
 
 @booking_blueprint.route("/available")

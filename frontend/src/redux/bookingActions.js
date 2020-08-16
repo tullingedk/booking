@@ -31,7 +31,10 @@ export function fetchBookings() {
         dispatch(fetchBookingsSuccess(json.response));
         return json.response;
       })
-      .catch((error) => dispatch(fetchBookingsFailure(error)));
+      .catch((error) => {
+        console.error(error);
+        dispatch(fetchBookingsFailure(error));
+      });
   };
 }
 
