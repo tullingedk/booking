@@ -1,7 +1,4 @@
-*.pyc
 __pycache__
-override.config.json
-override.mysql.json
-flask_session
-static/temp_swish.png
+*.pyc
 .env
+static/temp_swish.png

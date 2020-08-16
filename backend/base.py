@@ -8,20 +8,20 @@
 #                                                                         #
 ###########################################################################
 
-import sys
-from pathlib import Path
+from flask import jsonify
+from version import version, commit_hash
 
-# add parent folder
-sys.path.append(str(Path(__file__).parent.parent.absolute()))
 
-from app import db, app
-from models import User
-
-new_email = input("Enter email: ")
-new_school_class = input("Enter school class: ")
-
-user = User(email=new_email, school_class=new_school_class,)
-
-with app.app_context():
-    db.session.add(user)
-    db.session.commit()
+def base_req(status=True, http_code=200, message="success", response={}):
+    return (
+        jsonify(
+            {
+                "status": status,
+                "http_code": http_code,
+                "message": message,
+                "response": response,
+                "meta": {"version": version, "commit_hash": commit_hash},
+            }
+        ),
+        http_code,
+    )

@@ -5,8 +5,8 @@ services:
   db:
     image: mysql
     environment:
-      MYSQL_DATABASE: 'datorklubben_booking'
-      MYSQL_USER: 'datorklubben_booking'
+      MYSQL_DATABASE: 'booking'
+      MYSQL_USER: 'booking'
       MYSQL_PASSWORD: 'password'
       MYSQL_ROOT_PASSWORD: 'password'
     ports:

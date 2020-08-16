@@ -8,20 +8,32 @@
 #                                                                         #
 ###########################################################################
 
-import sys
-from pathlib import Path
+from os import environ
 
-# add parent folder
-sys.path.append(str(Path(__file__).parent.parent.absolute()))
+import qrcode
+import qrcode.image.svg
 
-from app import db, app
-from models import User
+# normal, bc
+amount_types = ["100", "50"]
 
-new_email = input("Enter email: ")
-new_school_class = input("Enter school class: ")
+SWISH_PHONE = environ.get("SWISH_PHONE", None)
 
-user = User(email=new_email, school_class=new_school_class,)
 
-with app.app_context():
-    db.session.add(user)
-    db.session.commit()
+def generate_swish_qr(name, school_class, seat, booking_type):
+    amount = amount_types[booking_type]
+
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_H,
+        box_size=10,
+        border=4,
+    )
+
+    data = f"C{SWISH_PHONE};{str(amount)};{name.replace(' ', '+')}+{school_class}+{'plats+' + str(seat)};0"
+
+    qr.add_data(data)
+    qr.make(fit=True)
+
+    img = qr.make_image()
+
+    img.save("static/temp_swish.png")

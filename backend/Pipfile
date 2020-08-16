@@ -4,22 +4,19 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-black = "==19.10b0"
 flake8 = "*"
+black = "==19.10b0"
 
 [packages]
-mysql-connector-python = "*"
-gunicorn = "*"
-qrcode = {extras = ["pil"],version = "*"}
-redis = "*"
-Flask = "*"
-Flask-Session = "*"
-Flask-Cors = "*"
-Flask-Limiter = "*"
+flask = "*"
+oauthlib = "*"
 requests = "*"
-google-auth = "*"
-google-api-python-client = "*"
 pymysql = "*"
+redis = "*"
+flask-sqlalchemy = "*"
+qrcode = {extras = ["pil"],version = "*"}
+flask-cors = "*"
+cryptography = "*"
 
 [requires]
 python_version = "3.8"

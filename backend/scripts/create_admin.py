@@ -15,13 +15,12 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent.absolute()))
 
 from app import db, app
-from models import User
+from models import Admin
 
 new_email = input("Enter email: ")
-new_school_class = input("Enter school class: ")
 
-user = User(email=new_email, school_class=new_school_class,)
+admin = Admin(email=new_email)
 
 with app.app_context():
-    db.session.add(user)
+    db.session.add(admin)
     db.session.commit()

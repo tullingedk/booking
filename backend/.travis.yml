@@ -1,0 +1,15 @@
+language: python
+python: 3.8
+services:
+    - docker
+
+jobs:
+    include:
+        - stage: Check code quality
+          before_install:
+            - python -m pip install --upgrade pip
+          install:
+            - pip install flake8 black
+          script:
+            - flake8 backend
+            - black --check backend

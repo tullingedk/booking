@@ -1,19 +1,9 @@
-# datorklubben-booking/frontend
+# tullingedk/booking/frontend
 
-React frontend for booking system.
+React frontend.
 
-## Working locally
+## Environment Variables
 
-Install modules.
+Define in a file named `.env`.
 
-```bash
-npm install
-```
-
-Replace the value in `global_variabes.js` with `http://localhost:5000` to point to your locally running backend.
-
-Run server.
-
-```bash
-npm start
-```
+* `REACT_APP_BACKEND_URL` - backend base URL, e.g. `https://booking.tgdk.se` or `http://localhost:5000`
