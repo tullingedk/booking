@@ -4,8 +4,6 @@ import Grid from "@material-ui/core/Grid";
 
 import SeatDialog from "./SeatDialog";
 
-// bad practice: should not hard-code
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -29,7 +27,7 @@ function Overview() {
           .map((_, idx) => parseInt(props.min) + idx)
           .map(function (id) {
             return (
-              <Grid item xs={1}>
+              <Grid key={id} item xs={1}>
                 <SeatDialog paper={classes.paper} id={id} />
               </Grid>
             );
@@ -38,6 +36,7 @@ function Overview() {
     );
   }
 
+  // bad practice: should not hard-code
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>

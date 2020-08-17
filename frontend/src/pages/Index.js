@@ -18,12 +18,12 @@ function Index() {
   const user = useSelector((state) => state.user);
   const bookingReducer = useSelector((state) => state.bookingReducer);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     dispatch(fetchBookings());
-  //   }, 2000);
-  //   return () => clearInterval(interval);
-  // }, [dispatch]);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      dispatch(fetchBookings());
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [dispatch]);
 
   return (
     <div>

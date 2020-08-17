@@ -41,7 +41,16 @@ export function fetchBookings() {
 // Handle HTTP errors since fetch won't.
 function handleErrors(response) {
   if (!response.ok) {
-    throw Error(response.statusText);
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.indexOf("application/json") !== -1) {
+      return response.json().then((json) => {
+        throw Error(
+          `${response.statusText}: ${json.message} (${response.status})`
+        );
+      });
+    } else {
+      throw Error(response.statusText);
+    }
   }
   return response;
 }
