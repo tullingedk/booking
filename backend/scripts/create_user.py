@@ -20,7 +20,10 @@ from models import User  # noqa: E402
 new_email = input("Enter email: ")
 new_school_class = input("Enter school class: ")
 
-user = User(email=new_email, school_class=new_school_class,)
+user = User(
+    email=new_email,
+    school_class=new_school_class,
+)
 
 with app.app_context():
     db.session.add(user)
