@@ -1,4 +1,4 @@
-matrix:
+jobs:
   include:
     - language: python
       name: backend (python)
@@ -17,12 +17,15 @@ matrix:
       script:
         - prettier --check "frontend/src/**/*.js"
 
-deploy:
-  provider: script
-  script: bash scripts/travis_docker.sh
-  skip_cleanup: true
-  on:
-    branch: master
-
-after_deploy:
-  - rm -rf /home/travis/.docker/config.json
+    - stage: deploy
+      name: Build and deploy Docker image (backend)
+      script:
+        - docker build -t tullingedk/booking:latest backend
+      deploy:
+        provider: script
+        script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker push tullingedk/booking:latest
+        edge: true
+        on:
+          branch: master
+      after_deploy:
+        - rm -rf /home/travis/.docker/config.json
