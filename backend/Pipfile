@@ -17,6 +17,7 @@ flask-sqlalchemy = "*"
 qrcode = {extras = ["pil"],version = "*"}
 flask-cors = "*"
 cryptography = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.8"

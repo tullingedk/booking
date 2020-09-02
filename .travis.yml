@@ -1,6 +1,7 @@
 matrix:
   include:
     - language: python
+      name: backend (python)
       python: 3.8
       install:
         - pip install flake8 black --upgrade
@@ -9,8 +10,19 @@ matrix:
         - flake8 backend
 
     - language: node_js
+      name: frontend (JS)
       node_js: 12
       install:
         - npm install --global prettier
       script:
         - prettier --check "frontend/src/**/*.js"
+
+deploy:
+  provider: script
+  script: bash scripts/travis_docker.sh
+  skip_cleanup: true
+  on:
+    branch: master
+
+after_deploy:
+  - rm -rf /home/travis/.docker/config.json
