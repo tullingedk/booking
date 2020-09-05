@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  mysql:
+    environment:
+      MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
+      MYSQL_ROOT_PASSWORD: '${MYSQL_PASSWORD}'
+  app:
+    image: tullingedk/booking:latest
+    environment:
+      MYSQL_HOST: 'mysql'
+      MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
+      GOOGLE_CLIENT_ID: '${GOOGLE_CLIENT_ID}'
+      GOOGLE_CLIENT_SECRET: '${GOOGLE_CLIENT_SECRET}'
+      GOOGLE_HOSTED_DOMAIN: '${GOOGLE_HOSTED_DOMAIN}'
+      BACKEND_URL: '${BACKEND_URL}'
+      FRONTEND_URL: '${FRONTEND_URL}'
+      REGISTER_PASSWORD: '${REGISTER_PASSWORD}'
+      SWISH_PHONE: '${SWISH_PHONE}'
+      SECRET_KEY: '${SECRET_KEY}'
+    depends_on:
+      - mysql
+      - redis
+    ports:
+      - 5000:5000

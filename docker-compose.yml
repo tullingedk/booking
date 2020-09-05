@@ -2,7 +2,7 @@
 version: '3'
 
 services:
-  db:
+  mysql:
     image: mysql
     environment:
       MYSQL_DATABASE: 'booking'
