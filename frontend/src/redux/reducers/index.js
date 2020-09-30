@@ -6,6 +6,7 @@ import {
   isAuthenticated,
   isRegistered,
   systemMeta,
+  event,
 } from "./basicReducers";
 import bookingReducer from "./bookingReducer";
 
@@ -15,4 +16,5 @@ export default combineReducers({
   isRegistered,
   systemMeta,
   bookingReducer,
+  event,
 });

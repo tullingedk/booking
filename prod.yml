@@ -1,14 +1,10 @@
 version: '3'
 
 services:
-  mysql:
-    environment:
-      MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
-      MYSQL_ROOT_PASSWORD: '${MYSQL_PASSWORD}'
   app:
     image: tullingedk/booking:latest
     environment:
-      MYSQL_HOST: 'mysql'
+      MYSQL_HOST: '${MYSQL_HOST}'
       MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
       GOOGLE_CLIENT_ID: '${GOOGLE_CLIENT_ID}'
       GOOGLE_CLIENT_SECRET: '${GOOGLE_CLIENT_SECRET}'
@@ -18,8 +14,10 @@ services:
       REGISTER_PASSWORD: '${REGISTER_PASSWORD}'
       SWISH_PHONE: '${SWISH_PHONE}'
       SECRET_KEY: '${SECRET_KEY}'
+      PORT: 6000
     depends_on:
-      - mysql
       - redis
     ports:
-      - 5000:5000
+      - 6000:6000
+    expose:
+      - 6000

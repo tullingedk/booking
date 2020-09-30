@@ -10,6 +10,7 @@ RUN mkdir .venv
 # install dep
 RUN pip install --upgrade pip
 RUN pip install pipenv
+RUN apt-get update && apt-get install iproute2 -y
 
 COPY . /var/www/app
 

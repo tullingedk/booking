@@ -20,6 +20,7 @@ jobs:
     - stage: deploy
       name: Build and deploy Docker image (backend)
       script:
+        - sed -i "s/development/$TRAVIS_COMMIT/g" backend/version.py
         - docker build -t tullingedk/booking:latest backend
       deploy:
         provider: script

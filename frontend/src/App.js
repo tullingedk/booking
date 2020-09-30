@@ -17,6 +17,11 @@ import { setUserAvatar } from "./redux/actions";
 import { setVersion } from "./redux/actions";
 import { setHash } from "./redux/actions";
 import { setIsAdmin } from "./redux/actions";
+import {
+  setEventDate,
+  setEventSwishName,
+  setEventSwishPhone,
+} from "./redux/actions";
 
 // redux bookings
 import { fetchBookings } from "./redux/bookingActions";
@@ -47,9 +52,16 @@ function App() {
           dispatch(setUserName(data.response.name));
           dispatch(setUserClass(data.response.school_class));
           dispatch(setUserAvatar(data.response.avatar));
+          dispatch(setIsAdmin(data.response.is_admin));
+
+          // set meta
           dispatch(setVersion(data.meta.version));
           dispatch(setHash(data.meta.commit_hash));
-          dispatch(setIsAdmin(data.response.is_admin));
+
+          // set event data
+          dispatch(setEventDate(data.response.event.event_date));
+          dispatch(setEventSwishName(data.response.event.swish_name));
+          dispatch(setEventSwishPhone(data.response.event.swish_phone));
 
           // initial data fetch
           dispatch(fetchBookings());

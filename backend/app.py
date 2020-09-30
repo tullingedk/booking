@@ -12,7 +12,7 @@ from flask import Flask
 from flask_cors import CORS
 
 # imports
-from os import environ, urandom
+from os import environ
 
 from base import base_req
 from models import db
@@ -22,7 +22,7 @@ from blueprints.booking import booking_blueprint
 from blueprints.admin import admin_blueprint
 
 app = Flask(__name__)
-app.secret_key = environ.get("SECRET_KEY") or urandom(24)
+app.secret_key = environ.get("SECRET_KEY")
 
 MYSQL_USER = environ.get("MYSQL_USER", "booking")
 MYSQL_PASSWORD = environ.get("MYSQL_PASSWORD", "password")

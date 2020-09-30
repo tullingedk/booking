@@ -28,6 +28,11 @@ GOOGLE_DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configura
 FRONTEND_URL = environ.get("FRONTEND_URL", None)
 REGISTER_PASSWORD = environ.get("REGISTER_PASSWORD", None)
 
+# payment/event
+SWISH_PHONE = environ.get("SWISH_PHONE", None)
+SWISH_NAME = environ.get("SWISH_NAME", None)
+EVENT_DATE = environ.get("EVENT_DATE", None)
+
 # OAuth 2 client setup
 client = WebApplicationClient(GOOGLE_CLIENT_ID)
 
@@ -157,6 +162,11 @@ def validate():
             "avatar": session["google_picture_url"],
             "school_class": user.school_class,
             "is_admin": session["is_admin"],
+            "event": {
+                "event_date": EVENT_DATE,
+                "swish_phone": SWISH_PHONE,
+                "swish_name": SWISH_NAME,
+            },
         },
     )
 

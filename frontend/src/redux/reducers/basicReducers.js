@@ -60,3 +60,25 @@ export function systemMeta(meta = { version: "", hash: "" }, action) {
       return meta;
   }
 }
+
+export function event(
+  event = { event_date: "", swish_name: "", swish_phone: "" },
+  action
+) {
+  switch (action.type) {
+    case "EVENT_SET_DATE":
+      return Object.assign({}, event, {
+        event_date: action.event_date,
+      });
+    case "EVENT_SET_SWISH_NAME":
+      return Object.assign({}, event, {
+        swish_name: action.swish_name,
+      });
+    case "EVENT_SET_SWISH_PHONE":
+      return Object.assign({}, event, {
+        swish_phone: action.swish_phone,
+      });
+    default:
+      return event;
+  }
+}

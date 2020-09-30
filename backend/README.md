@@ -21,6 +21,8 @@ The environment varibales can be put in a file named `backend/.env`. Below are t
 * `MYSQL_DATABASE` - MySQL database name used for database connections.
 * `REGISTER_PASSWORD` - Password for user registration.
 * `SWISH_PHONE` - Phone number displayed as payment recipient. Format `+46XXXXXXXXX`
+* `SWISH_NAME` - Name of person to Swish to.
+* `EVENT_DATE` - Date of event.
 * `SECRET_KEY` - Used by Flask for sessions. Can be regenerated without dataloss. Does not have to be defined in development.
 
 ### Optional (development) environment variables

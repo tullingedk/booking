@@ -8,6 +8,9 @@ import {
   SET_REGISTERED,
   SYSTEM_SET_VERSION,
   SYSTEM_SET_HASH,
+  EVENT_SET_DATE,
+  EVENT_SET_SWISH_NAME,
+  EVENT_SET_SWISH_PHONE,
 } from "./actionTypes";
 
 export const setUserEmail = (email) => ({
@@ -53,4 +56,19 @@ export const setVersion = (version) => ({
 export const setHash = (hash) => ({
   type: SYSTEM_SET_HASH,
   hash,
+});
+
+export const setEventDate = (event_date) => ({
+  type: EVENT_SET_DATE,
+  event_date,
+});
+
+export const setEventSwishName = (swish_name) => ({
+  type: EVENT_SET_SWISH_NAME,
+  swish_name,
+});
+
+export const setEventSwishPhone = (swish_phone) => ({
+  type: EVENT_SET_SWISH_PHONE,
+  swish_phone,
 });
