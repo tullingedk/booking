@@ -13,6 +13,7 @@ import ErrorDialog from "../components/ErrorDialog";
 // material-ui
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
 
 // redux
 // import { fetchBookings } from "../redux/bookingActions";
@@ -22,6 +23,7 @@ function Index() {
   // const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const meta = useSelector((state) => state.systemMeta);
+  const event = useSelector((state) => state.event);
   const bookingReducer = useSelector((state) => state.bookingReducer);
 
   // useEffect(() => {
@@ -34,10 +36,23 @@ function Index() {
   return (
     <div>
       <Nav />
-      <Container maxWidth="md">
-        {user.is_admin && <AdminDialog />}
-        <BookingDialog />
-        <InfoDialog />
+      <Container align="center" maxWidth="md">
+        <Typography gutterBottom align="center">
+          LAN-datum: {event.event_date}
+        </Typography>
+        <Grid gutterBottom={true} container spacing={3}>
+          {user.is_admin && (
+            <Grid item xs>
+              <AdminDialog />
+            </Grid>
+          )}
+          <Grid item xs>
+            <BookingDialog />
+          </Grid>
+          <Grid item xs>
+            <InfoDialog />
+          </Grid>
+        </Grid>
         {bookingReducer.error && <ErrorDialog message={bookingReducer.error} />}
         <Overview />
         <Typography variant="caption">

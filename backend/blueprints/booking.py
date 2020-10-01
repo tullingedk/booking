@@ -18,7 +18,7 @@ from swish import generate_swish_qr
 
 booking_blueprint = Blueprint("booking", __name__, template_folder="../templates")
 
-NUM_SEATS = 48
+NUM_SEATS = 40
 
 
 @booking_blueprint.route("/bookings")
