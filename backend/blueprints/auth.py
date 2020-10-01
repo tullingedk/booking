@@ -26,6 +26,7 @@ GOOGLE_CLIENT_SECRET = environ.get("GOOGLE_CLIENT_SECRET", None)
 GOOGLE_HOSTED_DOMAIN = environ.get("GOOGLE_HOSTED_DOMAIN", None)
 GOOGLE_DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configuration"
 FRONTEND_URL = environ.get("FRONTEND_URL", None)
+BACKEND_URL = environ.get("BACKEND_URL", None)
 REGISTER_PASSWORD = environ.get("REGISTER_PASSWORD", None)
 
 # payment/event
@@ -54,7 +55,7 @@ def login():
     # scopes that let you retrieve user's profile from Google
     request_uri = client.prepare_request_uri(
         authorization_endpoint,
-        redirect_uri=request.base_url + "/callback",
+        redirect_uri=BACKEND_URL + "/api/auth/login/callback",
         scope=["openid", "email", "profile"],
     )
 
@@ -79,7 +80,7 @@ def callback():
     token_url, headers, body = client.prepare_token_request(
         token_endpoint,
         authorization_response=request.url,
-        redirect_url=request.base_url,
+        redirect_url=BACKEND_URL + "/api/auth/login/callback",
         code=code,
     )
     token_response = post(
