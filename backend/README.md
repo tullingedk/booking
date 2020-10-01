@@ -25,6 +25,8 @@ The environment varibales can be put in a file named `backend/.env`. Below are t
 * `EVENT_DATE` - Date of event.
 * `SECRET_KEY` - Used by Flask for sessions. Can be regenerated without dataloss. Does not have to be defined in development.
 
+* `OAUTHLIB_INSECURE_TRANSPORT` - Set this to `1` if you are running the application behind some proxy such as Nginx (OAuthlib will only see connections as HTTP even though they may be HTTPs between client and server).
+
 ### Optional (development) environment variables
 
 * `OAUTHLIB_INSECURE_TRANSPORT` - Set to `1` during development to allow for HTTP auth.
