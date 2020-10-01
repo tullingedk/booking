@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
 
 function Nav() {
   const user = useSelector((state) => state.user);
-  const meta = useSelector((state) => state.systemMeta);
 
   const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -45,10 +44,7 @@ function Nav() {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
-          Tullinge Gymnasium Datorklubb - Bokingssystem
-        </Typography>
-        <Typography variant="caption" className={classes.title}>
-          Kör tullingedk/booking {meta.version}, commit {meta.hash}
+          Datorklubben Bokingssystem
         </Typography>
         <Typography variant="h6" className={classes.menuButton}>
           {user.is_admin && "(Admin)"} {user.name} {user.school_class}

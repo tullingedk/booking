@@ -13,7 +13,6 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
-import Container from "@material-ui/core/Container";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
@@ -236,7 +235,7 @@ function AdminDialog() {
   };
 
   return (
-    <Container maxWidth="sm">
+    <>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         Hantera Adminanvändare
       </Button>
@@ -245,7 +244,7 @@ function AdminDialog() {
         open={open}
         onClose={handleClose}
       />
-    </Container>
+    </>
   );
 }
 

@@ -27,7 +27,7 @@ function Overview() {
           .map((_, idx) => parseInt(props.min) + idx)
           .map(function (id) {
             return (
-              <Grid key={id} item xs={1}>
+              <Grid key={id} item xs={2}>
                 <SeatDialog paper={classes.paper} id={id} />
               </Grid>
             );

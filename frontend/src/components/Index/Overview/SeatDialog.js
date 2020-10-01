@@ -68,6 +68,7 @@ function SeatDialog(props) {
         }}
         className={props.paper}
         onClick={handleClickOpen}
+        xs={6}
       >
         {props.id}
       </Paper>
@@ -96,6 +97,7 @@ function SeatDialog(props) {
                 <img
                   alt={`Swish QR-kod för plats ${props.id}`}
                   src={`${BACKEND_URL}/api/booking/swish/${props.id}`}
+                  width="100%"
                 />
               )}
             </DialogContent>

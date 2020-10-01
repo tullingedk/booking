@@ -10,6 +10,10 @@ import InfoDialog from "../components/Index/InfoDialog";
 
 import ErrorDialog from "../components/ErrorDialog";
 
+// material-ui
+import Container from "@material-ui/core/Container";
+import Typography from "@material-ui/core/Typography";
+
 // redux
 // import { fetchBookings } from "../redux/bookingActions";
 
@@ -17,6 +21,7 @@ function Index() {
   // redux
   // const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const meta = useSelector((state) => state.systemMeta);
   const bookingReducer = useSelector((state) => state.bookingReducer);
 
   // useEffect(() => {
@@ -29,11 +34,16 @@ function Index() {
   return (
     <div>
       <Nav />
-      {user.is_admin && <AdminDialog />}
-      <BookingDialog />
-      <InfoDialog />
-      {bookingReducer.error && <ErrorDialog message={bookingReducer.error} />}
-      <Overview />
+      <Container maxWidth="md">
+        {user.is_admin && <AdminDialog />}
+        <BookingDialog />
+        <InfoDialog />
+        {bookingReducer.error && <ErrorDialog message={bookingReducer.error} />}
+        <Overview />
+        <Typography variant="caption">
+          Kör tullingedk/booking {meta.version}, commit {meta.hash}
+        </Typography>
+      </Container>
     </div>
   );
 }

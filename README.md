@@ -6,25 +6,32 @@ Production application is available at [booking.tgdk.se](https://booking.tgdk.se
 
 ## Backend
 
-The backend is coded in Python 3 Flask. It's meant to be served under the `/backend` route. Install the required modules in `backend/requirements.txt` using `pip3` and update configuration values in `config.json` and `mysql.json` (if developing, you can use `override.config.json` and `override.mysql.json` to avoid configuration being commited to project).
+The backend is coded in Python 3 Flask. It's meant to be served under the `/api` route. You need to have Pipenv install to run it locally.
 
-The backend also requires a `redis` server for rate limiting cache.
+See `backend/README.md` for install instructions. You need to set environment variables. They can be set in `.env`.
 
-Recommendation: use `supervisor` and `gunicorn` in conjunction with `nginx` `proxy_pass` in order to serve the backend application.
+For production, use the Docker image. There is a `prod.yml` docker-compose configuration.
+
+```bash
+docker-compose -f prod.yml up -d
+```
 
 ## Frontend
 
-The frontend is coded in React. It's mean to be served under the project root, `/`. Replace the configuration value found in `src/global_variables.js` in order to match your setup. You can build the project using `npm run build`. Serve using `nginx`.
+The frontend is coded in React. It's mean to be served under the project root, `/`. Before you build, set the environment variable `REACT_APP_BACKEND_URL` to the URL of your backend (e.g. `https://booking.tgdk.se`).
 
-## Admin
+Build the project.
 
-The admin frontend is coded in React. It's meant to be served un the `/admin` route. Replace the configuration value found in `src/global_variables.js` in order to match your setup. You can build the project using `npm run build`. Serve using `nginx`. Uses same backend as the public frontend.
+```bash
+npm run build
+```
+
+Serve the static files generated in `build`.
 
 ## File structure
 
 * `backend`, application route `/backend` - Python 3 Flask backend application
 * `frontend`, application route `/` - React application, frontend
-* `admin`, application route `/admin` - React application, frontend
 
 ## License
 

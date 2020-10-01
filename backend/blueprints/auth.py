@@ -103,27 +103,35 @@ def callback():
     # The user authenticated with Google, authorized your
     # app, and now you've verified their email through Google!
     if userinfo_response.json().get("email_verified"):
+        is_user = False
         is_admin = False
 
-        # check if user is in admin table, overrides organization checks
+        # check if user is in admin and/or user table, overrides organization checks
         try:
             Admin.query.filter_by(email=userinfo_response.json()["email"]).one()
             is_admin = True
+            is_user = True
+        except Exception:
+            pass
+
+        try:
+            User.query.filter_by(email=userinfo_response.json()["email"]).one()
+            is_user = True
         except Exception:
             pass
 
         hd = None
 
-        if "hd" not in userinfo_response.json() and not is_admin:
+        if "hd" not in userinfo_response.json() and not is_user:
             abort(
                 401,
                 "Email is not hosted domain. Please use organization Google Account.",
             )
 
-        if not is_admin:
+        if not is_user:
             hd = userinfo_response.json()["hd"]
 
-        if hd != GOOGLE_HOSTED_DOMAIN and not is_admin:
+        if hd != GOOGLE_HOSTED_DOMAIN and not is_user:
             abort(
                 401,
                 " ".join(
