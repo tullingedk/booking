@@ -7,7 +7,7 @@ import Typography from "@material-ui/core/Typography";
 function Error(props) {
   return (
     <Container maxWidth="sm">
-      <Typography variant="h2" gutterBottom align="center">
+      <Typography variant="h4" gutterBottom align="center">
         Datorklubben Bokningssystem
       </Typography>
       <Alert severity="error">{props.error}</Alert>
