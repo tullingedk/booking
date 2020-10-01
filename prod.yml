@@ -15,8 +15,6 @@ services:
       SWISH_PHONE: '${SWISH_PHONE}'
       SECRET_KEY: '${SECRET_KEY}'
       PORT: 6000
-    depends_on:
-      - redis
     ports:
       - 6000:6000
     expose:
