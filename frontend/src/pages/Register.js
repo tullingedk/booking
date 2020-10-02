@@ -45,7 +45,7 @@ function Register() {
 
   return (
     <Container maxWidth="sm">
-      <Typography variant="h2" gutterBottom align="center">
+      <Typography variant="h4" gutterBottom align="center">
         Datorklubben Bokningssystem
       </Typography>
       <Typography variant="body1" gutterBottom align="center">

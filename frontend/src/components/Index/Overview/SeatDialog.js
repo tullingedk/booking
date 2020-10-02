@@ -92,7 +92,12 @@ function SeatDialog(props) {
         aria-labelledby="dialog-title"
         aria-describedby="dialog-description"
       >
-        <DialogTitle id="dialog-title">Plats {props.id}</DialogTitle>
+        <DialogTitle id="dialog-title">
+          {props.seat_type === "standard"
+            ? "Plats"
+            : "Konsol- och brädspelsplats"}{" "}
+          {props.id}
+        </DialogTitle>
         {(booking || open) && (
           <>
             <DialogContent dividers>

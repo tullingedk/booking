@@ -59,6 +59,62 @@ function InfoDialog() {
               Kontakta någon i styrelsen via Discord ifall du har några frågor!
             </i>
 
+            <Typography gutterBottom={true} variant="h3">
+              SPECIELLA RIKTLINJER ANGÅENDE COVID-19
+            </Typography>
+
+            <Typography gutterBottom={true}>
+              Vi vill ha spelhelg/LAN på skolan den 23-25e oktober i slutet på
+              v44 På Tullinge gymnasium har vi sedan starten 2001 haft en
+              verksam datorklubb. Datorklubbens mål är att arbeta för att
+              inkludera elever i verksamheten och skapa gemenskap på skolan.
+              Detta görs dels genom aktiviteter av lite mindre karaktär som
+              kortare spelkvällar med brädspel under några timmar. Men det stora
+              uppdraget datorklubben har och det mest givande för all form av
+              social gemenskap är de LAN vi brukar anordna två gånger om året
+              (ett lan varje termin). Dessa LAN är för många några av
+              höjdpunkterna på året och vinsterna med att ha ett LAN är väldigt
+              många. Speciellt under situationen som blivit p.g.a. läget med
+              Covid-19 har många elever uttrycka en ledsamhet över just de
+              sociala som de missat när de varit på distans. Med den anledningen
+              tycker vi att det är extra viktigt att de får genomföra en sådan
+              stämningshöjande aktivitet. Särskilt då vi ser att vi med några
+              relativt enkla anpassningar kan göra detta till något där
+              belönings-delen vida överstiger risk-delen. Tankar vi har på
+              lösningar för detta under denna tid med social distansering.
+              <ul>
+                <li>
+                  Delar upp årskurser i hus 2 3 och 4 för varje årskurs och
+                  delar upp klassvis i sovsalar i olika klassrum med eget
+                  liggunderlag med tillgång handsprit och egna toaletter som
+                  eleverna kan använda själva.
+                </li>
+                <li>
+                  LAN-et begränsas till max 50 personer med 40 egna PC datorer
+                  och platser med mellanrum på minst 2-meter och konsolspel i
+                  Biblioteket med olika placering för att kunna distansera sig.
+                </li>
+                <li>
+                  Matsalen används som PC spelsal, Biblioteket som
+                  bräd/konsolspelsal.
+                </li>
+                <li>
+                  Disk tas hand om i skolans stora diskmaskin, handsprit finns
+                  tillgängligt och toalettbesök sköts på den tilldelade
+                  toaletten/toaletterna klassen har i det hus och klassen har
+                  beroende på antal elever har vi olika antal toaletter.
+                </li>
+              </ul>
+              Det är höstlov efter LAN-et och den tänkta övernattningen så
+              städning som behövs göras efter helgen kommer skötas under lovet
+              så ingen elev blir drabbad i efterhand av bristande hygien.
+            </Typography>
+
+            <Typography gutterBottom={true}>
+              Kom ihåg att allt detta sker på eget ansvar. Vi sköter oss så får
+              vi ha mer LAN och mer frihet i beslut framver!
+            </Typography>
+
             <Typography variant="h4">Bokningen</Typography>
             <Typography gutterBottom={true} variant="h6">
               Hur du bokar
