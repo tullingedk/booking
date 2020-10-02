@@ -47,14 +47,20 @@ function Index() {
             </Grid>
           )}
           <Grid item xs>
-            <BookingDialog />
+            <BookingDialog seat_type="standard" title="Boka plats" />
+          </Grid>
+          <Grid item xs>
+            <BookingDialog
+              seat_type="console"
+              title="Boka konsol- och brädspelsplats"
+            />
           </Grid>
           <Grid item xs>
             <InfoDialog />
           </Grid>
         </Grid>
         {bookingReducer.error && <ErrorDialog message={bookingReducer.error} />}
-        <Overview />
+        <Overview seat_type="standard" />
         <Typography variant="caption">
           Kör tullingedk/booking {meta.version}, commit {meta.hash}
         </Typography>

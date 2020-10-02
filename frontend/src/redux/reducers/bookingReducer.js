@@ -6,6 +6,7 @@ import {
 
 const initialState = {
   bookings: [],
+  console_bookings: [],
   loading: false,
   error: null,
 };
@@ -24,6 +25,7 @@ function bookingReducer(state = initialState, action) {
         ...state,
         loading: false,
         bookings: action.payload.bookings,
+        console_bookings: action.payload.console_bookings,
       };
 
     case FETCH_BOOKINGS_FAILURE:

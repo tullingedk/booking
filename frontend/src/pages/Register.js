@@ -1,26 +1,12 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 
 import { Container, TextField, Button, Icon, Grid } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import Typography from "@material-ui/core/Typography";
 
-// redux
-import { setAuthenticated } from "./../redux/actions";
-import { setRegistered } from "./../redux/actions";
-import { setUserEmail } from "./../redux/actions";
-import { setUserName } from "./../redux/actions";
-import { setUserClass } from "./../redux/actions";
-import { setUserAvatar } from "./../redux/actions";
-import { setVersion } from "./../redux/actions";
-import { setHash } from "./../redux/actions";
-
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 function Register() {
-  // redux
-  const dispatch = useDispatch();
-
   // form variables
   const [password, setPassword] = useState("");
   const [schoolClass, setSchoolClass] = useState("");
@@ -47,16 +33,7 @@ function Register() {
       .then((data) => {
         if (data.http_code === 200) {
           // if 200, all is good
-          dispatch(setAuthenticated(true));
-          dispatch(setRegistered(true));
-
-          // set user info
-          dispatch(setUserEmail(data.response.email));
-          dispatch(setUserName(data.response.name));
-          dispatch(setUserClass(data.response.school_class));
-          dispatch(setUserAvatar(data.response.avatar));
-          dispatch(setVersion(data.meta.version));
-          dispatch(setHash(data.meta.commit_hash));
+          window.location.reload();
         } else {
           setError(`${data.message} (${data.http_code})`);
         }

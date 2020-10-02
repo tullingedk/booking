@@ -18,7 +18,7 @@ import { fetchBookings } from "../../redux/bookingActions";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
-function BookingDialog() {
+function BookingDialog(props) {
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
@@ -44,7 +44,15 @@ function BookingDialog() {
       .then((data) => {
         if (data.http_code === 200) {
           // if 200, all is good
-          setAvailable(data.response.map((a) => a));
+          if (props.seat_type === "standard") {
+            setAvailable(data.response.available_seats.map((a) => a));
+          } else if (props.seat_type === "console") {
+            setAvailable(data.response.available_console_seats.map((a) => a));
+          } else {
+            setError(
+              `Allvarligt felaktigt meddelande från server: ${data.message} (${data.http_code})`
+            );
+          }
         } else {
           setError(`Ett fel uppstod: ${data.message} (${data.http_code})`);
         }
@@ -64,6 +72,7 @@ function BookingDialog() {
       },
       body: JSON.stringify({
         seat: seat,
+        seat_type: props.seat_type,
       }),
     })
       .then((response) => response.json())
@@ -83,14 +92,14 @@ function BookingDialog() {
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Boka plats
+        {props.title}
       </Button>
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Boka plats</DialogTitle>
+        <DialogTitle id="form-dialog-title">{props.title}</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Använd formuläret nedan för att boka en plats.

@@ -13,17 +13,17 @@ from flask import Blueprint, request, abort
 from dataclasses import asdict
 
 from decorators.auth import google_logged_in, user_registered, is_admin
-from models import db, Admin
+from models import db, Admin, User
 from base import base_req
 
 admin_blueprint = Blueprint("admin", __name__, template_folder="../templates")
 
 
-@admin_blueprint.route("/user", methods=["POST", "GET", "DELETE"])
+@admin_blueprint.route("/admin", methods=["POST", "GET", "DELETE"])
 @google_logged_in
 @user_registered
 @is_admin
-def user():
+def admin():
     if request.method == "GET":
         return base_req(response=[asdict(admin) for admin in Admin.query.all()])
 
@@ -51,3 +51,14 @@ def user():
         db.session.commit()
 
         return base_req()
+
+
+@admin_blueprint.route("/user", methods=["POST", "GET", "DELETE"])
+@google_logged_in
+@user_registered
+@is_admin
+def user():
+    if request.method == "GET":
+        return base_req(response=[asdict(user) for user in User.query.all()])
+
+    abort(501, f"{request.method} on this method not yet supported")

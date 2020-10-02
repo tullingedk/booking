@@ -44,7 +44,7 @@ function AdminList(props) {
   const { onClose, selectedValue, open } = props;
 
   const updateAdmins = () => {
-    fetch(`${BACKEND_URL}/api/admin/user`, {
+    fetch(`${BACKEND_URL}/api/admin/admin`, {
       credentials: "include",
     })
       .then((response) => response.json())
@@ -70,7 +70,7 @@ function AdminList(props) {
   };
 
   const deleteAdmin = (value) => {
-    fetch(`${BACKEND_URL}/api/admin/user`, {
+    fetch(`${BACKEND_URL}/api/admin/admin`, {
       credentials: "include",
       method: "delete",
       headers: {
@@ -154,7 +154,7 @@ function CreateAdmin(props) {
   const [email, setEmail] = useState("");
 
   const submit = () => {
-    fetch(`${BACKEND_URL}/api/admin/user`, {
+    fetch(`${BACKEND_URL}/api/admin/admin`, {
       credentials: "include",
       method: "post",
       headers: {

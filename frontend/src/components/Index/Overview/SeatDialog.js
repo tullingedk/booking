@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import Alert from "@material-ui/lab/Alert";
+import Tooltip from "@material-ui/core/Tooltip";
 
 // redux
 import { fetchBookings } from "../../../redux/bookingActions";
@@ -20,9 +21,16 @@ function SeatDialog(props) {
   const [open, setOpen] = useState(false);
 
   const bookings = useSelector((state) => state.bookingReducer.bookings);
+  const console_bookings = useSelector(
+    (state) => state.bookingReducer.console_bookings
+  );
+
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const booking = bookings.find((seat) => seat.seat === props.id);
+  const booking =
+    props.seat_type === "standard"
+      ? bookings.find((seat) => seat.seat === props.id)
+      : console_bookings.find((seat) => seat.seat === props.id);
   const [error, setError] = useState("");
 
   const handleClickOpen = () => {
@@ -45,6 +53,7 @@ function SeatDialog(props) {
       },
       body: JSON.stringify({
         paid: paymentStatus,
+        seat_type: props.seat_type,
       }),
     })
       .then((response) => response.json())
@@ -62,16 +71,21 @@ function SeatDialog(props) {
 
   return (
     <div>
-      <Paper
-        style={{
-          backgroundColor: booking ? (booking.paid ? "red" : "yellow") : "",
-        }}
-        className={props.paper}
-        onClick={handleClickOpen}
-        xs={6}
+      <Tooltip
+        title={booking ? `${booking.name} ${booking.school_class}` : ""}
+        placement="top"
       >
-        {props.id}
-      </Paper>
+        <Paper
+          style={{
+            backgroundColor: booking ? (booking.paid ? "red" : "yellow") : "",
+          }}
+          className={props.paper}
+          onClick={handleClickOpen}
+          xs={6}
+        >
+          {props.id}
+        </Paper>
+      </Tooltip>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -96,7 +110,7 @@ function SeatDialog(props) {
               {!booking.paid && (
                 <img
                   alt={`Swish QR-kod för plats ${props.id}`}
-                  src={`${BACKEND_URL}/api/booking/swish/${props.id}`}
+                  src={`${BACKEND_URL}/api/booking/swish/${props.seat_type}/${props.id}`}
                   width="100%"
                 />
               )}
