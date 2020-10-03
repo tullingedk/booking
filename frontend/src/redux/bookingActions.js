@@ -1,8 +1,14 @@
+export const OPEN_BOOKING_DIALOG = "OPEN_BOOKING_DIALOG";
 export const FETCH_BOOKINGS_BEGIN = "FETCH_BOOKINGS_BEGIN";
 export const FETCH_BOOKINGS_SUCCESS = "FETCH_BOOKINGS_SUCCESS";
 export const FETCH_BOOKINGS_FAILURE = "FETCH_BOOKINGS_FAILURE";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
+export const setBookingDialog = (dialog_open, dialog_id, dialog_seat_type) => ({
+  type: OPEN_BOOKING_DIALOG,
+  payload: { dialog_open, dialog_id, dialog_seat_type },
+});
 
 export const fetchBookingsBegin = () => ({
   type: FETCH_BOOKINGS_BEGIN,

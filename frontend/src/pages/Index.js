@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 // components for this page
 import Nav from "../components/Index/Nav";
@@ -7,6 +7,7 @@ import Overview from "../components/Index/Overview";
 import AdminDialog from "../components/Index/AdminDialog";
 import BookingDialog from "../components/Index/BookingDialog";
 import InfoDialog from "../components/Index/InfoDialog";
+import SeatDialog from "../components/Index/SeatDialog";
 
 import ErrorDialog from "../components/ErrorDialog";
 
@@ -16,22 +17,22 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 
 // redux
-// import { fetchBookings } from "../redux/bookingActions";
+import { fetchBookings } from "../redux/bookingActions";
 
 function Index() {
   // redux
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const meta = useSelector((state) => state.systemMeta);
   const event = useSelector((state) => state.event);
   const bookingReducer = useSelector((state) => state.bookingReducer);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     dispatch(fetchBookings());
-  //   }, 2000);
-  //   return () => clearInterval(interval);
-  // }, [dispatch]);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      dispatch(fetchBookings());
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [dispatch]);
 
   return (
     <div>
@@ -60,6 +61,7 @@ function Index() {
           </Grid>
         </Grid>
         {bookingReducer.error && <ErrorDialog message={bookingReducer.error} />}
+        <SeatDialog />
         <Overview seat_type="standard" />
         <Typography variant="caption">
           Kör tullingedk/booking {meta.version}, commit {meta.hash}

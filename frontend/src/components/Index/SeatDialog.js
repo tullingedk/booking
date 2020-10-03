@@ -8,43 +8,36 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import Paper from "@material-ui/core/Paper";
 import Alert from "@material-ui/lab/Alert";
-import Tooltip from "@material-ui/core/Tooltip";
 
 // redux
-import { fetchBookings } from "../../../redux/bookingActions";
+import { fetchBookings, setBookingDialog } from "../../redux/bookingActions";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
-function SeatDialog(props) {
-  const [open, setOpen] = useState(false);
-
-  const bookings = useSelector((state) => state.bookingReducer.bookings);
-  const console_bookings = useSelector(
-    (state) => state.bookingReducer.console_bookings
-  );
+function SeatDialog() {
+  const bookingReducer = useSelector((state) => state.bookingReducer);
+  // const [open, setOpen] = useState(false);
 
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
   const booking =
-    props.seat_type === "standard"
-      ? bookings.find((seat) => seat.seat === props.id)
-      : console_bookings.find((seat) => seat.seat === props.id);
+    bookingReducer.dialog_seat_type === "standard"
+      ? bookingReducer.bookings.find(
+          (seat) => seat.seat === bookingReducer.dialog_id
+        )
+      : bookingReducer.console_bookings.find(
+          (seat) => seat.seat === bookingReducer.dialog_id
+        );
   const [error, setError] = useState("");
 
-  const handleClickOpen = () => {
-    if (booking) {
-      setOpen(true);
-    }
-  };
-
   const handleClose = () => {
-    setOpen(false);
+    dispatch(setBookingDialog(false, null, null));
   };
 
   const changePaymentStatus = (paymentStatus) => {
-    fetch(`${BACKEND_URL}/api/booking/${props.id}`, {
+    fetch(`${BACKEND_URL}/api/booking/${bookingReducer.dialog_id}`, {
       credentials: "include",
       method: "put",
       headers: {
@@ -53,7 +46,7 @@ function SeatDialog(props) {
       },
       body: JSON.stringify({
         paid: paymentStatus,
-        seat_type: props.seat_type,
+        seat_type: bookingReducer.dialog_seat_type,
       }),
     })
       .then((response) => response.json())
@@ -71,34 +64,19 @@ function SeatDialog(props) {
 
   return (
     <div>
-      <Tooltip
-        title={booking ? `${booking.name} ${booking.school_class}` : ""}
-        placement="top"
-      >
-        <Paper
-          style={{
-            backgroundColor: booking ? (booking.paid ? "red" : "yellow") : "",
-          }}
-          className={props.paper}
-          onClick={handleClickOpen}
-          xs={6}
-        >
-          {props.id}
-        </Paper>
-      </Tooltip>
       <Dialog
-        open={open}
+        open={bookingReducer.dialog_open}
         onClose={handleClose}
         aria-labelledby="dialog-title"
         aria-describedby="dialog-description"
       >
         <DialogTitle id="dialog-title">
-          {props.seat_type === "standard"
+          {bookingReducer.dialog_seat_type === "standard"
             ? "Plats"
             : "Konsol- och brädspelsplats"}{" "}
-          {props.id}
+          {bookingReducer.dialog_id}
         </DialogTitle>
-        {(booking || open) && (
+        {booking && bookingReducer.dialog_open && (
           <>
             <DialogContent dividers>
               <Typography gutterBottom>Bokad av: {booking.name}</Typography>
@@ -113,11 +91,14 @@ function SeatDialog(props) {
               </Typography>
               {error && <Alert severity="error">{error}</Alert>}
               {!booking.paid && (
-                <img
-                  alt={`Swish QR-kod för plats ${props.id}`}
-                  src={`${BACKEND_URL}/api/booking/swish/${props.seat_type}/${props.id}`}
-                  width="100%"
-                />
+                <>
+                  <img
+                    alt={`Swish QR-kod för plats ${bookingReducer.dialog_id}`}
+                    src={`${BACKEND_URL}/api/booking/swish/${bookingReducer.dialog_seat_type}/${bookingReducer.dialog_id}`}
+                    width="100%"
+                  />
+                  <Typography>Skanna QR-koden ovan med Swishappen.</Typography>
+                </>
               )}
             </DialogContent>
             {user.is_admin && (

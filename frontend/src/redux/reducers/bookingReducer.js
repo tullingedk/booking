@@ -1,4 +1,5 @@
 import {
+  OPEN_BOOKING_DIALOG,
   FETCH_BOOKINGS_BEGIN,
   FETCH_BOOKINGS_SUCCESS,
   FETCH_BOOKINGS_FAILURE,
@@ -9,10 +10,21 @@ const initialState = {
   console_bookings: [],
   loading: false,
   error: null,
+  dialog_open: false,
+  dialog_id: null,
+  dialog_seat_type: null,
 };
 
 function bookingReducer(state = initialState, action) {
   switch (action.type) {
+    case OPEN_BOOKING_DIALOG:
+      return {
+        ...state,
+        dialog_open: action.payload.dialog_open,
+        dialog_id: action.payload.dialog_id,
+        dialog_seat_type: action.payload.dialog_seat_type,
+      };
+
     case FETCH_BOOKINGS_BEGIN:
       return {
         ...state,

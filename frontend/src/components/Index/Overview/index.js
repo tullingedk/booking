@@ -2,8 +2,14 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
-import SeatDialog from "./SeatDialog";
+// redux
+import { useSelector, useDispatch } from "react-redux";
+import { setBookingDialog } from "../../../redux/bookingActions";
+
+// material-ui
 import { Typography } from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,9 +34,16 @@ function isOdd(n) {
 function Overview(props) {
   const classes = useStyles();
 
+  const bookings = useSelector((state) => state.bookingReducer.bookings);
+  const console_bookings = useSelector(
+    (state) => state.bookingReducer.console_bookings
+  );
+
+  const dispatch = useDispatch();
+
   function Row(props) {
     return (
-      <React.Fragment>
+      <>
         {Array(parseInt(props.max) - parseInt(props.min) + 1)
           .fill()
           .map((_, idx) => parseInt(props.min) + idx)
@@ -42,6 +55,10 @@ function Overview(props) {
             if (isOdd(props.min) && isOdd(id)) {
               table_spacing = 20;
             }
+            const booking =
+              props.seat_type === "standard"
+                ? bookings.find((seat) => seat.seat === id)
+                : console_bookings.find((seat) => seat.seat === id);
             return (
               <Grid
                 style={{ paddingLeft: `${table_spacing}px` }}
@@ -49,15 +66,33 @@ function Overview(props) {
                 item
                 xs={2}
               >
-                <SeatDialog
-                  paper={classes.paper}
-                  id={id}
-                  seat_type={props.seat_type}
-                />
+                <Tooltip
+                  title={
+                    booking ? `${booking.name} ${booking.school_class}` : ""
+                  }
+                  placement="top"
+                >
+                  <Paper
+                    style={{
+                      backgroundColor: booking
+                        ? booking.paid
+                          ? "red"
+                          : "yellow"
+                        : "",
+                    }}
+                    className={classes.paper}
+                    onClick={() =>
+                      dispatch(setBookingDialog(true, id, props.seat_type))
+                    }
+                    xs={6}
+                  >
+                    {id}
+                  </Paper>
+                </Tooltip>
               </Grid>
             );
           })}
-      </React.Fragment>
+      </>
     );
   }
 
