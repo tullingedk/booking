@@ -15,6 +15,7 @@ import ErrorDialog from "../components/ErrorDialog";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import Link from "@material-ui/core/Link";
 
 // redux
 import { fetchBookings } from "../redux/bookingActions";
@@ -63,8 +64,16 @@ function Index() {
         {bookingReducer.error && <ErrorDialog message={bookingReducer.error} />}
         <SeatDialog />
         <Overview seat_type="standard" />
-        <Typography variant="caption">
+        <Typography variant="caption" gutterBottom>
           Kör tullingedk/booking {meta.version}, commit {meta.hash}
+        </Typography>
+        <Typography
+          align="center"
+          variant="caption"
+          gutterBottom
+          display="block"
+        >
+          Kodat av <Link href="https://vilhelmprytz.se">Vilhelm Prytz</Link>
         </Typography>
       </Container>
     </div>

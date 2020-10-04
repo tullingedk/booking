@@ -11,8 +11,6 @@ function Login() {
   const [loginUrl, setLoginUrl] = useState();
   const [error, setError] = useState();
 
-  const preventDefault = (event) => event.preventDefault();
-
   useEffect(() => {
     fetch(`${BACKEND_URL}/api/auth/login`)
       .then((response) => response.json())
@@ -33,13 +31,13 @@ function Login() {
         Denna sida använder en cookie för att hantera inloggningen. Inga
         personuppgifter delas med tredjepart. Efter LAN:et raderas samtliga
         personuppgifter. För frågor, kontakta{" "}
-        <Link href="mailto:info@tgdk.se" onClick={preventDefault}>
-          info@tgdk.se
-        </Link>
-        .
+        <Link href="mailto:info@tgdk.se">info@tgdk.se</Link>.
       </Typography>
       <Typography variant="caption" display="block" align="center" gutterBottom>
         © Tullinge Gymnasium Datorklubb, org.nr. 802530-4208
+      </Typography>
+      <Typography align="center" display="block" variant="caption" gutterBottom>
+        Kodat av <Link href="https://vilhelmprytz.se">Vilhelm Prytz</Link>
       </Typography>
 
       {loginUrl && (

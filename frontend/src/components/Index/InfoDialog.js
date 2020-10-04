@@ -237,12 +237,11 @@ function InfoDialog() {
             </Typography>
             <Typography>
               LAN:et är bara öppet för personer med anknytning till skolan.
-              Besökare är välkomna på lördagen mellan 15:00-19:00 (preliminärt,
-              hör med någon i styrelsen under LANet) om detta först meddelas
-              till en ansvarig.
             </Typography>
 
-            <Typography gutterBottom={true} variant="h6">
+            {/* does not apply this event!! */}
+
+            {/* <Typography gutterBottom={true} variant="h6">
               Skylarooooos point
             </Typography>
             <Typography gutterBottom={true}>
@@ -259,7 +258,7 @@ function InfoDialog() {
               om sovandet är limiterat till era datorplatser eller biblioteket,
               ifall olyckan skulle vara framme, blir det lättare för oss att
               utrymma om vi vet vart alla som kanske inte märker faran är.
-            </Typography>
+            </Typography> */}
 
             <Typography gutterBottom={true} variant="h6">
               Checklista

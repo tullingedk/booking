@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Container, TextField, Button, Icon, Grid } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import Typography from "@material-ui/core/Typography";
+import Link from "@material-ui/core/Link";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -98,6 +99,9 @@ function Register() {
         </form>
       </Container>
       {error && <Alert severity="error">{error}</Alert>}
+      <Typography align="center" variant="caption" gutterBottom display="block">
+        Kodat av <Link href="https://vilhelmprytz.se">Vilhelm Prytz</Link>
+      </Typography>
     </Container>
   );
 }

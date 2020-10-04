@@ -2,7 +2,9 @@
 
 ## next-release
 
+* Rewrite application from scratch, new backend and frontend
 * Update dependencies
+* Fix [#15](https://github.com/tullingedk/booking/issues/15) - Bookings now auto-update
 
 ## v2.5.0 (released on 2020-04-19)
 
