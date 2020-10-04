@@ -27,6 +27,6 @@ jobs:
         script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker push tullingedk/booking:latest
         edge: true
         on:
-          branch: master
+          tags: true
       after_deploy:
         - rm -rf /home/travis/.docker/config.json

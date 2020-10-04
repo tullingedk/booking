@@ -1,6 +1,6 @@
 # Changelog
 
-## next-release
+## v3.0.0 (released on 2020-10-04)
 
 * Rewrite application from scratch, new backend and frontend
 * Update dependencies
