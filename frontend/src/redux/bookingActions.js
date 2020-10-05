@@ -14,9 +14,14 @@ export const fetchBookingsBegin = () => ({
   type: FETCH_BOOKINGS_BEGIN,
 });
 
-export const fetchBookingsSuccess = (bookings, console_bookings) => ({
+export const fetchBookingsSuccess = (
+  bookings,
+  console_bookings,
+  num_seats,
+  num_console_seats
+) => ({
   type: FETCH_BOOKINGS_SUCCESS,
-  payload: { bookings, console_bookings },
+  payload: { bookings, console_bookings, num_seats, num_console_seats },
 });
 
 export const fetchBookingsFailure = (error) => ({
@@ -37,7 +42,9 @@ export function fetchBookings() {
         dispatch(
           fetchBookingsSuccess(
             json.response.bookings,
-            json.response.console_bookings
+            json.response.console_bookings,
+            num_seats,
+            num_console_seats
           )
         );
         return json.response;

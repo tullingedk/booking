@@ -53,6 +53,8 @@ def bookings():
                 }
                 for booking in console_bookings
             ],
+            "num_seats": NUM_SEATS,
+            "num_console_seats": NUM_CONSOLE_SEATS
         }
     )
 

@@ -13,6 +13,8 @@ const initialState = {
   dialog_open: false,
   dialog_id: null,
   dialog_seat_type: null,
+  num_seats: null,
+  num_console_seats: null,
 };
 
 function bookingReducer(state = initialState, action) {
@@ -38,6 +40,8 @@ function bookingReducer(state = initialState, action) {
         loading: false,
         bookings: action.payload.bookings,
         console_bookings: action.payload.console_bookings,
+        num_seats: action.payload.num_seats,
+        num_console_seats: action.payload.num_console_seats,
       };
 
     case FETCH_BOOKINGS_FAILURE:
