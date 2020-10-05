@@ -42,6 +42,10 @@ function Index() {
         <Typography gutterBottom align="center">
           LAN-datum: {event.event_date}
         </Typography>
+        <Typography gutterBottom align="center">
+          Vid frågor angående bokningen eller betalningar, kontakta{" "}
+          {event.swish_name} via Discord.
+        </Typography>
         <Grid gutterBottom={true} container spacing={3}>
           {user.is_admin && (
             <Grid item xs>

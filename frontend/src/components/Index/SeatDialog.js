@@ -20,6 +20,7 @@ function SeatDialog() {
   // const [open, setOpen] = useState(false);
 
   const user = useSelector((state) => state.user);
+  const event = useSelector((state) => state.event);
   const dispatch = useDispatch();
 
   const booking =
@@ -97,7 +98,11 @@ function SeatDialog() {
                     src={`${BACKEND_URL}/api/booking/swish/${bookingReducer.dialog_seat_type}/${bookingReducer.dialog_id}`}
                     width="100%"
                   />
-                  <Typography>Skanna QR-koden ovan med Swishappen.</Typography>
+                  <Typography>
+                    Skanna QR-koden ovan med Swishappen. Vid frågor angående
+                    bokningen eller betalningar, kontakta {event.swish_name} via
+                    Discord.
+                  </Typography>
                 </>
               )}
             </DialogContent>
