@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.0.1 (released on 2020-10-05)
+
+* Add booking contact information in SeatDialog and pages/Index
+
 ## v3.0.0 (released on 2020-10-04)
 
 * Rewrite application from scratch, new backend and frontend
