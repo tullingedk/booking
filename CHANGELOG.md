@@ -1,5 +1,9 @@
 # Changelog
 
+## next-release
+
+* Show number of bookings and number of seats left
+
 ## v3.0.1 (released on 2020-10-05)
 
 * Add booking contact information in SeatDialog and pages/Index

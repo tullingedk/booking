@@ -43,6 +43,19 @@ function Index() {
           LAN-datum: {event.event_date}
         </Typography>
         <Typography gutterBottom align="center">
+          Bokade platser: {bookingReducer.bookings.length}/
+          {bookingReducer.num_seats} (alltså{" "}
+          {bookingReducer.num_seats - bookingReducer.bookings.length} lediga)
+        </Typography>
+        <Typography gutterBottom align="center">
+          Bokade konsol- och brädspelsplatser:{" "}
+          {bookingReducer.console_bookings.length}/
+          {bookingReducer.num_console_seats} (alltså{" "}
+          {bookingReducer.num_console_seats -
+            bookingReducer.console_bookings.length}{" "}
+          lediga)
+        </Typography>
+        <Typography gutterBottom align="center">
           Vid frågor angående bokningen eller betalningar, kontakta{" "}
           {event.swish_name} via Discord.
         </Typography>

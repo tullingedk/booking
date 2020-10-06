@@ -43,8 +43,8 @@ export function fetchBookings() {
           fetchBookingsSuccess(
             json.response.bookings,
             json.response.console_bookings,
-            num_seats,
-            num_console_seats
+            json.response.num_seats,
+            json.response.num_console_seats
           )
         );
         return json.response;
