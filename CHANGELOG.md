@@ -1,6 +1,6 @@
 # Changelog
 
-## next-release
+## v3.1.0 (released on 2020-10-06)
 
 * Show number of bookings and number of seats left
 
