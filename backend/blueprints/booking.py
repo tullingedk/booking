@@ -64,8 +64,11 @@ def bookings():
 @user_registered
 @is_admin
 def modify(id):
-    paid = request.json["paid"]
-    seat_type = request.json["seat_type"]
+    json = request.json
+
+    paid = request.json["paid"] if "paid" in json else None
+    seat_type = request.json["seat_type"] if "seat_type" in json else None
+    seat = request.json["seat"] if "seat" in json else None
     booking = None
 
     booking = (
@@ -81,7 +84,8 @@ def modify(id):
     if not booking:
         abort(404, "Booking does not exist")
 
-    booking.paid = paid
+    booking.seat = seat if seat is not None else booking.seat
+    booking.paid = paid if paid is not None else booking.paid
     db.session.commit()
 
     return base_req()

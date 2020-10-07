@@ -1,5 +1,9 @@
 # Changelog
 
+## next-release
+
+* Ability for admin to move bookings to other seats via the interface and not the database directly.
+
 ## v3.1.0 (released on 2020-10-06)
 
 * Show number of bookings and number of seats left

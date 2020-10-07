@@ -280,6 +280,18 @@ function InfoDialog() {
               <li>Snacks (om du inte litar på oss)</li>
             </ul>
 
+            <Typography gutterBottom={true} variant="h6">
+              Skillnaden mellan platser på LANet
+            </Typography>
+            <Typography>
+              Datorspelsplats: Bordsplacering med plats för dator, stol och
+              skärm under hela LAN-et. Har du konsol med dig måste du boka
+              Datorplats och ha med dig skärm. Brädspelsplats: Ingen specifik
+              plats. Det kommer finnas bord att spela brädspel på och eller
+              kort/rollspel. Tillgång till några spelkonsoler som står
+              uppställda i biblioteket.
+            </Typography>
+
             <Typography gutterBottom={true} variant="h4">
               Personuppgifter
             </Typography>

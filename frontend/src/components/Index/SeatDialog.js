@@ -10,6 +10,9 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Alert from "@material-ui/lab/Alert";
 
+// booking
+import MoveSeatDialog from "./MoveSeatDialog";
+
 // redux
 import { fetchBookings, setBookingDialog } from "../../redux/bookingActions";
 
@@ -122,6 +125,7 @@ function SeatDialog() {
                 >
                   Markera som obetald
                 </Button>
+                <MoveSeatDialog />
               </DialogActions>
             )}
           </>
