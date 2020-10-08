@@ -12,6 +12,7 @@ import Alert from "@material-ui/lab/Alert";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
+import Link from "@material-ui/core/Link";
 
 // redux
 import { fetchBookings } from "../../redux/bookingActions";
@@ -102,7 +103,9 @@ function BookingDialog(props) {
         <DialogTitle id="form-dialog-title">{props.title}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Använd formuläret nedan för att boka en plats.
+            Använd formuläret nedan för att boka en plats. Registrera dig som
+            medlem på <Link href="https://member.tgdk.se">member.tgdk.se</Link>{" "}
+            innan du bokar.
           </DialogContentText>
           <Select
             labelId="booking-dialog-select-form"

@@ -2,6 +2,7 @@
 
 ## next-release
 
+* Show notice to user when booking that they have to be registered member before booking.
 * Ability for admin to move bookings to other seats via the interface and not the database directly.
 
 ## v3.1.0 (released on 2020-10-06)
