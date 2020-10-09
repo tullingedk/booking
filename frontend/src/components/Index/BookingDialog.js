@@ -105,7 +105,7 @@ function BookingDialog(props) {
           <DialogContentText>
             Använd formuläret nedan för att boka en plats. Registrera dig som
             medlem på <Link href="https://member.tgdk.se">member.tgdk.se</Link>{" "}
-            innan du bokar.
+            innan du bokar! ${props.info}
           </DialogContentText>
           <Select
             labelId="booking-dialog-select-form"
