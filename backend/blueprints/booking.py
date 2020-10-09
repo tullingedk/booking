@@ -66,9 +66,13 @@ def bookings():
 def modify(id):
     json = request.json
 
-    paid = request.json["paid"] if "paid" in json else None
-    seat_type = request.json["seat_type"] if "seat_type" in json else None
-    seat = request.json["seat"] if "seat" in json else None
+    paid = json["paid"] if "paid" in json else None
+    seat_type = json["seat_type"] if "seat_type" in json else None
+    seat = json["seat"] if "seat" in json else None
+    name = json["name"] if "name" in json else None
+    email = json["email"] if "email" in json else None
+    school_class = json["school_class"] if "school_class" in json else None
+
     booking = None
 
     booking = (
@@ -86,6 +90,12 @@ def modify(id):
 
     booking.seat = seat if seat is not None else booking.seat
     booking.paid = paid if paid is not None else booking.paid
+    booking.name = name if name is not None else booking.name
+    booking.email = email if name is not None else booking.email
+    booking.school_class = (
+        school_class if school_class is not None else booking.school_class
+    )
+
     db.session.commit()
 
     return base_req()

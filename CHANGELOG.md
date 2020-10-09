@@ -2,6 +2,7 @@
 
 ## next-release
 
+* backend: Expose booking modification in API for admins
 * Make it clearer what type of seat is what.
 * Show notice to user when booking that they have to be registered member before booking.
 * Ability for admin to move bookings to other seats via the interface and not the database directly.
