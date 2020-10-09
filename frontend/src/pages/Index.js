@@ -7,7 +7,7 @@ import Overview from "../components/Index/Overview";
 import AdminDialog from "../components/Index/AdminDialog";
 import BookingDialog from "../components/Index/BookingDialog";
 import InfoDialog from "../components/Index/InfoDialog";
-import SeatDialog from "../components/Index/SeatDialog";
+import SeatDialog from "../components/Index/Booking/SeatDialog";
 
 import ErrorDialog from "../components/ErrorDialog";
 

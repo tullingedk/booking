@@ -12,9 +12,10 @@ import Alert from "@material-ui/lab/Alert";
 
 // booking
 import MoveSeatDialog from "./MoveSeatDialog";
+import EditDialog from "./EditDialog";
 
 // redux
-import { fetchBookings, setBookingDialog } from "../../redux/bookingActions";
+import { fetchBookings, setBookingDialog } from "../../../redux/bookingActions";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -83,12 +84,22 @@ function SeatDialog() {
         {booking && bookingReducer.dialog_open && (
           <>
             <DialogContent dividers>
-              <Typography gutterBottom>Bokad av: {booking.name}</Typography>
+              <Typography gutterBottom>
+                Bokad av: {booking.name}
+                <EditDialog variable="name" initial_value={booking.name} />
+              </Typography>
               <Typography gutterBottom>
                 Klass: {booking.school_class}
+                <EditDialog
+                  variable="school_class"
+                  initial_value={booking.school_class}
+                />
               </Typography>
               <Typography gutterBottom>
                 Bokades: {booking.time_created}
+              </Typography>
+              <Typography gutterBottom>
+                Modifierades senast: {booking.time_updated}
               </Typography>
               <Typography gutterBottom>
                 Betald: {booking.paid ? "Ja" : "Nej"}
@@ -114,12 +125,10 @@ function SeatDialog() {
                 <Button
                   onClick={() => changePaymentStatus(true)}
                   color="primary"
-                  autoFocus
                 >
                   Markera som betald
                 </Button>
                 <Button
-                  autoFocus
                   onClick={() => changePaymentStatus(false)}
                   color="secondary"
                 >

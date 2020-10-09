@@ -71,7 +71,7 @@ def modify(id):
     seat = json["seat"] if "seat" in json else None
     name = json["name"] if "name" in json else None
     email = json["email"] if "email" in json else None
-    school_class = json["school_class"] if "school_class" in json else None
+    school_class = json["school_class"].upper() if "school_class" in json else None
 
     booking = None
 
@@ -91,7 +91,7 @@ def modify(id):
     booking.seat = seat if seat is not None else booking.seat
     booking.paid = paid if paid is not None else booking.paid
     booking.name = name if name is not None else booking.name
-    booking.email = email if name is not None else booking.email
+    booking.email = email if email is not None else booking.email
     booking.school_class = (
         school_class if school_class is not None else booking.school_class
     )

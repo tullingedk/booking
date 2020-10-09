@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // material-ui
 import Button from "@material-ui/core/Button";
@@ -12,14 +12,13 @@ import Alert from "@material-ui/lab/Alert";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
-import Link from "@material-ui/core/Link";
 
 // redux
-import { fetchBookings } from "../../redux/bookingActions";
+import { fetchBookings } from "../../../redux/bookingActions";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
-function BookingDialog(props) {
+function MoveSeatDialog(props) {
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
@@ -27,6 +26,8 @@ function BookingDialog(props) {
   const [error, setError] = useState("");
 
   const [seat, setSeat] = useState("");
+
+  const bookingReducer = useSelector((state) => state.bookingReducer);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -45,9 +46,9 @@ function BookingDialog(props) {
       .then((data) => {
         if (data.http_code === 200) {
           // if 200, all is good
-          if (props.seat_type === "standard") {
+          if (bookingReducer.dialog_seat_type === "standard") {
             setAvailable(data.response.available_seats.map((a) => a));
-          } else if (props.seat_type === "console") {
+          } else if (bookingReducer.dialog_seat_type === "console") {
             setAvailable(data.response.available_console_seats.map((a) => a));
           } else {
             setError(
@@ -64,16 +65,16 @@ function BookingDialog(props) {
   };
 
   const handleSubmit = () => {
-    fetch(`${BACKEND_URL}/api/booking/book`, {
+    fetch(`${BACKEND_URL}/api/booking/${bookingReducer.dialog_id}`, {
       credentials: "include",
-      method: "post",
+      method: "put",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         seat: seat,
-        seat_type: props.seat_type,
+        seat_type: bookingReducer.dialog_seat_type,
       }),
     })
       .then((response) => response.json())
@@ -92,8 +93,8 @@ function BookingDialog(props) {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        {props.title}
+      <Button onClick={handleClickOpen} color="primary">
+        Ändra plats
       </Button>
       <Dialog
         open={open}
@@ -103,9 +104,8 @@ function BookingDialog(props) {
         <DialogTitle id="form-dialog-title">{props.title}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Använd formuläret nedan för att boka en plats. Registrera dig som
-            medlem på <Link href="https://member.tgdk.se">member.tgdk.se</Link>{" "}
-            innan du bokar! {props.info}
+            Använd formuläret nedan för att flytta plats{" "}
+            {bookingReducer.dialog_id}
           </DialogContentText>
           <Select
             labelId="booking-dialog-select-form"
@@ -129,7 +129,7 @@ function BookingDialog(props) {
             Avbryt
           </Button>
           <Button onClick={handleSubmit} color="primary">
-            Boka
+            Flytta
           </Button>
         </DialogActions>
       </Dialog>
@@ -137,4 +137,4 @@ function BookingDialog(props) {
   );
 }
 
-export default BookingDialog;
+export default MoveSeatDialog;
