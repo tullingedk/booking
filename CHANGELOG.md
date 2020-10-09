@@ -1,6 +1,6 @@
 # Changelog
 
-## next-release
+## v3.2.0 (released on 2020-10-09)
 
 * frontend: Make it clear what type of seat is what.
 * frontend: Show notice to user when booking that they have to be registered member before booking.
