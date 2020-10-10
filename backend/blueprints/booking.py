@@ -12,7 +12,7 @@ from flask import session, abort, Blueprint, request, send_file
 
 from decorators.auth import google_logged_in, user_registered, is_admin
 from validation import is_integer
-from models import db, Booking, User, ConsoleBooking
+from models import db, Booking, User, ConsoleBooking, Admin
 from base import base_req
 from swish import generate_swish_qr
 
@@ -36,6 +36,10 @@ def bookings():
                     "seat": booking.seat,
                     "name": booking.name,
                     "school_class": booking.school_class,
+                    "email": None
+                    if len(Admin.query.filter_by(email=session["google_email"]).all())
+                    < 1
+                    else booking.email,
                     "paid": booking.paid,
                     "time_created": str(booking.time_created),
                     "time_updated": str(booking.time_updated),
@@ -47,6 +51,10 @@ def bookings():
                     "seat": booking.seat,
                     "name": booking.name,
                     "school_class": booking.school_class,
+                    "email": None
+                    if len(Admin.query.filter_by(email=session["google_email"]).all())
+                    < 1
+                    else booking.email,
                     "paid": booking.paid,
                     "time_created": str(booking.time_created),
                     "time_updated": str(booking.time_updated),

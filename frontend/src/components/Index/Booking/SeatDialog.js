@@ -99,6 +99,12 @@ function SeatDialog() {
                   />
                 )}
               </Typography>
+              {user.is_admin && (
+                <Typography gutterBottom>
+                  Email: {booking.email}
+                  <EditDialog variable="email" initial_value={booking.email} />
+                </Typography>
+              )}
               <Typography gutterBottom>
                 Bokades: {booking.time_created}
               </Typography>
