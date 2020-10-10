@@ -1,6 +1,6 @@
 # Changelog
 
-## next-release
+## v3.2.1 (released on 2020-10-10)
 
 * frontend/backend: Allow admin to see and edit email.
 * frontend: Hide EditDialog when user is not admin (bug fix).
