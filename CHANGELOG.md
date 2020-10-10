@@ -1,5 +1,9 @@
 # Changelog
 
+## next-release
+
+* frontend: Hide EditDialog when user is not admin (bug fix).
+
 ## v3.2.0 (released on 2020-10-09)
 
 * frontend: Make it clear what type of seat is what.

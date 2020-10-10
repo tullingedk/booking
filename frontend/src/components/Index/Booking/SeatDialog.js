@@ -86,14 +86,18 @@ function SeatDialog() {
             <DialogContent dividers>
               <Typography gutterBottom>
                 Bokad av: {booking.name}
-                <EditDialog variable="name" initial_value={booking.name} />
+                {user.is_admin && (
+                  <EditDialog variable="name" initial_value={booking.name} />
+                )}
               </Typography>
               <Typography gutterBottom>
                 Klass: {booking.school_class}
-                <EditDialog
-                  variable="school_class"
-                  initial_value={booking.school_class}
-                />
+                {user.is_admin && (
+                  <EditDialog
+                    variable="school_class"
+                    initial_value={booking.school_class}
+                  />
+                )}
               </Typography>
               <Typography gutterBottom>
                 Bokades: {booking.time_created}
