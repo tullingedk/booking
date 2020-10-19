@@ -2,6 +2,7 @@
 
 ## next-release
 
+* frontend/backend: Allow admin to remove bookings from interface.
 * frontend: Make sure Swish QR codes are not cached by browser by appending random time string
 
 ## v3.2.1 (released on 2020-10-10)

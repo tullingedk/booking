@@ -67,46 +67,68 @@ def bookings():
     )
 
 
-@booking_blueprint.route("/<id>", methods=["PUT"])
+@booking_blueprint.route("/<id>", methods=["PUT", "DELETE"])
 @google_logged_in
 @user_registered
 @is_admin
 def modify(id):
     json = request.json
 
-    paid = json["paid"] if "paid" in json else None
     seat_type = json["seat_type"] if "seat_type" in json else None
-    seat = json["seat"] if "seat" in json else None
-    name = json["name"] if "name" in json else None
-    email = json["email"] if "email" in json else None
-    school_class = json["school_class"].upper() if "school_class" in json else None
 
-    booking = None
-
-    booking = (
-        Booking.query.get(id)
-        if seat_type == "standard"
-        else (
-            ConsoleBooking.query.get(id)
-            if seat_type == "console"
-            else abort(400, "Invalid seat_type")
+    if request.method == "DELETE":
+        booking = None
+        booking = (
+            Booking.query.get(id)
+            if seat_type == "standard"
+            else (
+                ConsoleBooking.query.get(id)
+                if seat_type == "console"
+                else abort(400, "Invalid seat_type")
+            )
         )
-    )
 
-    if not booking:
-        abort(404, "Booking does not exist")
+        if not booking:
+            abort(404, "Booking does not exist")
 
-    booking.seat = seat if seat is not None else booking.seat
-    booking.paid = paid if paid is not None else booking.paid
-    booking.name = name if name is not None else booking.name
-    booking.email = email if email is not None else booking.email
-    booking.school_class = (
-        school_class if school_class is not None else booking.school_class
-    )
+        db.session.delete(booking)
+        db.session.commit()
 
-    db.session.commit()
+        return base_req()
 
-    return base_req()
+    if request.method == "PUT":
+        paid = json["paid"] if "paid" in json else None
+        seat = json["seat"] if "seat" in json else None
+        name = json["name"] if "name" in json else None
+        email = json["email"] if "email" in json else None
+        school_class = json["school_class"].upper() if "school_class" in json else None
+
+        booking = None
+
+        booking = (
+            Booking.query.get(id)
+            if seat_type == "standard"
+            else (
+                ConsoleBooking.query.get(id)
+                if seat_type == "console"
+                else abort(400, "Invalid seat_type")
+            )
+        )
+
+        if not booking:
+            abort(404, "Booking does not exist")
+
+        booking.seat = seat if seat is not None else booking.seat
+        booking.paid = paid if paid is not None else booking.paid
+        booking.name = name if name is not None else booking.name
+        booking.email = email if email is not None else booking.email
+        booking.school_class = (
+            school_class if school_class is not None else booking.school_class
+        )
+
+        db.session.commit()
+
+        return base_req()
 
 
 @booking_blueprint.route("/available")

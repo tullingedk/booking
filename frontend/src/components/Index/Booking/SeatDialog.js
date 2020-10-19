@@ -67,6 +67,31 @@ function SeatDialog() {
       });
   };
 
+  const deleteBooking = () => {
+    fetch(`${BACKEND_URL}/api/booking/${bookingReducer.dialog_id}`, {
+      credentials: "include",
+      method: "delete",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        seat_type: bookingReducer.dialog_seat_type,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.http_code === 200) {
+          dispatch(fetchBookings());
+        } else {
+          setError(`Ett fel uppstod: ${data.message} (${data.http_code})`);
+        }
+      })
+      .catch((e) => {
+        setError(`Ett fel uppstod: ${e}`);
+      });
+  };
+
   return (
     <div>
       <Dialog
@@ -134,6 +159,13 @@ function SeatDialog() {
             </DialogContent>
             {user.is_admin && (
               <DialogActions>
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  onClick={() => deleteBooking()}
+                >
+                  Radera
+                </Button>
                 <Button
                   onClick={() => changePaymentStatus(true)}
                   color="primary"
