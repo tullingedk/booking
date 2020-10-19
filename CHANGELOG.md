@@ -1,5 +1,9 @@
 # Changelog
 
+## next-release
+
+* frontend: Make sure Swish QR codes are not cached by browser by appending random time string
+
 ## v3.2.1 (released on 2020-10-10)
 
 * frontend/backend: Allow admin to see and edit email.

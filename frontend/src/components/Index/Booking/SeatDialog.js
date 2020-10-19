@@ -119,7 +119,9 @@ function SeatDialog() {
                 <>
                   <img
                     alt={`Swish QR-kod för plats ${bookingReducer.dialog_id}`}
-                    src={`${BACKEND_URL}/api/booking/swish/${bookingReducer.dialog_seat_type}/${bookingReducer.dialog_id}`}
+                    src={`${BACKEND_URL}/api/booking/swish/${
+                      bookingReducer.dialog_seat_type
+                    }/${bookingReducer.dialog_id}?${performance.now()}`}
                     width="100%"
                   />
                   <Typography>
