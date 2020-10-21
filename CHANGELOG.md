@@ -1,6 +1,6 @@
 # Changelog
 
-## next-release
+## v3.3.1 (released on 2020-10-21)
 
 * frontend/backend: Show commit date
 * frontend: Update some texts and update to React v17
