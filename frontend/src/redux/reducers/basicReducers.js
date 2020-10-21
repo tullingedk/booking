@@ -46,7 +46,10 @@ export function user(
   }
 }
 
-export function systemMeta(meta = { version: "", hash: "" }, action) {
+export function systemMeta(
+  meta = { version: "", hash: "", hashDate: "" },
+  action
+) {
   switch (action.type) {
     case "SYSTEM_SET_VERSION":
       return Object.assign({}, meta, {
@@ -55,6 +58,10 @@ export function systemMeta(meta = { version: "", hash: "" }, action) {
     case "SYSTEM_SET_HASH":
       return Object.assign({}, meta, {
         hash: action.hash,
+      });
+    case "SYSTEM_SET_HASH_DATE":
+      return Object.assign({}, meta, {
+        hashDate: action.hashDate,
       });
     default:
       return meta;

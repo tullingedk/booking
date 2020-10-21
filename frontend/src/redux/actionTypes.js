@@ -12,6 +12,7 @@ export const SET_REGISTERED = "SET_REGISTERED";
 // system info
 export const SYSTEM_SET_VERSION = "SYSTEM_SET_VERSION";
 export const SYSTEM_SET_HASH = "SYSTEM_SET_HASH";
+export const SYSTEM_SET_HASH_DATE = "SYSTEM_SET_HASH_DATE";
 
 // event
 export const EVENT_SET_DATE = "EVENT_SET_DATE";

@@ -8,6 +8,7 @@ import {
   SET_REGISTERED,
   SYSTEM_SET_VERSION,
   SYSTEM_SET_HASH,
+  SYSTEM_SET_HASH_DATE,
   EVENT_SET_DATE,
   EVENT_SET_SWISH_NAME,
   EVENT_SET_SWISH_PHONE,
@@ -56,6 +57,11 @@ export const setVersion = (version) => ({
 export const setHash = (hash) => ({
   type: SYSTEM_SET_HASH,
   hash,
+});
+
+export const setHashDate = (hashDate) => ({
+  type: SYSTEM_SET_HASH_DATE,
+  hashDate,
 });
 
 export const setEventDate = (event_date) => ({

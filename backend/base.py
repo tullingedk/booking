@@ -9,7 +9,7 @@
 ###########################################################################
 
 from flask import jsonify
-from version import version, commit_hash
+from version import version, commit_hash, commit_date
 
 
 def base_req(status=True, http_code=200, message="success", response={}):
@@ -20,7 +20,11 @@ def base_req(status=True, http_code=200, message="success", response={}):
                 "http_code": http_code,
                 "message": message,
                 "response": response,
-                "meta": {"version": version, "commit_hash": commit_hash},
+                "meta": {
+                    "version": version,
+                    "commit_hash": commit_hash,
+                    "commit_date": commit_date,
+                },
             }
         ),
         http_code,

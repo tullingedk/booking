@@ -10,3 +10,4 @@
 
 version = "v3.3.0"
 commit_hash = "development"
+commit_date = "YYYY-MM-DD"

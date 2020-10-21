@@ -16,6 +16,7 @@ import { setUserClass } from "./redux/actions";
 import { setUserAvatar } from "./redux/actions";
 import { setVersion } from "./redux/actions";
 import { setHash } from "./redux/actions";
+import { setHashDate } from "./redux/actions";
 import { setIsAdmin } from "./redux/actions";
 import {
   setEventDate,
@@ -57,6 +58,7 @@ function App() {
           // set meta
           dispatch(setVersion(data.meta.version));
           dispatch(setHash(data.meta.commit_hash));
+          dispatch(setHashDate(data.meta.commit_date));
 
           // set event data
           dispatch(setEventDate(data.response.event.event_date));
