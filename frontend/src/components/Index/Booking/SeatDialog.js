@@ -151,8 +151,8 @@ function SeatDialog() {
                   />
                   <Typography>
                     Skanna QR-koden ovan med Swishappen. Vid frågor angående
-                    bokningen eller betalningar, kontakta {event.swish_name} via
-                    Discord.
+                    bokningen (t.ex. för avbokning/platsbyte) eller betalningar,
+                    kontakta {event.swish_name} via Discord/Vklass.
                   </Typography>
                 </>
               )}

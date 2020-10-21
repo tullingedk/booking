@@ -56,8 +56,8 @@ function Index() {
           lediga)
         </Typography>
         <Typography gutterBottom align="center">
-          Vid frågor angående bokningen eller betalningar, kontakta{" "}
-          {event.swish_name} via Discord.
+          Vid frågor angående bokningen (t.ex. avbokning, platsbyte) eller
+          betalningar, kontakta {event.swish_name} via Discord/Vklass.
         </Typography>
         <Grid gutterBottom={true} container spacing={3}>
           {user.is_admin && (

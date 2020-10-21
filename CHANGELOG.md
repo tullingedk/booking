@@ -1,5 +1,9 @@
 # Changelog
 
+## next-release
+
+* frontend: Update some texts and update to React v17
+
 ## v3.3.0 (released on 2020-10-19)
 
 * frontend/backend: Allow admin to remove bookings from interface.

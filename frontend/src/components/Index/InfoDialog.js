@@ -56,7 +56,8 @@ function InfoDialog() {
             tabIndex={-1}
           >
             <i>
-              Kontakta någon i styrelsen via Discord ifall du har några frågor!
+              Kontakta någon i styrelsen via Discord/Vklass ifall du har några
+              frågor!
             </i>
 
             <Typography gutterBottom={true} variant="h3">
@@ -164,10 +165,11 @@ function InfoDialog() {
             </Typography>
             <Typography gutterBottom={true}>
               Om du har problem med bokningen eller om du vill ändra din
-              bokning, kontakta {event.swish_name} (ekonomiansvarig) via Discord
-              eller föreningen via <a href="mailto:info@tgdk.se">mail</a>.
-              Swishtelefonnumret går inte att ringa/SMSa till. Mottagare i
-              BankID ska stå som <i>{event.swish_name}</i>.
+              bokning, kontakta {event.swish_name} (ekonomiansvarig) via
+              Discord/Vklass eller föreningen via{" "}
+              <a href="mailto:info@tgdk.se">mail</a>. Swishtelefonnumret går
+              inte att ringa/SMSa till. Mottagare i BankID ska stå som{" "}
+              <i>{event.swish_name}</i>.
             </Typography>
 
             <Typography gutterBottom={true} variant="h4">
