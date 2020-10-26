@@ -1,6 +1,6 @@
 # Changelog
 
-## next-release
+## v3.3.2 (released on 2020-10-26)
 
 * frontend/backend: Ability to disable booking system, API returns specified message
 

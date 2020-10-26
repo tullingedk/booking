@@ -8,6 +8,6 @@
 #                                                                         #
 ###########################################################################
 
-version = "v3.3.1"
+version = "v3.3.2"
 commit_hash = "development"
 commit_date = "YYYY-MM-DD"
