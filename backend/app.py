@@ -8,7 +8,7 @@
 #                                                                         #
 ###########################################################################
 
-from flask import Flask
+from flask import Flask, abort
 from flask_cors import CORS
 
 # imports
@@ -29,6 +29,7 @@ MYSQL_PASSWORD = environ.get("MYSQL_PASSWORD", "password")
 MYSQL_HOST = environ.get("MYSQL_HOST", "127.0.0.1")
 MYSQL_DATABASE = environ.get("MYSQL_DATABASE", "booking")
 BACKEND_URL = environ.get("BACKEND_URL", "http://localhost:5000")
+DISABLED = environ.get("DISABLED", False)
 
 app.config[
     "SQLALCHEMY_DATABASE_URI"
@@ -89,6 +90,18 @@ def error_429(e):
 @app.errorhandler(500)
 def error_500(e):
     return base_req(status=False, http_code=500, message=e.description)
+
+
+@app.errorhandler(503)
+def error_503(e):
+    return base_req(status=False, http_code=503, message=e.description)
+
+
+# disabled check
+@app.before_request
+def disabled_check():
+    if DISABLED is not False:
+        abort(503, DISABLED)
 
 
 # register blueprints

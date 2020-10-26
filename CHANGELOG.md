@@ -1,5 +1,9 @@
 # Changelog
 
+## next-release
+
+* frontend/backend: Ability to disable booking system, API returns specified message
+
 ## v3.3.1 (released on 2020-10-21)
 
 * frontend/backend: Show commit date
