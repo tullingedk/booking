@@ -29,7 +29,7 @@ MYSQL_PASSWORD = environ.get("MYSQL_PASSWORD", "password")
 MYSQL_HOST = environ.get("MYSQL_HOST", "127.0.0.1")
 MYSQL_DATABASE = environ.get("MYSQL_DATABASE", "booking")
 BACKEND_URL = environ.get("BACKEND_URL", "http://localhost:5000")
-DISABLED = environ.get("DISABLED", False)
+DISABLED = environ.get("DISABLED", None)
 
 app.config[
     "SQLALCHEMY_DATABASE_URI"
@@ -100,7 +100,7 @@ def error_503(e):
 # disabled check
 @app.before_request
 def disabled_check():
-    if DISABLED is not False:
+    if DISABLED:
         abort(503, DISABLED)
 
 
