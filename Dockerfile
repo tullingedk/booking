@@ -2,25 +2,25 @@ FROM nikolaik/python-nodejs:python3.9-nodejs14
 
 WORKDIR /var/www/app
 
-# environment variables (TBD)
-
-# create .venv dir (this is where pipenv will install)
-RUN mkdir .venv
-
 # install dep
-RUN apt-get update && apt-get install iproute2 -y
+RUN apt-get update && apt-get install iproute2 nginx -y
 
 COPY . /var/www/app
 
 # backend
 WORKDIR /var/www/app/backend
+RUN mkdir .venv
 RUN pipenv install --deploy
+RUN sed -i "s/YYYY-MM-DD/`git log -1 --format="%at" | xargs -I{} date -d @{} +%Y-%m-%d`/g" version.py
+RUN sed -i "s/development/`git rev-parse HEAD`/g" version.py
 
 # frontend
 WORKDIR /var/www/app/frontend
+RUN npm install
 RUN export REACT_APP_BACKEND_URL="/" && npm run build
 
 WORKDIR /var/www/app
+RUN cp /var/www/app/nginx.conf /etc/nginx/sites-enabled/default
 
-EXPOSE 5000
+EXPOSE 80
 CMD [ "/var/www/app/entrypoint.sh" ]

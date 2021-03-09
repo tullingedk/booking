@@ -13,4 +13,5 @@ if [[ "$SECRET_KEY" == "random" ]]; then
     export SECRET_KEY="$RANDOM_KEY"
 fi
 
-.venv/bin/gunicorn --workers=4 --bind 0.0.0.0:"$PORT" app:app
+nginx
+.venv/bin/gunicorn --workers=4 --bind 0.0.0.0:5000 app:app

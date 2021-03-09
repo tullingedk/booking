@@ -19,8 +19,7 @@ services:
       SECRET_KEY: "${SECRET_KEY}"
       OAUTHLIB_INSECURE_TRANSPORT: "${OAUTHLIB_INSECURE_TRANSPORT}"
       DISABLED: "${DISABLED}"
-      PORT: 6000
     ports:
-      - 6000:6000
+      - "80:${PORT}"
     expose:
-      - 6000
+      - "${PORT}"
