@@ -17,7 +17,7 @@ RUN sed -i "s/development/`git rev-parse HEAD`/g" version.py
 # frontend
 WORKDIR /var/www/app/frontend
 RUN npm install
-RUN export REACT_APP_BACKEND_URL="/" && npm run build
+RUN export REACT_APP_BACKEND_URL="" && npm run build
 
 WORKDIR /var/www/app
 RUN cp /var/www/app/nginx.conf /etc/nginx/sites-enabled/default
