@@ -8,6 +8,7 @@
 #                                                                         #
 ###########################################################################
 
-version = "v3.3.2"
+# version = "v3.3.2"
+version = "canary"
 commit_hash = "development"
 commit_date = "YYYY-MM-DD"

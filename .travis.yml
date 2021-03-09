@@ -2,7 +2,7 @@ jobs:
   include:
     - language: python
       name: backend (python)
-      python: 3.8
+      python: 3.9
       install:
         - pip install flake8 black --upgrade
       script:
@@ -16,18 +16,3 @@ jobs:
         - npm install --global prettier
       script:
         - prettier --check "frontend/src/**/*.js"
-
-    - stage: deploy
-      name: Build and deploy Docker image (backend)
-      script:
-        - sed -i "s/development/$TRAVIS_COMMIT/g" backend/version.py
-        - sed -i "s/YYYY-MM-DD/`git log -1 --format="%at" | xargs -I{} date -d @{} +%Y-%m-%d`/g" backend/version.py
-        - docker build -t tullingedk/booking:latest backend
-      deploy:
-        provider: script
-        script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker push tullingedk/booking:latest
-        edge: true
-        on:
-          tags: true
-      after_deploy:
-        - rm -rf /home/travis/.docker/config.json

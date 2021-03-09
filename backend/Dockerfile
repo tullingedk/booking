@@ -1,10 +1,10 @@
-FROM python:3.8-slim-buster
+FROM python:3.9-slim-buster
 
 WORKDIR /var/www/app
 
 # environment variables (TBD)
 
-# create .venv dir (this is will pipenv will install)
+# create .venv dir (this is where pipenv will install)
 RUN mkdir .venv
 
 # install dep
