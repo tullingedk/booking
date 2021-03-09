@@ -1,4 +1,4 @@
-FROM python:3.9-slim-buster
+FROM nikolaik/python-nodejs:python3.9-nodejs14
 
 WORKDIR /var/www/app
 
@@ -8,13 +8,19 @@ WORKDIR /var/www/app
 RUN mkdir .venv
 
 # install dep
-RUN pip install --upgrade pip
-RUN pip install pipenv
 RUN apt-get update && apt-get install iproute2 -y
 
 COPY . /var/www/app
 
+# backend
+WORKDIR /var/www/app/backend
 RUN pipenv install --deploy
+
+# frontend
+WORKDIR /var/www/app/frontend
+RUN export REACT_APP_BACKEND_URL="/" && npm run build
+
+WORKDIR /var/www/app
 
 EXPOSE 5000
 CMD [ "/var/www/app/entrypoint.sh" ]
