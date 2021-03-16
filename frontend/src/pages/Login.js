@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import { Container, Button, CircularProgress, Grid } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
@@ -8,6 +9,8 @@ import Link from "@material-ui/core/Link";
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 function Login() {
+  const meta = useSelector((state) => state.systemMeta);
+
   const [loginUrl, setLoginUrl] = useState();
   const [error, setError] = useState();
 
@@ -36,7 +39,17 @@ function Login() {
       <Typography variant="caption" display="block" align="center" gutterBottom>
         © Tullinge Gymnasium Datorklubb, org.nr. 802530-4208
       </Typography>
-      <Typography align="center" display="block" variant="caption" gutterBottom>
+
+      <Typography align="center" variant="caption" gutterBottom display="block">
+        Kör{" "}
+        <Link href="https://github.com/tullingedk/booking">
+          tullingedk/booking
+        </Link>{" "}
+        {meta.version ? meta.version : "unknown"}, commit{" "}
+        {meta.hash ? meta.hash : "unknown"} ({meta.hash ? meta.hash : "unknown"}
+        )
+      </Typography>
+      <Typography align="center" variant="caption" gutterBottom display="block">
         Kodat av <Link href="https://vilhelmprytz.se">Vilhelm Prytz</Link>
       </Typography>
 

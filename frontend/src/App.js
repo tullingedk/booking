@@ -43,6 +43,12 @@ function App() {
     })
       .then((response) => response.json())
       .then((data) => {
+        // set meta
+        // should be included at all times
+        dispatch(setVersion(data.meta.version));
+        dispatch(setHash(data.meta.commit_hash));
+        dispatch(setHashDate(data.meta.commit_date));
+
         if (data.http_code === 200) {
           // if 200, all is good
           dispatch(setAuthenticated(true));
@@ -54,11 +60,6 @@ function App() {
           dispatch(setUserClass(data.response.school_class));
           dispatch(setUserAvatar(data.response.avatar));
           dispatch(setIsAdmin(data.response.is_admin));
-
-          // set meta
-          dispatch(setVersion(data.meta.version));
-          dispatch(setHash(data.meta.commit_hash));
-          dispatch(setHashDate(data.meta.commit_date));
 
           // set event data
           dispatch(setEventDate(data.response.event.event_date));
