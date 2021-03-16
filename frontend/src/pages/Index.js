@@ -92,8 +92,11 @@ function Index() {
         <SeatDialog />
         <Overview seat_type="standard" />
         <Typography variant="caption" gutterBottom>
-          Kör tullingedk/booking {meta.version}, commit {meta.hash} (
-          {meta.hashDate})
+          Kör{" "}
+          <Link href="https://github.com/tullingedk/booking">
+            tullingedk/booking
+          </Link>{" "}
+          {meta.version}, commit {meta.hash} ({meta.hashDate})
         </Typography>
         <Typography
           align="center"

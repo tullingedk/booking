@@ -21,8 +21,8 @@ function Error(props) {
           tullingedk/booking
         </Link>{" "}
         {meta.version ? meta.version : "unknown"}, commit{" "}
-        {meta.hash ? meta.hash : "unknown"} ({meta.hash ? meta.hash : "unknown"}
-        )
+        {meta.hash ? meta.hash : "unknown"} (
+        {meta.hashDate ? meta.hashDate : "unknown"})
       </Typography>
       <Typography align="center" variant="caption" gutterBottom display="block">
         Kodat av <Link href="https://vilhelmprytz.se">Vilhelm Prytz</Link>
