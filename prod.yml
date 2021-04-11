@@ -20,6 +20,6 @@ services:
       OAUTHLIB_INSECURE_TRANSPORT: "${OAUTHLIB_INSECURE_TRANSPORT}"
       DISABLED: "${DISABLED}"
     ports:
-      - "${PORT}:80"
+      - "127.0.0.1:${PORT}:80"
     expose:
       - "${PORT}"
