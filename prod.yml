@@ -5,17 +5,26 @@ services:
     image: tullingedk/booking:latest
     restart: always
     environment:
-      MYSQL_HOST: "${MYSQL_HOST}"
+      # mysql
+      MYSQL_HOST: "mysql"
+      MYSQL_DATABASE: "booking"
+      MYSQL_USER: "booking"
       MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+
+      # google
       GOOGLE_CLIENT_ID: "${GOOGLE_CLIENT_ID}"
       GOOGLE_CLIENT_SECRET: "${GOOGLE_CLIENT_SECRET}"
       GOOGLE_HOSTED_DOMAIN: "${GOOGLE_HOSTED_DOMAIN}"
+
+      # config
       BACKEND_URL: "${BACKEND_URL}"
       FRONTEND_URL: "${FRONTEND_URL}"
       REGISTER_PASSWORD: "${REGISTER_PASSWORD}"
       SWISH_NAME: "${SWISH_NAME}"
       SWISH_PHONE: "${SWISH_PHONE}"
       EVENT_DATE: "${EVENT_DATE}"
+
+      # other
       SECRET_KEY: "${SECRET_KEY}"
       OAUTHLIB_INSECURE_TRANSPORT: "${OAUTHLIB_INSECURE_TRANSPORT}"
       DISABLED: "${DISABLED}"
@@ -23,3 +32,17 @@ services:
       - "127.0.0.1:${PORT}:80"
     expose:
       - "${PORT}"
+
+  mysql:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: "booking"
+      MYSQL_USER: "booking"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_PASSWORD}"
+    volumes:
+      - mysql:/var/lib/mysql
+
+volumes:
+  mysql:
