@@ -28,6 +28,7 @@ services:
       SECRET_KEY: "${SECRET_KEY}"
       OAUTHLIB_INSECURE_TRANSPORT: "${OAUTHLIB_INSECURE_TRANSPORT}"
       DISABLED: "${DISABLED}"
+      TZ: "${TZ}"
     ports:
       - "127.0.0.1:${PORT}:80"
     expose:
@@ -43,6 +44,7 @@ services:
       MYSQL_USER: "booking"
       MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
       MYSQL_ROOT_PASSWORD: "${MYSQL_PASSWORD}"
+      TZ: "${TZ}"
     volumes:
       - mysql:/var/lib/mysql
 
