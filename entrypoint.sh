@@ -2,7 +2,7 @@
 
 cd backend || exit
 
-IP_HOST_MACHINE=$(/sbin/ip route|awk '/default/ { print $3 }')
+IP_HOST_MACHINE=$(/sbin/ip route | awk '/default/ { print $3 }')
 RANDOM_KEY=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 50 | head -n 1)
 
 if [[ "$MYSQL_HOST" == "host.machine" ]]; then

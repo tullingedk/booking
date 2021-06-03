@@ -25,8 +25,8 @@ GOOGLE_CLIENT_ID = environ.get("GOOGLE_CLIENT_ID", None)
 GOOGLE_CLIENT_SECRET = environ.get("GOOGLE_CLIENT_SECRET", None)
 GOOGLE_HOSTED_DOMAIN = environ.get("GOOGLE_HOSTED_DOMAIN", None)
 GOOGLE_DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configuration"
-FRONTEND_URL = environ.get("FRONTEND_URL", None)
-BACKEND_URL = environ.get("BACKEND_URL", None)
+FRONTEND_URL = environ.get("FRONTEND_URL", "http://localhost:3000")
+BACKEND_URL = environ.get("BACKEND_URL", "http://localhost:5000")
 REGISTER_PASSWORD = environ.get("REGISTER_PASSWORD", None)
 
 # payment/event

@@ -30,8 +30,8 @@ Serve the static files generated in `build`.
 
 ## File structure
 
-* `backend`, application route `/backend` - Python 3 Flask backend application
-* `frontend`, application route `/` - React application, frontend
+- `backend`, application route `/backend` - Python 3 Flask backend application
+- `frontend`, application route `/` - React application, frontend
 
 ## License
 
