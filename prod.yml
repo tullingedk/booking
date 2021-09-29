@@ -2,7 +2,7 @@ version: "3"
 
 services:
   app:
-    image: tullingedk/booking:latest
+    image: "ghcr.io/tullingdk/booking:latest"
     restart: always
     environment:
       # mysql
