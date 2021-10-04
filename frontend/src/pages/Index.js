@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Nav from "../components/Index/Nav";
 import Overview from "../components/Index/Overview";
 import AdminDialog from "../components/Index/AdminDialog";
+import AdminUserDialog from "../components/Index/AdminUserDialog";
 import BookingDialog from "../components/Index/BookingDialog";
 import InfoDialog from "../components/Index/InfoDialog";
 import SeatDialog from "../components/Index/Booking/SeatDialog";
@@ -61,9 +62,14 @@ function Index() {
         </Typography>
         <Grid gutterBottom={true} container spacing={3}>
           {user.is_admin && (
-            <Grid item xs>
-              <AdminDialog />
-            </Grid>
+            <>
+              <Grid item xs>
+                <AdminDialog />
+              </Grid>
+              <Grid item xs>
+                <AdminUserDialog />
+              </Grid>
+            </>
           )}
           <Grid item xs>
             <BookingDialog
