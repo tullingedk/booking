@@ -100,7 +100,7 @@ function InfoDialog() {
             </Typography>
             <Typography gutterBottom={true}>
               Stannar du kvar och hjälper till med att städa efter LANet får du
-              tillbaka halva bokningavgiften.
+              tillbaka hela bokningavgiften.
             </Typography>
 
             <Typography gutterBottom={true} variant="h6">
