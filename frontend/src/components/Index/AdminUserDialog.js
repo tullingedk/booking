@@ -37,7 +37,7 @@ const useStyles = makeStyles({
 function UserList(props) {
   const [createAdminDialogOpen, setCreateAdminDialogOpen] = useState(false);
 
-  const [emails, setEmails] = useState([]);
+  const [users, setUsers] = useState([]);
   const [error, setError] = useState("");
 
   const classes = useStyles();
@@ -51,7 +51,7 @@ function UserList(props) {
       .then((data) => {
         if (data.http_code === 200) {
           // if 200, all is good
-          setEmails(data.response.map((a) => a.email));
+          setUsers(data.response.map((a) => a));
         } else {
           setError(`Ett fel uppstod: ${data.message} (${data.http_code})`);
         }
@@ -102,17 +102,20 @@ function UserList(props) {
     >
       <DialogTitle id="simple-dialog-title">Hantera användare</DialogTitle>
       <List>
-        {emails.map((email) => (
-          <ListItem button key={email}>
+        {users.map((user) => (
+          <ListItem button key={user.email}>
             <ListItemAvatar>
               <Avatar
                 className={classes.avatar}
-                alt={email}
-                src={`https://www.gravatar.com/avatar/${md5(email)}`}
+                alt={user.email}
+                src={`https://www.gravatar.com/avatar/${md5(user.email)}`}
               />
             </ListItemAvatar>
-            <ListItemText primary={email} />
-            <IconButton onClick={() => deleteAdmin(email)} aria-label="delete">
+            <ListItemText primary={`${user.email}, ${user.school_class}`} />
+            <IconButton
+              onClick={() => deleteAdmin(user.email)}
+              aria-label="delete"
+            >
               <DeleteIcon />
             </IconButton>
           </ListItem>
