@@ -92,6 +92,11 @@ def error_500(e):
     return base_req(status=False, http_code=500, message=e.description)
 
 
+@app.errorhandler(501)
+def error_501(e):
+    return base_req(status=False, http_code=501, message=e.description)
+
+
 @app.errorhandler(503)
 def error_503(e):
     return base_req(status=False, http_code=503, message=e.description)
