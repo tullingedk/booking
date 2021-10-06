@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
+import md5 from "md5";
+
 // material-ui
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -9,6 +11,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Alert from "@material-ui/lab/Alert";
+import Avatar from "@material-ui/core/Avatar";
 
 // booking
 import MoveSeatDialog from "./MoveSeatDialog";
@@ -105,6 +108,17 @@ function SeatDialog() {
             ? "Plats"
             : "Konsol- och brädspelsplats"}{" "}
           {bookingReducer.dialog_id}
+          {booking && (
+            <Avatar
+              // className={classes.avatar}
+              alt={booking.email}
+              src={
+                booking.picture_url
+                  ? booking.picture_url
+                  : `https://www.gravatar.com/avatar/${md5(toString(booking.email))}`
+              }
+            />
+          )}
         </DialogTitle>
         {booking && bookingReducer.dialog_open && (
           <>

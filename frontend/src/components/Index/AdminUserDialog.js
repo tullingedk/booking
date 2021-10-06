@@ -108,7 +108,11 @@ function UserList(props) {
               <Avatar
                 className={classes.avatar}
                 alt={user.email}
-                src={`https://www.gravatar.com/avatar/${md5(user.email)}`}
+                src={
+                  user.google_picture_url
+                    ? user.google_picture_url
+                    : `https://www.gravatar.com/avatar/${md5(user.email)}`
+                }
               />
             </ListItemAvatar>
             <ListItemText primary={`${user.email}, ${user.school_class}`} />

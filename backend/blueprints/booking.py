@@ -28,6 +28,7 @@ NUM_CONSOLE_SEATS = 20
 def bookings():
     bookings = Booking.query.all()
     console_bookings = ConsoleBooking.query.all()
+    users = User.query.all()
 
     return base_req(
         response={
@@ -41,6 +42,11 @@ def bookings():
                     < 1
                     else booking.email,
                     "paid": booking.paid,
+                    "picture_url": User.query.filter_by(email=booking.email)
+                    .first()
+                    .google_picture_url
+                    if len(User.query.filter_by(email=booking.email).all()) != 0
+                    else "",
                     "time_created": str(booking.time_created),
                     "time_updated": str(booking.time_updated),
                 }
@@ -56,6 +62,11 @@ def bookings():
                     < 1
                     else booking.email,
                     "paid": booking.paid,
+                    "picture_url": User.query.filter_by(email=booking.email)
+                    .first()
+                    .google_picture_url
+                    if len(User.query.filter_by(email=booking.email).all()) != 0
+                    else "",
                     "time_created": str(booking.time_created),
                     "time_updated": str(booking.time_updated),
                 }

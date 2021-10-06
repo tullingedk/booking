@@ -21,6 +21,7 @@ class User(db.Model):
     id: int = db.Column(db.Integer, primary_key=True)
     email: str = db.Column(db.String(255), unique=True, nullable=False)
     school_class: str = db.Column(db.String(255), unique=False, nullable=False)
+    google_picture_url: str = db.Column(db.String(255), unique=False, nullable=True)
 
     time_created = db.Column(db.DateTime(timezone=True), server_default=func.now())
     time_updated = db.Column(db.DateTime(timezone=True), onupdate=func.now())

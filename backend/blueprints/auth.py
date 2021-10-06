@@ -161,6 +161,11 @@ def callback():
 def validate():
     user = User.query.filter_by(email=session["google_email"]).one()
 
+    # Update Google picture URL in database
+    user.google_picture_url = session["google_picture_url"]
+    db.session.add(user)
+    db.session.commit()
+
     return base_req(
         message="User valid.",
         response={
