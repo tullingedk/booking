@@ -115,7 +115,9 @@ function SeatDialog() {
               src={
                 booking.picture_url
                   ? booking.picture_url
-                  : `https://www.gravatar.com/avatar/${md5(toString(booking.email))}`
+                  : `https://www.gravatar.com/avatar/${md5(
+                      toString(booking.email)
+                    )}`
               }
             />
           )}
