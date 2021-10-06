@@ -28,7 +28,6 @@ NUM_CONSOLE_SEATS = 20
 def bookings():
     bookings = Booking.query.all()
     console_bookings = ConsoleBooking.query.all()
-    users = User.query.all()
 
     return base_req(
         response={
