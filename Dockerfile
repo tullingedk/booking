@@ -1,4 +1,4 @@
-FROM nikolaik/python-nodejs:python3.9-nodejs14
+FROM nikolaik/python-nodejs:python3.10-nodejs16
 
 WORKDIR /var/www/app
 
