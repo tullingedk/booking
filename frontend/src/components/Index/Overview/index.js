@@ -137,7 +137,7 @@ function Overview(props) {
       <Typography>Konsol- och brädspelsplatser</Typography>
       <Grid container>
         <Grid container item xs={row_xs} spacing={1}>
-          <Row min={1} max={20} seat_type={"console"} />
+          <Row min={1} max={10} seat_type={"console"} />
         </Grid>
       </Grid>
     </div>
