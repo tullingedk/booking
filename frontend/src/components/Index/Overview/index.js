@@ -101,7 +101,9 @@ function Overview(props) {
   // bad practice: should not hard-code
   return (
     <div className={classes.root}>
-      <Typography>Vanliga platser</Typography>
+      <Typography>
+        Platser för deltagare med egen dator/konsol, bordsplacering
+      </Typography>
       <Grid container spacing={1}>
         <Grid container item xs={row_xs} spacing={1}>
           <Row min={1} max={6} seat_type={"standard"} />
@@ -134,7 +136,7 @@ function Overview(props) {
           <Row min={55} max={60} seat_type={"standard"} />
         </Grid>
       </Grid>
-      <Typography>Konsol- och brädspelsplatser</Typography>
+      <Typography>Platser utan bordsplacering</Typography>
       <Grid container>
         <Grid container item xs={row_xs} spacing={1}>
           <Row min={1} max={10} seat_type={"console"} />

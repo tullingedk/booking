@@ -105,8 +105,8 @@ function SeatDialog() {
       >
         <DialogTitle id="dialog-title">
           {bookingReducer.dialog_seat_type === "standard"
-            ? "Plats"
-            : "Konsol- och brädspelsplats"}{" "}
+            ? "Plats med bordplacering, plats för dator/konsol"
+            : "Plats utan bordsplacering, ingen dator/konsol"}{" "}
           {bookingReducer.dialog_id}
           {booking && (
             <Avatar

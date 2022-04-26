@@ -77,17 +77,18 @@ function Index() {
               title="Boka plats"
               info="En vanlig plats innebär bordsplacering med plats för dator, stol och
               skärm under hela LAN-et. Har du konsol med dig måste du boka
-              Datorplats och ha med dig skärm. Läs mer under 'information' knappen."
+              Datorplats och ha med dig skärm. Läs mer under 'information' knappen.
+              Bordsplacering med plats för egen dator/kansol och skärm."
             />
           </Grid>
           <Grid item xs>
             <BookingDialog
               seat_type="console"
-              title="Boka konsol- och brädspelsplats"
+              title="Boka plats utan bordsplacering"
               info="En konsol- och brädspelsplats innebär ingen specifik
               plats. Det kommer finnas bord att spela brädspel på och eller
               kort/rollspel. Tillgång till några spelkonsoler som står
-              uppställda i biblioteket. Läs mer under 'information' knappen."
+              uppställda i biblioteket. Läs mer under 'information' knappen. Ingen bordsplacering."
             />
           </Grid>
           <Grid item xs>
