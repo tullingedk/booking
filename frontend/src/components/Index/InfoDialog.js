@@ -91,7 +91,7 @@ function InfoDialog() {
             </Typography>
             <Typography gutterBottom={true}>
               Mottagare ska vara <b>{event.swish_phone}</b>, belopp ska vara{" "}
-              <b>50 kr</b> för vanlig plats och <b>30 kr</b> för en konsol- och
+              <b>150 kr</b> för vanlig plats och <b>80 kr</b> för en konsol- och
               brädspelsplats. Ange ditt namn och klass i meddelandet.
             </Typography>
 
@@ -100,7 +100,8 @@ function InfoDialog() {
             </Typography>
             <Typography gutterBottom={true}>
               Stannar du kvar och hjälper till med att städa efter LANet får du
-              tillbaka hela bokningavgiften.
+              tillbaka en del av bokningsavgiften (hör med{" "}
+              <b>{event.swish_name}</b> vad som gäller för detta LAN).
             </Typography>
 
             <Typography gutterBottom={true} variant="h6">
