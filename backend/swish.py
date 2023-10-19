@@ -14,7 +14,7 @@ import qrcode
 import qrcode.image.svg
 
 # normal, bc
-amount_types = ["150", "80"]
+amount_types = ["125", "75"]
 
 SWISH_PHONE = environ.get("SWISH_PHONE", None)
 

@@ -130,16 +130,13 @@ function Overview(props) {
           <Row min={43} max={48} seat_type={"standard"} />
         </Grid>
         <Grid container item xs={row_xs} spacing={1}>
-          <Row min={49} max={54} seat_type={"standard"} />
-        </Grid>
-        <Grid container item xs={row_xs} spacing={1}>
-          <Row min={55} max={60} seat_type={"standard"} />
+          <Row min={49} max={55} seat_type={"standard"} />
         </Grid>
       </Grid>
       <Typography>Platser utan bordsplacering</Typography>
       <Grid container>
         <Grid container item xs={row_xs} spacing={1}>
-          <Row min={1} max={10} seat_type={"console"} />
+          <Row min={1} max={20} seat_type={"console"} />
         </Grid>
       </Grid>
     </div>
