@@ -19,9 +19,6 @@ WORKDIR /var/www/app/frontend
 RUN npm install
 RUN export REACT_APP_BACKEND_URL="" && npm run build
 
-# proxy
-RUN echo "server_tokens off;" >> /etc/nginx/conf.d/server_tokens.conf
-
 WORKDIR /var/www/app
 RUN cp /var/www/app/nginx.conf /etc/nginx/sites-enabled/default
 
