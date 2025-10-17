@@ -37,6 +37,7 @@ MYSQL_PASSWORD = environ.get("MYSQL_PASSWORD", "password")
 MYSQL_HOST = environ.get("MYSQL_HOST", "127.0.0.1")
 MYSQL_DATABASE = environ.get("MYSQL_DATABASE", "booking")
 BACKEND_URL = environ.get("BACKEND_URL", "http://localhost:5000")
+FRONTEND_URL = environ.get("FRONTEND_URL", "http://localhost:3000")
 DISABLED = environ.get("DISABLED", None)
 
 app.config[
