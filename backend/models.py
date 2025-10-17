@@ -19,7 +19,7 @@ db = SQLAlchemy()
 @dataclass
 class User(db.Model):
     id: int = db.Column(db.Integer, primary_key=True)
-    email: str = db.Column(db.String(255), unique=True, nullable=False)
+    email: str = db.Column(db.String(500), unique=True, nullable=False)
     school_class: str = db.Column(db.String(255), unique=False, nullable=False)
     google_picture_url: str = db.Column(db.String(255), unique=False, nullable=True)
 
@@ -30,7 +30,7 @@ class User(db.Model):
 @dataclass
 class Admin(db.Model):
     id: int = db.Column(db.Integer, primary_key=True)
-    email: str = db.Column(db.String(255), unique=True, nullable=False)
+    email: str = db.Column(db.String(500), unique=True, nullable=False)
 
     time_created = db.Column(db.DateTime(timezone=True), server_default=func.now())
     time_updated = db.Column(db.DateTime(timezone=True), onupdate=func.now())
@@ -40,7 +40,7 @@ class Admin(db.Model):
 class Booking(db.Model):
     seat: int = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
     name: str = db.Column(db.String(255), unique=False, nullable=False)
-    email: str = db.Column(db.String(255), unique=True, nullable=False)
+    email: str = db.Column(db.String(500), unique=True, nullable=False)
     school_class: str = db.Column(db.String(15), unique=False, nullable=False)
     paid: bool = db.Column(db.Boolean, unique=False, nullable=False, default=False)
 
@@ -52,7 +52,7 @@ class Booking(db.Model):
 class ConsoleBooking(db.Model):
     seat: int = db.Column(db.Integer, unique=True, nullable=False, primary_key=True)
     name: str = db.Column(db.String(255), unique=False, nullable=False)
-    email: str = db.Column(db.String(255), unique=True, nullable=False)
+    email: str = db.Column(db.String(500), unique=True, nullable=False)
     school_class: str = db.Column(db.String(15), unique=False, nullable=False)
     paid: bool = db.Column(db.Boolean, unique=False, nullable=False, default=False)
 
