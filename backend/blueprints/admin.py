@@ -15,7 +15,7 @@ from dataclasses import asdict
 from decorators.auth import google_logged_in, user_registered, is_admin
 from models import db, Admin, User
 from base import base_req
-from validation import input_validation, length_validation
+from validation import input_validation, length_validation, email_validation
 
 admin_blueprint = Blueprint("admin", __name__, template_folder="../templates")
 
@@ -32,7 +32,10 @@ def admin():
         if "email" not in request.json:
             abort(400, "Missing key email")
 
-        admin = Admin(email=request.json["email"])
+        email = request.json["email"]
+        email_validation(email)  # Validate email format
+        
+        admin = Admin(email=email)
 
         db.session.add(admin)
         db.session.commit()
@@ -43,12 +46,15 @@ def admin():
         if "email" not in request.json:
             abort(400, "Missing key email")
 
-        search = Admin.query.filter_by(email=request.json["email"]).all()
+        email = request.json["email"]
+        email_validation(email)  # Validate email format
+        
+        search = Admin.query.filter_by(email=email).all()
 
         if not search:
             abort(404, "Admin with specified email does not exist")
 
-        db.session.delete(Admin.query.filter_by(email=request.json["email"]).one())
+        db.session.delete(Admin.query.filter_by(email=email).one())
         db.session.commit()
 
         return base_req()
@@ -72,6 +78,9 @@ def user():
         email = request.json["email"]
         school_class = request.json["school_class"].upper()
 
+        # Validate email format
+        email_validation(email)
+        
         user = User.query.filter_by(email=email).all()
 
         if len(user) > 0:

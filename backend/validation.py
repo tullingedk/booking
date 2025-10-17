@@ -9,11 +9,14 @@
 ###########################################################################
 
 from flask import abort
-
 from string import printable
+import re
 
-ILLEGAL_CHARACTERS = ["<", ">", ";"]
+ILLEGAL_CHARACTERS = ["<", ">", ";", "&", "|", "`", "$", "(", ")", "{", "}", "[", "]"]
 ALLOWED_CHARACTERS = list(printable) + ["å", "ä", "ö", "Å", "Ä", "Ö"]
+
+# Email validation regex (RFC 5322 simplified)
+EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
 
 
 def is_integer(i):
@@ -50,4 +53,18 @@ def length_validation(i, min, max, vanity=None):
             400, f"{vanity} cannot be longer than {max} characters"
         ) if vanity else abort(400, f"Data too long (max {max})")
 
+    return True
+
+
+def email_validation(email):
+    """Validate email format"""
+    if not email or not isinstance(email, str):
+        abort(400, "Email must be a valid string")
+    
+    if len(email) > 500:
+        abort(400, "Email address is too long (max 500 characters)")
+    
+    if not EMAIL_REGEX.match(email):
+        abort(400, "Invalid email format. Please provide a valid email address.")
+    
     return True
