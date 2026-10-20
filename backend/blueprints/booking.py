@@ -128,6 +128,28 @@ def modify(id):
         if not booking:
             abort(404, "Booking does not exist")
 
+        if seat is not None:
+            # Same rules as POST /book: integer within the configured range
+            if not is_integer(seat):
+                abort(400, "Seat must be integer")
+
+            seat = int(seat)
+            seat_max = NUM_SEATS if seat_type == "standard" else NUM_CONSOLE_SEATS
+
+            if seat < 1 or seat > seat_max:
+                abort(400, f"Seat must be in range 1 - {seat_max}")
+
+            # Moving onto a different, already booked seat would collide on the primary key
+            if seat != booking.seat:
+                seat_taken = (
+                    Booking.query.get(seat)
+                    if seat_type == "standard"
+                    else ConsoleBooking.query.get(seat)
+                )
+
+                if seat_taken:
+                    abort(400, "Seat already booked.")
+
         booking.seat = seat if seat is not None else booking.seat
         booking.paid = paid if paid is not None else booking.paid
         booking.name = name if name is not None else booking.name
